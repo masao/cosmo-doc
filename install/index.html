@@ -11,7 +11,7 @@
 この文書はcosmoにソフトウェアをインストールした際のメモです。
 
 <!-- hhmts start -->
-<p>最終更新日： <strong>Mon Mar 13 16:43:30 2000</strong></p>
+<p>最終更新日： <strong>Thu Mar 23 00:45:51 2000</strong></p>
 <!-- hhmts end --><hr>
 <h1>参考文献</h1>
 参考となった文書などです。
@@ -1377,12 +1377,25 @@ MS Word97をHTML形式に変換させるツール。
 <h1><a name="htmllint">Another HTML-lint</a></h1>
 <dl>
   <dt>ホームページ
-  <dd><a href="http://ring.aist.go.jp/openlab/k16/htmllint/">Another HTML-lint</a>
+  <dd><a href="http://openlab.ring.gr.jp/k16/htmllint/">Another HTML-lint</a>
   <dt>ソース
-  <dd><a href="http://ring.aist.go.jp/openlab/k16/htmllint/archives/htmllint.zip">htmllint.zip</a>
+  <dd><a href="http://openlab.ring.gr.jp/k16/htmllint/archives/htmllint.zip">htmllint.zip</a>
 </dl>
 <a href="#jweblint">jweblint</a>だと警告がでないようなチェックもDTDに沿って行なうHTMLの文法チェッカ。
 警告の仕方が厳密なので、ほとんどのページはエラーを吐く。
+<h2>2000-03-20</h2>
+<h3>Another HTML-lint ver1.93</h3>
+<pre>
+# cd /usr/local/lib
+# mv htmllint htmllint.old
+# mkdir htmllint
+# unzip htmllint.zip
+# chmod a+x htmllint
+# cd /usr/local/lib/perl5/site_perl
+# mv htmllint.pm htmllint.pm.old
+# ln -s ../../htmllint/htmllint.pm htmllint.pm
+</pre>
+
 <h2>1998-10-22</h2>
 <pre>
 # mkdir /usr/local/lib/htmllint
