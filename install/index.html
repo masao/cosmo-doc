@@ -11,7 +11,7 @@
 この文書はcosmoにソフトウェアをインストールした際のメモです。
 
 <!-- hhmts start -->
-<p>最終更新日： <strong>Thu Apr 20 21:56:05 2000</strong></p>
+<p>最終更新日： <strong>Sat Apr 29 04:09:32 2000</strong></p>
 <!-- hhmts end --><hr>
 <h1>参考文献</h1>
 参考となった文書などです。
@@ -1602,16 +1602,40 @@ DOS, Windows環境で日本ではかなり有名な圧縮ツール（形式）。
 
 
 <h1><a name="xpdf">xpdf</a></h1>
-<h2>1999-3-14</h2>
-<h3>xpdf version 0.80</h3>
 <dl>
   <dt>ホームページ
   <dd><a href="http://www.foolabs.com/xpdf/">xpdf: a PDF viewer for X</a>
+</dl>
+
+X Window System上のPDFビューワ。日本語も表示できるのが特徴。
+（印刷すると落ちるみたいだけど…）
+
+<h2>2000-04-28</h2>
+<h3>xpdf version 0.90</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.foolabs.com/pub/xpdf/xpdf-0.90.tgz">xpdf-0.90.tgz</a>
+</dl>
+
+日本語への対応が進み、Namazuが利用している<code>pdftotext</code>が日本語を吐けるようになっている。
+
+<pre>
+% gzip -cd xpdf-0.90.tgz | tar xvf -
+% cd xpdf-0.90
+% ./configure --enable-a4-paper --enable-japanese
+% make
+% su
+# make install
+</pre>
+
+
+<h2>1999-3-14</h2>
+<h3>xpdf version 0.80</h3>
+<dl>
   <dt>ソース
   <dd><a href="ftp://ftp.foolabs.com/pub/xpdf/xpdf-0.80.tgz">xpdf-0.80.tgz</a>
 </dl>
 
-X Window System上のPDFビューワ。日本語も表示できるのが特徴。（印刷すると落ちるけど）
 <pre>
 % gzip -cd xpdf-0.80.tgz | tar xvf -
 % cd xpdf-0.80
