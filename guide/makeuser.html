@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
+<link rev=made href="mailto:masao@ulis.ac.jp">
+<title>Details of makeuser script</title>
+</head>
+
+<body bgcolor="#aaffaa">
+
+<!-- hhmts start -->
+<p>最終更新日： <b>Sat Dec  5 21:49:41 1998</b></p>
+<!-- hhmts end -->
+<hr>
+<h1>makeuserコマンドについて</h1>
+
+高久の作ったmakeuserスクリプトですが、いくつか作者以外には分かりにくい点があるので、今の内にマニュアルもどきを書いておきます。
+
+<h2>前提事項</h2>
+<dl>
+  <dt>アカウント名について
+  <dd>ULIS学内者はセンターがつけているアカウントとおなじものにする。学外者はセンターのアカウント・リストに無いアカウント名にする。
+  <dt>UIDについて
+  <dd>1000番以降のIDを登録順に付けていく。現在のIDは<code>/etc/.ids</code>に保存しておく。
+  <dt>GIDについて
+  <dd>300番をulisとして使用する。
+</dl>
+
+<h2>スクリプトの中身</h2>
+<ol>
+  <li><code>/etc/passwd.global</code>（センターのアカウントリスト）を見て、学内にアカウントがあるか判定する。
+  <li><code>/usr/local/skel/</code>をテンプレートとしてユーザ登録を行なう。
+  <li><code>/etc/passwd.global</code>をNIS用パスワードファイルとしてNIS上のユーザ登録を行なう。
+  <li>管理者向け・新ユーザ向けメッセージをメールで配送。(<code>/usr/local/bin/announce_newuser</code>)
+</ol>
+
+<h2>実際のスクリプト</h2>
+<a href="makeuser.txt">makeuserスクリプト</a>
+<p>
+<a href="annouce_newuser.txt">announce_newuser</a>
+
+<hr>
+<address>
+高久雅生 (Takaku Masao)<br>
+<a href="http://www.ulis.ac.jp/~masao/">http://www.ulis.ac.jp/~masao/</a><br>
+<a href="mailto:masao@ulis.ac.jp">masao@ulis.ac.jp</a>
+</address>
+</body>
+</html>

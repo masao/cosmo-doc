@@ -1,0 +1,2437 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<link rev=made href="mailto:masao@ulis.ac.jp">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
+<title>cosmo のインストールメモ</title>
+</head>
+
+<body bgcolor="#aaffaa">
+この文書はcosmoにソフトウェアをインストールした際のメモです。
+
+<!-- hhmts start -->
+<p>最終更新日： <strong>Mon Mar 13 16:43:30 2000</strong></p>
+<!-- hhmts end --><hr>
+<h1>参考文献</h1>
+参考となった文書などです。
+<ul>
+  <li><a href="http://www.ayamura.org/installer/">日刊いんすとーらー</a>
+  <li><a href="http://murasakinoue.esi.yamanashi.ac.jp/%7Eoota/O2/installmemo.html">Installation memo on O2, Irix 6.3</a>
+</ul>
+
+<h1>インストールメモ</h1>
+<h2>一覧</h2>
+<ul>
+  <li><a href="#less">less</a>
+  <li><a href="#gnuplot">gnuplot</a>
+  <li><a href="#casus-presenter">CASUS Presenter</a>
+  <li><a href="#liquidreality">Liquid Reality</a>
+  <li><a href="#VRwave">VRwave</a>
+  <li><a href="#mule">Mule</a>
+  <li><a href="#a2ps">a2ps</a>
+  <li><a href="#mh">MH</a>
+  <li><a href="#mnews">mnews</a>
+  <li><a href="#gd">GD library</a>
+  <li><a href="#ImageMagick">ImageMagick</a>
+  <li><a href="#gcc">gcc</a>
+  <li><a href="#samba">samba</a>
+  <li><a href="#perl">perl</a>
+  <li><a href="#jweblint">jweblint</a>
+  <li><a href="#chasen">茶筌(Chasen)</a>
+  <li><a href="#make">GNU make</a>
+  <li><a href="#bison">GNU bison</a>
+  <li><a href="#flex">GNU flex</a>
+  <li><a href="#netcdf">netCDF</a>
+  <li><a href="#jpeg">libjpeg</a>
+  <li><a href="#gmt">GMT</a>
+  <li><a href="#wget">GNU wget</a>
+  <li><a href="#lynx">Lynx</a>
+  <li><a href="#vrmlview">VRMLview</a>
+  <li><a href="#nkf">nkf</a>
+  <li><a href="#namazu">Namazu</a>
+  <li><a href="#unzip">unzip</a>
+  <li><a href="#kakasi">KAKASI</a>
+  <li><a href="#lv">lv</a>
+  <li><a href="#mswordview">MS Word View</a>
+  <li><a href="#htmllint">Another HTML-lint</a>
+  <li><a href="#cvs">CVS</a>
+  <li><a href="#m4">GNU m4</a>
+  <li><a href="#autoconf">GNU Autoconf</a>
+  <li><a href="#groff">GNU groff</a>
+  <li><a href="#bzip2">bzip2</a>
+  <li><a href="#lha">lha</a>
+  <li><a href="#xpdf">xpdf</a>
+  <li><a href="#psutils">psutils</a>
+  <li><a href="#gzip">GNU gzip</a>
+  <li><a href="#fileutils">GNU Fileutils</a>
+  <li><a href="#freetype">FreeType</a>
+  <li><a href="#vflib">VFlib</a>
+  <li><a href="#ghostscript">Ghostscript</a>
+  <li><a href="#ghostview">Ghostview</a>
+  <li><a href="#xdvik">xdvik</a>
+  <li><a href="#w3m">w3m</a>
+  <li><a href="#automake">GNU Automake</a>
+  <li><a href="#tcltk">Tcl/Tk</a>
+  <li><a href="#gettext">GNU gettext</a>
+  <li><a href="#yatex">YaTeX</a>
+  <li><a href="#latexmk">latexmk</a>
+  <li><a href="#detex">detex</a>
+  <li><a href="#libtool">GNU libtool</a>
+  <li><a href="#netpbm">Netpbm (Pbmplus)</a>
+  <li><a href="#qkc">QKC</a>
+  <li><a href="#dvi2tty">dvi2tty</a>
+  <li><a href="#latex2html">LaTeX2HTML</a>
+  <li><a href="#apache">Apache</a>
+  <li><a href="#ispell">Ispell</a>
+  <li><a href="#ssh">Secure Shell</a>
+  <li><a href="#global">Global</a>
+</ul>
+<hr>
+
+<h1><a name="less">less</a></h1>
+<h2>1997-12-8</h2>
+前日の注の部分の再現ができなくなった。^^;;うまく動いているということかしら!? ちなみに、makeでエラーの出ていた部分（less.hの377行目の最後のカンマ）をコメントアウトしたら、ワーニング無しでコンパイルできたことを確認。判断は保留し、もう少し様子を見る。
+
+<h2>1997-12-7</h2>
+前日に入れたless-290がバージョンが古い＆日本語化していないものだったので、 <a href="ftp://ftp.tohoku.ac.jp/pub/GNU/japanese/">ftp://ftp.tohoku.ac.jp/pub/GNU/japanese/</a> から、less-332.tar.gz, less-332-iso211.patch.gzをとってきて、
+<pre>
+% gzip -cd less-332.tar.gz | tar xvf -
+% gzip -d less-332-iso211.patch.gz
+% patch -d less-332 &lt; less-332-iso211.patch
+% cd less-332
+% make
+% make -n install
+# make install
+</pre>
+注：一応はインストールしたものの、<code>% setenv JLESSCHARET japanese-euc</code>としないと、EUC以外の日本語コードが見られない。make時にいろいろワーニングが出たのを無視したからか。ついでにgccでも入れてみようか。もう少し考えてみよう。
+
+<h2>1997-12-6</h2>
+<a href="ftp://ftp.tohoku.ac.jp/pub/GNU/japanese/">ftp://ftp.tohoku.ac.jp/pub/GNU/japanese/</a> より、less-290.tar.gz
+<pre>
+% gzip -cd less-290.tar.gz | tar xvf -
+% cd less-290
+% ./configure
+% make
+% make -n install
+# make install
+の作業で /usr/local/bin の下に less をインストール。
+</pre>
+ 
+<h1><a name="gnuplot">gnuplot</a></h1>
+<h2>1998-3-28</h2>
+<h3>gnuplot-3.5(pre 3.6) beta 340 (+1.1.3)</h3>
+GIFが直接出力可能なgnuplotのバージョンをインストールする。<br>
+<ul>
+  <li>ソース：<a href="ftp://ftp.ipc.chiba-u.ac.jp/pub/pub.yamaga/gnuplot+/3.6base/gnuplot-beta340.tar.gz">gnuplot-beta340.tar.gz</a>,<a href="ftp://ftp.ipc.chiba-u.ac.jp/pub/pub.yamaga/gnuplot+/3.6base/gnuplot3.6b340+1.1.3.patch.tar.gz">gnuplot3.6b340+1.1.3.patch.tar.gz</a>
+  <li>ホームページ：<a href="http://www.ipc.chiba-u.ac.jp/~yamaga/gnuplot+/index-j.html">http://www.ipc.chiba-u.ac.jp/~yamaga/gnuplot+/index-j.html</a>
+</ul>
+<pre>
+% gzip -cd gnuplot-beta340.tar.gz | tar xvf -
+% cd gnuplot
+% gzip -cd gnuplot3.6b340+1.1.3.patch.tar.gz | tar xvf -
+% patch -p0 &lt; gnuplot3.6+1.1.patch
+PNGライブラリが古いので、後でインストールすることにとりあえず使わないことにする
+% ./configure --without-png
+% make
+% make -n install
+# make install
+で完了。
+/usr/local/ 以下に
+bin/gnuplot , man/man1/gnuplot.1 , share/gnuplot.gih がインストールされる。
+</pre>
+これだけでは、'-*-fixed-medium-r-normal--14-*'というフォントが無いためエラーが出て使えない。とりあえず、~/.Xdefaults で
+<pre>
+Gnuplot*font:    -*-medium-r-normal--14-*
+</pre>
+とすることで使えるようにはなる。
+
+<h2>1997-12-8</h2>
+<a href="ftp://ftp.ipc.chiba-u.ac.jp/pub/pub.yamaga/gnuplot/3.5/">ftp://ftp.ipc.chiba-u.ac.jp/pub/pub.yamaga/gnuplot/3.5/</a> から、gnufit12.tar.gz, gnuplot-3.5.tar.gz, gnuplotj.doc.gz をとってくる。
+<pre>
+gnufit12.tar.gzを解凍・展開して、./diff となる。
+つぎに、その中で、GNUPLOT自体を解凍・展開して、パッチを当てる。
+% gzip -cd gnufit12.tar.gz | tar xvf -
+% cd ./diff
+% gzip -cd gnuplot-3.5.tar.gz | tar xvf -
+% ./install ./gnuplot
+ここで、エラーが発生。
+install というデフォルトのパッチスクリプト中の patch コマンドのオプションが合わなかったため、最終行を
+patch -p &lt; patch.35
+から、
+patch -p0 &lt; patch.35
+に変更したら、パッチ当て成功。
+
+0INSTALL という文書の通り、
+% cp makefile.unx Makefile
+% make sgix11
+としたところ、readline.c のコンパイルでこける。
+
+Makefileなどをいじったり、調べたりするのがめんどくさかったので、別の手段を考えることに。
+</pre>
+ここまでの作業を全て中止し、SGI の WWW サイトで、gnuplot で検索をかけたところ、SGI が配布しているGNUPLOT v.3.5 があることが判明。（<a href="http://www.sgi.com/TasteOfDT/public/freeware2.0/fw_gnuplot/">http://www.sgi.com/TasteOfDT/public/freeware2.0/fw_gnuplot/</a>）fw_gnuplot.tar.Z を持ってくる。
+<p>
+あとは、ソフトウェア・マネージャを使って、ファイルメニュー→開く…→ファイル指定→開始ボタン、の順でデフォルトのインストールが完了。/usr/freeware 以下のディレクトリに実行ファイル、マニュアルなどがおかれる。<br>
+注：前述のパッチ類はとりあえず、当てていない。また、暇があれば試してみようかしら。
+</p>
+
+<h1><a name="casus-presenter">CASUS Presenter</a></h1>
+<dl>
+  <dt> ホームページ
+  <dd> <a href="http://www.igd.fhg.de/CP/">http://www.igd.fhg.de/CP/</a>
+</dl>
+
+<h2>1999-3-5</h2>
+ファイルの置き場所を変更した。
+<pre>
+# cd /usr/local/bin
+# cp ../lib/casus_presenter/bin/sgi/casus-presenter .
+# vi casus-presenter
+# diff ../lib/casus_presenter/bin/sgi/casus-presenter casus-presenter
+4c4
+&lt; BASEDIR=/usr/local/casus_presenter
+---
+&gt; BASEDIR=/usr/local/lib/casus_presenter
+</pre>
+
+実行コマンドも、casus-presenterに変更となった。
+
+<h2>1998-7-23</h2>
+前回は自分のホーム以下でやっていたが、masaoアカウントに移行したことなどからインストールすることにした。以下作業手順。
+<pre>
+% su
+# mkdir /usr/local/casus_presenter
+# cd /usr/local/casus_presenter
+# gzip -cd cp_kahlua.classes.1.0a8.tar.gz | tar xvf -
+# gzip -cd cp_kahlua.lib.sgi.1.0a8.tar.gz |tar xvf -
+# gzip -cd casus_presenter.1.0a10.tar.gz | tar xvf -
+# vi bin/sgi/casus_presenter
+（BASEDIR=/usr/local/casus_presenterとしておく）
+# cd ../bin
+# ln -s ../casus_presenter/bin/sgi/casus_presenter casus_presenter
+（として/usr/local/binからシンボリックリンクで実行できるようにする）
+</pre>
+実行するには <code>% casus_presenter</code>とすればOK。
+
+<h2>1997-12-10</h2>
+CASUS Presenter version 1.0a9 の処理<br>
+<a href="http://www.igd.fhg.de/CP/download.html">http://www.igd.fhg.de/CP/download.html</a>より、casus_presenter.1.0a10.tar.gz, cp_kahlua.classes.1.0a8.tar.gz, cp_kahlua.lib.sgi.1.0a8.tar.gz を入手し、
+<pre>
+% mkdir casus_presenter ; cd casus_presenter
+% gzip -cd casus_presenter.1.0a10.tar.gz | tar xvf -
+% gzip -cd cp_kahlua.classes.1.0a8.tar.gz | tar xvf -
+% gzip -cd cp_kahlua.lib.sgi.1.0a8.tar.gz |tar xvf -
+% ./bin/sgi/casus-presenter
+</pre>
+のみ。システムには入れず、自分のホーム（~d206/）以下においておく。
+
+<h1><a name="liquidreality">Liquid Rearity</a></h1>
+<h2>1997-12-10</h2>
+<a href="http://www.microsoft.com/dimensionx/lr/download/">http://www.microsoft.com/dimensionx/lr/download/</a>から、lr-irix10b17.tar.gz を入手し、解凍・展開。bin/lrbrowser.sh をいろいろいじってみたものの、JDK1.0.2 相当のものがないためかうまくいかない。また後で。
+
+<h1><a name="VRwave">VRwave</a></h1>
+<dl>
+  <dt> ホームページ
+  <dd> <a href="http://www.iicm.edu/vrwave">http://www.iicm.edu/vrwave</a>
+</dl>
+<h2>1999-3-5</h2>
+パスを少し変更した。
+<pre>
+# cd /usr/local
+# mv VRwave lib
+# mv vrwave-0.9 lib
+# cd bin
+# rm vrwave
+# cp ../lib/VRwave/vrwave .
+# vi vrwave
+# diff ../lib/VRwave/vrwave ./vrwave
+15c15
+&lt; VRWAVE=/usr/local/lib/VRwave
+---
+&gt; VRWAVE_HOME=/usr/local/lib/VRwave
+</pre>
+
+<h2>1998-7-23</h2>
+ホーム以下にのみインストールしていたものをシステムにインストールする。
+<pre>
+% su
+# cd /usr/local
+# gzip -cd Common-VRwave-0.9-Unix.tar.gz | tar xvf -
+# cd vrwave-0.9
+# gzip -cd VRwave-0.9-SGI_IRIX-JDK1.1.2-ogl.tar.gz | tar xvf -
+# vi vrwave
+（VRWAVE＿HOME=/usr/local/VRwaveとCPU=SGI_J112とする）
+# cd /usr/local
+# ln -s vrwave-0.9 VRwave
+# cd /usr/local/bin
+# ln -s ../VRwave/vrwave vrwave
+</pre>
+実行するには<code>% vrwave</code>とする。
+
+<h2>1997-12-10</h2>
+<a href="ftp://ftp.momo.it.okayama-u.ac.jp/pub/network/WWW/client/VRwave/vrwave-0.9/">ftp://ftp.momo.it.okayama-u.ac.jp/pub/network/WWW/client/VRwave/vrwave-0.9/</a>から、Common-VRwave-0.9-Unix.tar.gz, VRwave-0.9-SGI_IRIX-JDK1.1.2-ogl.tar.gz, VRwave-0.9-src.tar.gz を入手。
+<p>
+解凍・展開後、VRWAVE_HOME (=/usr/people/d206/VRwave/vrwave-0.9), CPU (=SGI_J112) の環境変数を設定すれば、$VRML_HOME/vrwave で実行可能。
+</p>
+
+<h1><a name="mule">Mule</a></h1>
+<h2>1997-12-13</h2>
+<h3>Mule 2.3 （Emacs19.28）</h3>
+ずっと悩んでいた Mule-2.3 のインストールだったが、<a href="http://murasakinoue.esi.yamanashi.ac.jp/~oota/O2/installmemo.html">http://murasakinoue.esi.yamanashi.ac.jp/~oota/O2/installmemo.html</a>を頼りに、インストールしてみた。
+<ol>
+  <li><a href="ftp://etlport.etl.go.jp/pub/mule/">ftp://etlport.etl.go.jp/pub/mule/</a>より、mule-2.3.tar.gz, emacs-19.34b.tar.gz を入手。（ただし、 emacs-19.34b.tar.gz に関しては、ヘッダファイルを一つ利用しただけ。）
+  <li>% gzip -cd mule-2.3.tar.gz | tar xvf -
+  <li>% gzip -cd emacs-19.34b.tar.gz | tar xvf -
+  <li>% mv emacs-19.34/src/s/irix6-0.h mule/src/s
+  <li>% cd mule
+  <li>% ./configure --with-wnn6 \<br>
+       --with-x --with-x-toolkit \<br>
+       --with-wnn-includes=/usr/include/wnn \<br>
+       --with-wnn-libraries=/usr/lib/Wnn6
+  <li>% make
+  <li>ここで、wnnfns.c のコンパイル中にWnn のヘッダファイルが無いというエラーが出るので、強制的に<br>
+       % cc -c -Demacs -DHAVE_CONFIG_H -I. -I/usr/people/mule/src -I/usr/include/wnn -cckr -g wnnfns.c<br>
+       としてコンパイルする。
+  <li>もう一度、 % make
+  <li>root になってから、# make install
+  <li>これで作業完了だが、なぜか、% mule とすると、mule - コマンドが見つかりません というエラーメッセージが出た。
+  <li>そこで、% /usr/local/bin/mule-19.28 とすると、きちんと立ち上がった。そのあとで、% mule としても先ほどの現象は再現できず。一応、インストール完了。
+</ol>
+
+<h1><a name="a2ps">a2ps</a></h1>
+<h2>1999-3-29</h2>
+<h3>a2ps-1.44</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.iij.ad.jp/pub/IIJ/dist/utashiro/perl/a2ps.pl-1.44">a2ps.pl-1.44</a>
+</dl>
+このバージョンから<code>% a2ps file | psnup -2 | lp</code>のような利用を考慮したようだ。
+<pre>
+# cp a2ps.pl-1.44 /usr/local/bin/a2ps
+# chmod +x /usr/local/bin/a2ps
+</pre>
+
+<h2>1998-2-4</h2>
+<h3>a2ps-1.39</h3>
+<a href="ftp://ftp.ae.keio.ac.jp/pub/text/a2ps/a2ps-1.39.gz">ftp://ftp.ae.keio.ac.jp/pub/text/a2ps/a2ps-1.39.gz</a>を入手して、1行目の perl の設定を、
+<pre>
+#!/usr/bin/perl4
+</pre>
+で明示的に perl4 で実行するようにした。
+
+<h1><a name="mh">MH</a></h1>
+<h2>1998-2-25</h2>
+<h3>mh-6.8.3+-JP.2c+-1.03</h3>
+<ul>
+  <li><a href="http://material.chem.eng.himeji-tech.ac.jp/%7Ehayashi/htdocs/internet/mh-plus.html">mh-plusホームページ（http://material.chem.eng.himeji-tech.ac.jp/%7Ehayashi/htdocs/internet/mh-plus.html）</a>
+</ul>
+以下の作業を行なう。
+<pre>
+% gzip -cd mh-6.8.3-JP.2c.tar.gz | tar xvf -
+% gunzip mh-6.8.3+-jp2c+-1.03.patch.gz
+% patch -p0 &lt; mh-6.8.3+-jp2c+-1.03.patch
+% cd mh-6.8.3-JP.2c/conf
+ここで以下のような内容の MH.irix6.3 を作成。
+% cat MH.irix.6.3
+#
+# MH Configuration for SGI Irix 6.3 running sendmail
+# Written by M.Takaku
+bin	/usr/local/bin
+etc	/usr/local/lib/mh
+mandir	/usr/local/man
+mail	/usr/mail
+manuals	standard
+# Compiler/loader
+cc              cc
+ccoptions       -O2 -cckr
+ldoptlibs	-lsun -lbsd
+curses          -lcurses -ltermlib
+oldload         none
+ranlib          off
+# Shared libraries
+sharedlib       off
+# Message Transport System
+mts             sendmail/smtp
+# General System Dependencies
+mailgroup       off
+signal          void 
+sprintf         int
+options         ATTVIBUG
+options         BIND SOCKETS
+options         SYS5 SYS5DIR SVR4
+options         LOCKF NFS NORUSERPASS
+options         NTOHLSWAP RENAME TERMINFO TZNAME=JST UNISTD VSPRINTF
+options         MORE='"/usr/local/bin/less"'
+# Site Preferences
+options         DUMB MHE MHRC MIME OVERHEAD RPATHS WHATNOW
+options         FOLDPROT='"0700"' MSGPROT='"0600"' SBACKUP='"\\043"'
+# JP
+options         JAPAN
+options         SETMG
+% make
+% ./mhconfig MH.irix6.3
+% cd ..
+ここで、
+sbr/Makefile
+zotnet/Makefile
+mts/mh/Makefile
+mts/sendmail/Makefile の記述の内、
+  ar r $@ `lorder $(OFILES) | tsort`
+  を
+  ar r $@ $(OFILES)
+に書き換える。
+% make
+% make -n install
+# make install
+</pre>
+MH configuration ファイルの書き方ははっきり言って良くわからなかったので、例などを真似て書いてみた。けど、うまくいっているか自信がない。POPの記述は行なわなかった。mailgroup は off が良いみたい。
+
+<h1><a name="mnews">mnews</a></h1>
+<h2>2000-02-21</h2>
+<h3>mnews 1.22 PL1</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.leo.chubu.ac.jp/pub/mnews/mnews122PL1.tar.gz">mnews122PL1.tar.gz</a>
+</dl>
+
+mnewsの最新版。内蔵MHの採用。2000年対応の強化 etc.が特徴。
+内蔵MHを使うようにしてインストールする。
+<pre>
+% gzip -cd mnews122PL1.tar.gz | tar xvf -
+% cd mnews-1.22PL1/build
+% ./config.jsh   # 質問に答えていく。
+アーキテクチャ番号:12
+御使用のシステムは IRIX 5.X 以上ですか? ([y]/n):
+IPv6に対応しますか? (y/[n]):
+実行ファイルインストールディレクトリ(デフォルト:/usr/local/bin):
+ライブラリインストールディレクトリ(デフォルト:/usr/local/lib):/usr/local/lib/mnews
+マニュアルインストールディレクトリ(デフォルト:/usr/local/man):
+作業ディレクトリ(デフォルト:/usr/tmp):
+NNTP モードをサポートしますか(NNTP)? ([y]/n):
+NSPL モードをサポートしますか(NSPL)? ([y]/n):
+SMTP モードをサポートしますか(SMTP)? (y/[n]):
+MTAP モードをサポートしますか(MTAP)? ([y]/n):
+POP3 モードをサポートしますか(POP3)? (y/[n]):
+MSPL モードをサポートしますか(MSPL)? ([y]/n):
+ニューススプールディレクトリ(デフォルト:/usr/spool/news):
+このエラーを無視しますか? ([y]/n):
+ニュースライブラリディレクトリ(デフォルト:/usr/lib/news):
+このエラーを無視しますか? ([y]/n):
+メールスプールディレクトリ(デフォルト:/usr/mail):
+ニュースを投稿する機能(NEWSPOST)を使用しますか? ([y]/n):
+ニュース投稿プログラムとオプション(デフォルト:/usr/lib/news/inews -h):
+このエラーを無視しますか? ([y]/n):
+メールを送信する機能(MAILSEND)を使用しますか? ([y]/n):
+メール送信プログラムとオプション(デフォルト:/usr/lib/sendmail -t -om -oi):
+データベースによる日本語変換機能(JNAMES)を使用しますか? ([y]/n):
+ハッシュアルゴリズムモジュール(JNHASH)を使用しますか? ([y]/n):
+MH モード(MH)を使用しますか? ([y]/n):
+内蔵 MMH (MH のサブセット)を使用しますか? ([y]/n):
+UCB-mail モード(UCBMAIL)を使用しますか? ([y]/n):
+RMAIL モード(RMAIL)を使用しますか? ([y]/n):
+BOARD (電子掲示板)モード(BOARD)を使用しますか? (y/[n]):
+日本語ヘッダ,マルチパート選択,マルチメディア記事(MIME)を使用しますか? ([y]/n):
+
+MPEG プレイヤーとオプション(デフォルト:mpeg_play):mediaplayer
+JPEG ビューアーとオプション(デフォルト:xv):display
+GIF ビューアーとオプション(デフォルト:xv):display
+オーディオプレイヤーとオプション(デフォルト:audioplay):mediaplayer
+Post Script ビューアーとオプション(デフォルト:ghostview):
+内蔵ページャー(PAGER)を使用しますか? ([y]/n):
+ページャープログラムとオプション(デフォルト:/usr/local/bin/less):
+File carbon copy (FCC)機能を使用しますか? ([y]/n):
+新着メールのチェックに郵便(YOUBIN)を使用しますか? (y/[n]):
+termcap (TERMCAP)を使用しますか? (y/[n]):
+terminfo (TERMINFO)を使用しますか? (y/[n]):y
+terminfo ライブラリを入力して下さい。(デフォルト:-ltermlib):
+オプション(デフォルト:-DCTRL_L -DCOMPLETION -DREF_SORT -DLARGE -DDISPLAY_CTRL -DBUILTIN_MMH):-DCTRL_L -DCOMPLETION -DREF_SORT -DLARGE -DDISPLAY_CTRL -DBUILTIN_MMH -DCOLOR -DUSE_NLINK -DTRI  
+ドメイン名:ulis.ac.jp
+Kanji code ? (デフォルト:4):
+Kanji code ? (デフォルト:4):
+Kanji code ? (デフォルト:1):
+Kanji code ? (デフォルト:4):
+Kanji code ? (デフォルト:1):
+Kanji code ? (デフォルト:1):
+Kanji code ? (デフォルト:1):
+Kanji code ? (デフォルト:1):
+印刷コマンドとオプション(デフォルト:lpr):a2ps|lp
+デフォルトでは、NNTP モード(NNTP_MODE)を使用しますか? ([y]/n):
+デフォルトでは、SMTP モード(SMTP_MODE)を使用しますか? (y/[n]):
+デフォルトでは、POP3 モード(POP3_MODE)を使用しますか? (y/[n]):
+デフォルトでは、日本語メッセージ(JAPANESE_MODE)モードにしますか? ([y]/n):
+デフォルトでは、X-Nsubject フィールド(X_NSUBJ_MODE)対応にしますか? (y/[n]):
+ニュース投稿プログラム(inews)は、自動的に signature を追加(INEWS_SIG_MODE)しますか? ([y]/n):
+デフォルトでは、日付を日本時間で表示しますか? ([y]/n):
+デフォルトでは、DNAS モードをサポートしますか? (y/[n]):
+コンパイラ(デフォルト:/usr/bin/cc):/usr/local/bin/gcc
+オプション(デフォルト:-cckr -O -DDONT_HAVE_FTIME -DUSE_TZNAME -DSTRCASECMP -DIRIX -USVR3 -DUSE_TERMIOS -DUSE_TERMIOS):-O2 -DDONT_HAVE_FTIME -DUSE_TZNAME -DSTRCASECMP -DIRIX -USVR3 -DUSE_TERMIOS -DUSE_TERMIOS
+エディタとオプション(デフォルト:/usr/local/bin/emacs -nw):/usr/local/bin/mule
+以上であっていますか? ([y]/n):
+% make
+% su
+# make install
+</pre>
+
+<h2>1999-4-6</h2>
+<h3>mnews 1.21 PL5</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.mei.co.jp/free/Network/news/readers/.mnews-beta/mnews121PL5.tar.gz">mnews121PL5.tar.gz</a>
+</dl>
+mnewsの2000年対応バージョン。カラー表示をサポートできるようにしてコンパイルしてみた。POPなどは自分では確認できないので、サポートしていない。
+<pre>
+% gzip -cd mnews121PL5.tar.gz | tar xvf -
+% cd mnews121PL5/build
+% ./config.jsh
+（質問に答えていく。変更点のみ挙げておく。）
+アーキテクチャ番号:12
+ライブラリインストールディレクトリ(デフォルト:/usr/local/lib):/usr/local/lib/mnes
+MH コマンドディレクトリ(デフォルト:/usr/local/bin/mh):/usr/local/bin
+MPEG プレイヤーとオプション(デフォルト:mpeg_play):mediaplyer
+JPEG ビューアーとオプション(デフォルト:xv):display
+GIF ビューアーとオプション(デフォルト:xv):display
+オーディオプレイヤーとオプション(デフォルト:audioplay):mediaplayer
+Post Script ビューアーとオプション(デフォルト:ghostview):showps
+ドメイン名:ulis.ac.jp
+印刷コマンドとオプション(デフォルト:lpr):a2ps  | lp
+オプション(デフォルト:-DCTRL_L -DCOMPLETION -DREF_SORT -DLARGE -DDISPLAY_CTRL):-DCTRL_L -DCOMPLETION -DREF_SORT -DLARGE -DDISPLAY_CTRL -DCOLOR -DUSE_NLINK  -DTRI 
+% make
+% su
+# cp /usr/local/bin/mnews /usr/local/bin/mnews-1.21pl4
+# make install
+# cp ../doc/mnews.1 /usr/local/man/man1
+</pre>
+
+
+<h2>1998-7-20</h2>
+<h3>mnews 1.21 PL4</h3>
+<ul>
+  <li>ソース： <a href="ftp://ftp.mei.co.jp/free/Network/news/readers/.mnews-beta/mnews121PL4.tar.gz">mnews121PL4.tar.gz</a>
+</ul>
+mnewsのバージョンアップ。単にJSTに変更するというバグのないバージョンが欲しかっただけ。
+<pre>
+make時にエラーが出たので、src/mnews.cを一行だけ編集した。
+後は今までと一緒。
+% mnews -v
+Mini News Reader Version 1.21PL4 Copyright (C) 1998-06/01(Mon) By A.Takuma
+Install host,user,date:cosmo,masao,1998年 7月20日(月曜日) 07時16分46秒 JST 
+Network      :-DNNTP -DNSPL -DMTAP -DMSPL
+Construction :-DNEWSPOST -DMAILSEND -DJNAMES -DMH -DUCBMAIL -DRMAIL -DMIME -DPAGER -DFCC -DTERMINFO
+Configuration:-DCTRL_L -DCOMPLETION -DREF_SORT -DLARGE -DDISPLAY_CTRL -DTRI
+Architecture :SVR4
+Domain name  :ulis.ac.jp
+</pre>
+<h2>1998-4-18</h2>
+<h3>mnews 1.21 PL3</h3>
+<ul>
+  <li><a href="ftp://ftp.mei.co.jp/free/Network/news/readers/mnews121.tar.gz">mnews121.tar.gz</a>
+  <li><a href="ftp://ftp.mei.co.jp/free/Network/news/readers/.mnews-beta/mnews121_121PL1.tar.gz">mnews121_121PL1.tar.gz</a>
+  <li><a href="ftp://ftp.mei.co.jp/free/Network/news/readers/.mnews-beta/mnews121PL1_121PL2.tar.gz">mnews121PL1_121PL2.tar.gz</a>
+  <li><a href="ftp://ftp.mei.co.jp/free/Network/news/readers/.mnews-beta/mnews121PL2_121PL3.tar.gz">mnews121PL2_121PL3.tar.gz</a>
+</ul>
+mnews-1.21PL3をインストールする。
+<pre>
+% gzip -cd mnews121.tar.gz | tar xvf -
+% cd mnews-1.21
+% gzip -cd mnews121_121PL1.tar.gz | tar xvf -
+% gzip -cd mnews121PL1_121PL2.tar.gz | tar xvf -
+% gzip -cd mnews121PL2_121PL3.tar.gz | tar xvf -
+と解凍、展開し、
+% patch -p1 &lt; mnews121_121PL1.patch
+% patch -p1 &lt; mnews121PL1_121PL2.patch
+% patch -p1 &lt; mnews121PL2_121PL3.patch
+パッチを当て、
+% cd build
+% config.jsh
+として質問に応えていく。
+ほとんどはデフォルトのままだが、
+---
+ライブラリ: /usr/local/lib/mnews
+エディタ:   /usr/local/bin/mule
+MHのPATH:   /usr/local/bin
+---
+とする。
+% make
+で一発と思ったけど、src/mark.c でエラーが出たので、1038行目辺りの
+staitic (→ static) の間違いを修正して、再度
+% make
+# make install
+構築時の情報は以下の通り。
+% mnews -v
+Mini News Reader Version 1.21PL3 Copyright (C) 1998-04/12(Sun) By A.Takuma
+Install host,user,date:cosmo,masao,1998年 4月18日(土曜日) 21時32分04秒 JST 
+Network      :-DNNTP -DNSPL -DMTAP -DMSPL
+Construction :-DNEWSPOST -DMAILSEND -DJNAMES -DMH -DUCBMAIL -DRMAIL -DMIME -DPAGER -DFCC -DTERMINFO
+Configuration:-DCTRL_L -DCOMPLETION -DREF_SORT -DLARGE -DDISPLAY_CTRL -DTRI
+Architecture :SVR4
+Domain name  :ulis.ac.jp
+</pre>
+
+<h2>1998-2-27</h2>
+UCB-mailモードを使うとスプールファイル（/var/mail/d206）のグループに対するパーミッションを落してしまうため、メールが届かなくなる。それに対応するために pop3lib/pop3lib.c の pop3_delete() の chmod を含む行を2行削除。それ以外は以前と同様の手順でインストール。
+
+<h2>1998-2-25</h2>
+<h3>mnews 1.21 PL1</h3>
+<ul>
+  <li><a href="ftp://ftp.tohoku.ac.jp/pub/net/news/mnews/mnews121.tar.gz">mnews121.tar.gz</a>
+  <li><a href="ftp://ftp.mei.co.jp/free/Network/news/readers/mnews121_121PL1.tar.gz">mnews121_121PL1.tar.gz</a>
+</ul>
+<pre>
+% gzip -cd mnews121.tar.gz | tar xvf -
+% gzip -cd mnews121_121PL1.tar.gz | tar xvf -
+% patch -p0 &lt; mnews121_121PL1.patch
+% cd mnews-1.21/build
+% config.jsh
+として、いくつかの質問に答える。
+デフォルトを変えたもののみ。
+--
+ライブラリ: /usr/local/lib/mnews
+エディタ:   /usr/local/bin/mule
+MHのPATH:   /usr/local/bin
+--
+% make
+% make -n install
+# make install
+% mnews -v
+Mini News Reader Version 1.21PL1 Copyright (C) 1998-02/16(Mon) By A.Takuma
+Install host,user,date:cosmo,d206,1998年 2月25日(水曜日) 21時27分35秒 JST 
+Network      :-DNNTP -DNSPL -DMTAP -DMSPL
+Construction :-DNEWSPOST -DMAILSEND -DJNAMES -DMH -DUCBMAIL -DRMAIL -DMIME -DPAGER -DFCC -DTERMINFO
+Configuration:-DCTRL_L -DCOMPLETION -DREF_SORT -DLARGE -DDISPLAY_CTRL -DTRI
+Architecture :SVR4
+Domain name  :ulis.ac.jp
+</pre>
+マニュアルは何故か読めない。後で対処すること。
+
+<h1><a name="gd">GD Library</a></h1>
+<h2>1998-2-27</h2>
+<h3>gd 1.2</h3>
+<ul>
+  <li><a href="http://www.boutell.com/gd/gd.1.2.tar.Z">gd.1.2.tar.Z</a>
+</ul>
+A Graphics Library for Fast GIF creation らしい。
+gnuplot で GIF 出力をさせるために入れた。
+<pre>
+% uncompress -c gd.1.2.tar.Z |tar xvf -
+% cd gd.1.2 ; make
+# cp gdlib.a /usr/local/lib
+# cp webgif gddemo giftogd /usr/local/bin
+# cp gd.h /usr/include
+</pre>
+
+<h1><a name="ImageMagick">ImageMagick</a></h1>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.wizards.dupont.com/cristy/ImageMagick.html">ImageMagick - X11 Image Processing and Display Package</a>
+</dl>
+<h2>1999-3-14</h2>
+<h3>ImageMagick 4.2.1</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://204.183.81.131/pub/ImageMagick/ImageMagick-4.2.1.tar.gz">ImageMagick-4.2.1.tar.gz</a>
+</dl>
+
+とりあえず、JPEGも見れるようにした。
+<pre>
+% gzip -cd ImageMagick-4.2.1.tar.gz | tar xvf -
+% cd ImageMagick-4.2.1
+% ./configure  --enable-lzw --with-perl=no --with-zlib=no \
+               --with-png=no --with-jbig=no --with-tiff=no --with-ttf=no
+% make
+% su
+# make install
+# make install-man
+</pre>
+
+
+<h2>1998-4-5</h2>
+マニュアルが一部だけインストールされていなかったため、make install.man をやり直す。xtp/Makefile のうち、 install.man の記述の中で LOCALMAN という変数を LOCALMAN1 に書き換えて完了。
+
+<h2>1998-3-30</h2>
+<h3>ImageMagick 4.0.2</h3>
+<ul>
+  <li>ソース：<a href="ftp://ftp.hipecs.hokudai.ac.jp/pub/X11/contrib/applications/ImageMagick/ImageMagick-4.0.2.tar.gz">ImageMagick-4.0.2.tar.gz</a>
+</ul>
+画像を表示するためのプログラム。とりあえず、GIFのビューアとして入れる。ので、JPEGやTIFFなどはまだ見られない。あとでインストールし直す。
+<pre>
+% xmkmf -a
+% make
+% make -n install
+# make install
+# make install.man
+/usr/local 以下で、bin include/magick lib man にいろいろとインストールされた。
+画像を表示するには、display コマンドを使う。
+</pre>
+
+<h1><a name="gcc">gcc</a></h1>
+<h2>1998-4-30</h2>
+<h3>gcc 2.8.1</h3>
+<ul>
+  <li>ソース：<a href="ftp://ftp.tohoku.ac.jp/mirror/GNU/gcc-2.8.1.tar.gz">gcc-2.8.1.tar.gz</a>
+</ul>
+とりあえず、入れた。（本当はgroffのため）以下の手順。
+<pre>
+% ./configure
+% make LANGUAGES=c
+% make stage1
+% make CC="stage1/xgcc -Bstage1/" CFLAGS="-g -O2"
+% make stage2
+% make CC="stage2/xgcc -Bstage2/" CFLAGS="-g -O2"
+% su
+# make install CC="stage2/xgcc -Bstage2/" CFLAGS="-g -O"
+</pre>
+で完了。めちゃくちゃ時間がかかるので注意が必要。
+
+<h1><a name="samba">samba</a></h1>
+<h2>1998-6-12</h2>
+<h3>samba 1.9.18p6</h3>
+<ul>
+  <li>ソース：samba-1.9.18p6.tar.gz
+</ul>
+<pre>
+% gzip -cd samba-1.9.18p6.tar.gz | tar xvf -
+% cd samba-1.9.18p6/source
+% make
+% su
+# make install
+</pre>
+インストール自体は非常に簡単、ここからの設定が…。
+
+<h1><a name="perl">perl</a></h1>
+<h2>1998-10-20</h2>
+<h3>perl 5.004_04 with Japanization patch 4</h3>
+<dl>
+  <dt>本体
+  <dd><a href="ftp://ftp.tohoku.ac.jp/mirror/GNU/perl-5.004_04.tar.gz">ftp://ftp.tohoku.ac.jp/mirror/GNU/perl-5.004_04.tar.gz</a>
+  <dt>パッチファイル
+  <dd><a href="ftp://ring.nacsis.ac.jp/pub/lang/perl/CPAN/authors/id/WATANABE/jperl5.004_04-980303.pat.gz">jperl5.004_04-980303.pat.gz</a>
+</dl>
+<pre>
+% gzip -cd perl-5.004_04.tar.gz | tar xvf -
+% cd perl-5.004_04
+% gzip -cd ../jperl5.004_04-980303.pat.gz | patch -p1
+% sh Configure
+% make
+% make test
+% cd t; ./perl harness
+99% 以上なので一応良いことにしておく。
+% su
+# make install
+</pre>
+<h2>1998-6-15</h2>
+<h3>perl 5.004_04</h3>
+<ul>
+  <li>ソース：<a href="ftp://ftp.tohoku.ac.jp/mirror/GNU/perl-5.004_04.tar.gz">ftp://ftp.tohoku.ac.jp/mirror/GNU/perl-5.004_04.tar.gz</a>
+</ul>
+<pre>
+% gzip -cd perl-5.004_04.tar.gz | tar xvf -
+% cd perl5.004_04
+% sh Configure
+% make
+% make test
+ここで少しエラーが出ているがとりあえず、99%はうまくいっているみたいなので、気にしない。
+# su
+% make install
+</pre>
+インストール完了。インストール先は/usr/local/binや/usr/local/lib/perl5など。様子を見て、/usr/freewareに入っていたperl5.002を削除すること。
+
+<h1><a name="jweblint">jweblint</a></h1>
+<h2>1998-6-15</h2>
+<h3>jweblint version 1.020 + j0.20 (EUC-JP)</h3>
+<ul>
+  <li>ホームページ：<a href="http://www.sfc.keio.ac.jp/%7Emimasa/jweblint/">jweblint Home Page</a>,<a href="http://www.cre.canon.co.uk/%7Eneilb/weblint/">Weblint Home Page</a>
+  <li>ソース：<a href="http://www.sfc.keio.ac.jp/%7Emimasa/jweblint/jweblint-1.020-j0.20.tar.gz">jweblint-1.020-j0.20.tar.gz</a>、<a href="http://www.sfc.keio.ac.jp/%7Emimasa/jweblint/weblint-97-0.12.tar.gz">weblint-97-0.12.tar.gz</a>
+</ul>
+<pre>
+% gzip -cd jweblint-1.020-j0.20.tar.gz | tar xvf -
+% gzip -cd weblint-97-0.12.tar.gz | tar xvf -
+% cd weblint-1.020
+ここで、Makefile.jaを修正する。
+LIBDIR  = /usr/lib/perl5
+（jcode.plのインストール先。）
+$(PSFILE): $(PROGRAM).1
+#       $(PSROFF) -man $(PROGRAM).1 &gt; $(PSFILE)
+（groff がないので、無理をしない。）
+% make -f Makefile.ja
+（これでjweblintが作られる。）
+% su
+# make -f Makefile.ja install
+</pre>
+これでweblint（英語のメッセージ）とjweblint（日本語版）の両方がインストールされた。
+
+<h1><a name="chasen">茶筌</a></h1>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://cactus.aist-nara.ac.jp/lab/nlt/chasen.html">http://cactus.aist-nara.ac.jp/lab/nlt/chasen.html</a>
+  <dt>関連ページ
+  <dd><a href="http://www.daionet.gr.jp/~knok/chasen/">Text::ChaSen</a>: Perlモジュールを開発した野首さんのページ。
+  <dd><a href="http://www.namazu.org">Namazu, a full text search engine</a>: 茶筌を分かち書きに利用する。
+</dl>
+
+奈良先端科学技術大学が開発した日本語形態素解析 ソフトウェア 茶筌。
+
+<h2>2000-03-02</h2>
+<h3>茶筌(ChaSen) version 2.02 ＋ Text::ChaSen version 0.20</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.aist-nara.ac.jp/pub/lab/nlp/tools/chasen/chasen-sys2.02-ipadic2.1.tar.gz">chasen-sys2.02-ipadic2.1.tar.gz</a>
+</dl>
+
+Namazu-v2を入れないといいかげん怒られそうなので、
+まずは、茶筌から。
+
+<pre>
+% gzip -cd chasen-sys2.02-ipadic2.1.tar.gz | tar xvf -
+% cd chasen-2.02
+% vi Makefile
+% diff -u Makefile.org Makefile
+--- Makefile.org        Thu Mar  2 19:53:50 2000
++++ Makefile    Thu Mar  2 19:54:02 2000
+@@ -9,7 +9,8 @@
+ #
+ 
+ # --- commands & flags
+-CC      = gcc
++# CC    = gcc
++CC      = cc
+ CFLAGS  = -O2
+ CCOUT    = 
+ LDFLAGS  =
+
+% make
+% make dic
+% su
+# make install
+# cp lib/libchasen.a /usr/local/lib
+
+次にPerlモジュールもインストールする。
+% cd perl
+% perl Makefile.PL
+% make
+% su
+# make install
+</pre>
+
+
+<h2>1998-12-13</h2>
+<h3>茶筌(ChaSen) version 1.51 ＋ chasen.pm-0.03</h3>
+茶筅のPerlモジュールであるchasen.pmをインストール。
+（茶筌の開発元である奈良先端科学技術大学でも作成されているそうなので、そちらがリリースされ次第、そちらに入れ換えること）
+<ul>
+  <li><a href="http://www.daionet.gr.jp/~knok/chasen/">chasen.pmのページ</a>
+</ul>
+インストールの目的はNamazuのインデクシングの高速化。
+<pre>
+まずデフォルトでインストールされていなかったlibchasen.aを
+同梱のパッチつきでインストールする。
+% gzip -cd chasen.pm-0.03 | tar xvf -
+% cd chasen1.51
+% patch -p1 &lt; ../chasen.pm-0.03/chasen1.51-k1.diff
+% make
+% su
+# make install
+# cp lib/libchasen.a /usr/local/lib
+つぎに、Perlモジュール自体のインストール。
+% cd chasen.pm-0.03
+% perl Makefile.PL
+% make
+% su
+# make install
+</pre>
+<h2>1998-7-11</h2>
+<h3>茶筌(ChaSen) version 1.51</h3>
+<ul>
+  <li>ソース：<a href="ftp://ftp.aist-nara.ac.jp/pub/nlp/tools/chasen/chasen-sys1.51-dic1.5.tar.gz">chasen-sys1.51-dic1.5.tar.gz</a>
+</ul>
+<pre>
+% gzip -cd chasen-sys1.51-dic1.5.tar.gz | tar xvf -
+% cd chasen-1.51
+% make
+% su
+# make install
+</pre>
+これで、インストール完了。インストール先は/usr/local/bin,/usr/local/lib/chasenなど。使い方は % chasen [ filename ] とするとファイルか標準入力から読みとった日本語文の解析結果を表示する。
+<p>
+インストールの目的は茶筌による日本語化freeWAIS-sf用。
+</p>
+
+
+<h1><a name="make">GNU make</a></h1>
+<h2>1998-7-11</h2>
+<ul>
+  <li>ソース：<a href="ftp://ftp.tohoku.ac.jp/mirror/GNU/make-3.76.1.tar.gz">make-3.76.1.tar.gz</a>
+</ul>
+<pre>
+% gzip -cd make-3.76.1.tar.gz | tar xvf -
+% cd make-3.76.1
+% make
+% su
+# make install
+完了。
+</pre>
+
+<h1><a name="bison">GNU bison</a></h1>
+<h2>1998-7-11</h2>
+<ul>
+  <li>ソース：<a href="ftp://ftp.tohoku.ac.jp/mirror/GNU/bison-1.25.tar.gz">bison-1.25.tar.gz</a>
+</ul>
+<pre>
+% gzip -cd bison-1.25.tar.gz | tar xvf -
+% cd bison-1.25
+% ./configure
+% make
+% su
+# make install
+</pre>
+
+<h1><a name="flex">GNU flex</a></h1>
+<h2>1998-7-11</h2>
+<ul>
+  <li>ソース：<a href="ftp://ftp.tohoku.ac.jp/mirror/GNU/flex-2.5.4a.tar.gz">flex-2.5.4a.tar.gz</a>
+</ul>
+<pre>
+% gzip -cd flex-2.5.4a.tar.gz | tar xvf -
+% cd flex-2.5.4
+% ./configure
+% make
+% su
+# make install
+</pre>
+
+<h1><a name="netcdf">netCDF (network Common Data Form)</a></h1>
+<h2>1998-7-21</h2>
+<ul>
+  <li>ソース：<a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/netcdf.tar.Z">netcdf.tar.Z</a>
+  <li>ホームページ：<a href="http://unidata.ucar.edu/packages/netcdf/index.html">http://unidata.ucar.edu/packages/netcdf/index.html</a>
+</ul>
+GMT附属のバージョンを使う。最新バージョンはGMTで利用できなくなる＆コンパイルエラーを吐くためダメ。GMT(The Generic Mapping Tools)のためにインストールする。
+<pre>
+作業は以下の手順。
+% uncompress -c netcdf.tar.Z | tar xvf -
+% cd netcdf-232pl2
+（Fortranコンパイラとinstallの引数の違いを解消するため2つの環境変数をつける）
+（デフォルトのPREFIXは".."なため/usr/localを指定する）
+% env FC="" INSTALL="cp" ./configure --prefix=/usr/local
+% make
+% make test
+% su
+# make install
+</pre>
+
+<h1><a name="jpeg">libJPEG</a></h1>
+<h2>1998-7-21</h2>
+<h3>release 6b of 27-Mar-1998</h3>
+<ul>
+  <li>ソース：<a href="ftp://ftp.hipecs.hokudai.ac.jp/pub/unix/graphics/jpeg/jpegsrc.v6b.tar.gz">jpegsrc.v6b.tar.gz</a>
+</ul>
+VRMLブラウザFreeWRL用にインストール。（そういえばImageMagickも）
+<pre>
+% gzip -cd jpegsrc.v6b.tar.gz | tar xvf -
+% cd jpeg-6b
+% ./configure
+% make
+% su
+# make install
+# make install-lib
+1つもエラーが出ず、うまくいった。
+</pre>
+
+<h1><a name="gmt">GMT</a></h1>
+<h2>1998-7-22</h2>
+<h3>GMT version 3.0</h3>
+<ul>
+  <li>ソース：<a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.tar.gz">GMT3.0.tar.gz</a>、<a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.full.tar.gz">GMT3.0.full.tar.gz</a><a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.high.tar.gz">GMT3.0.high.tar.gz</a>
+  <li>ホームページ：<a href="http://www.soest.hawaii.edu/soest/gmt.html">http://www.soest.hawaii.edu/soest/gmt.html</a>
+</ul>
+GMT(The Generic Mapping Tools)という地図を描くためのツール。
+<pre>
+% mkdir GMT
+% cd GMT
+% gzip -cd GMT3.0.tar.gz | tar xvf -
+% gzip -cd GMT3.0.full.tar.gz | tar xvf -
+% gzip -cd GMT3.0.high.tar.gz | tar xvf -
+% cd src
+% vi Makefile
+（Makefileの内容を一部変更）
+（コマンド名とSIマクロ→cm単位をデフォルトに）
+% diff Makefile Makefile.orig
+20,22c20,22
+&lt; CPP   = /usr/lib/cpp
+&lt; INSTALL = /usr/bin/X11/bsdinst -s
+&lt; #RANLIB       = ranlib
+---
+&gt; CPP   = cpp
+&gt; INSTALL = install -s
+&gt; RANLIB        = ranlib
+33c33
+&lt; SI    = -DSI
+---
+&gt; #SI   = -DSI
+49c49
+&lt; RANLIB        = touch
+---
+&gt; #RANLIB       = touch
+% /usr/bin/make all
+% /usr/bin/make man
+% su
+# mkdir /usr/local/gmt
+# mkdir /usr/local/gmt/bin
+# /usr/bin/make install
+（続けてmanのインストール）
+# mkdir /usr/local/gmt/man
+# mkdir /usr/local/gmt/man/manl
+# /usr/bin/make man_install
+（ここまででパッケージのインストールは完了）
+（次に）
+# cd ..
+# gzip -cd GMT3.0.full.tar.gz | ( cd /usr/local/gmt; tar xvf - )
+# gzip -cd GMT3.0.high.tar.gz | ( cd /usr/local/gmt; tar xvf - )
+# cd lib
+# cp *.cdf /usr/local/gmt/lib
+</pre>
+インストール先は/usr/local/gmt以下にした。PATHを/usr/local/gmt/binなどに通さないと利用できない。
+<p>
+なぜかpscoastなどのcdfデータファイルを利用するコマンドは、
+</p>
+<pre>
+pscoast: high resolution shoreline data base not installed
+pscoast: No databases available - aborts
+</pre>
+といわれてしまう。きちんとインストールしてあるはずなのに。なぜだろう。
+
+<h1><a name="wget">GNU wget</a></h1>
+<h2>1998-7-24</h2>
+<dl>
+  <dt> ソース
+  <dd> <a href="ftp://ftp.tohoku.ac.jp/mirror/GNU/wget-1.5.2.tar.gz">wget-1.5.2.tar.gz</a>
+</dl>
+HTML文書をWWW上から一括して取り寄せるコマンド。
+<pre>
+% gzip -cd wget-1.5.2.tar.gz | tar xvf -
+% cd wget-1.5.2
+% ./configure
+% make
+% su
+# make install
+</pre>
+設定ファイル/usr/local/etc/wgetrcを編集する。
+<pre>
+http_proxy = http://voyager.ulis.ac.jp:8080/
+use_proxy = on
+</pre>
+として対外接続していないため、PROXYサーバを設定する。
+
+<h1><a name="lynx">Lynx</a></h1>
+テキストベースのWWWブラウザlynx。
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.slcc.edu/lynx/">http://www.slcc.edu/lynx/</a>,<a href="http://lynx.browser.org/">http://lynx.browser.org/</a>
+</dl>
+
+<h2>1999-5-17</h2>
+Lynx Version 2.8.2pre.4（<a href="http://sol.slcc.edu/lynx/current/lynx2.8.2pre.4.tar.gz">lynx2.8.2pre.4.tar.gz</a>）にバージョンアップした。
+（細かいバグフィクスが中心）
+<pre>
+% gzip -cd lynx2.8.2pre.4.tar.gz | tar xvf -
+% cd lynx2-8-2
+% ./configure --libdir=/usr/local/lib/lynx
+% make
+% su
+# make install
+# make install-help
+# make install-doc
+# vi /usr/local/lib/lynx/lynx.cfg
+として以下のようにローカルの環境に揃える。
+STARTFILE:http://www.ulis.ac.jp/
+HELPFILE:file://localhost/usr/local/lib/lynx/lynx_help/lynx_help_main.html
+DEFAULT_INDEX_FILE:http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/MetaIndex.html
+CHARACTER_SET:euc-jp
+NNTPSERVER:nntp.ipc.ulis.ac.jp
+http_proxy:http://www.ulis.ac.jp:8080/
+https_proxy:http://www.ulis.ac.jp:8080/
+ftp_proxy:http://www.ulis.ac.jp:8080/
+gopher_proxy:http://www.ulis.ac.jp:8080/
+wais_proxy:http://www.ulis.ac.jp:8080/
+no_proxy:ulis.ac.jp
+PRINTER:To Default Printer:a2ps -p -nh -nt -ns %s | lp:FALSE
+PRINTER:Specify at run-time:echo -n "Enter a print command\: "; read word; sh -c "$word %s":FALSE
+</pre>
+
+<h2>1998-11-11</h2>
+<p>
+LynxをVersion 2.8.1rel.2 (1998)にする。（ソース：<a href="http://www.slcc.edu/lynx/current/lynx2.8.1rel.2.tar.gz">lynx-2.8.1rel2.tar.gz</a>）
+</p>
+<p>
+このバージョンから、読み込み中の表示、COOKIEの処理、カラー表示などがうまくいく。（カラーはいまいち。）
+</p>
+
+<pre>
+% gzip -cd lynx2-8.tar.gz | tar xvf -
+% cd lynx2-8
+% ./configure --libdir=/usr/local/lib/lynx
+% make
+% su
+# make install
+# make install-help
+# make install-doc
+# vi /usr/local/lib/lynx/lynx.cfg
+として以下のようにSTARTFILE・PROXY類・NNTPSERVERなどの設定を合わせる。
+STARTFILE:http://www.ulis.ac.jp/
+HELPFILE:file://localhost/usr/local/lib/lynx/lynx_help/lynx_help_main.html
+DEFAULT_INDEX_FILE:http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/MetaIndex.html
+NNTPSERVER:nntp.ipc.ulis.ac.jp
+http_proxy:http://www.ulis.ac.jp:8080/
+https_proxy:http://www.ulis.ac.jp:8080/
+ftp_proxy:http://www.ulis.ac.jp:8080/
+gopher_proxy:http://www.ulis.ac.jp:8080/
+wais_proxy:http://www.ulis.ac.jp:8080/
+no_proxy:ulis.ac.jp
+PRINTER:To Default Printer:a2ps -p -nh -nt -ns %s | lp:FALSE
+PRINTER:Specify at run-time:echo -n "Enter a print command\: "; read word; sh -
+c "$word %s":FALSE
+MINIMAL_COMMENTS:TRUE
+</pre>
+
+<h2>1998-7-25</h2>
+<dl>
+  <dt>ソース
+  <dd><a href="http://www.slcc.edu/lynx/release/lynx2-8.tar.gz">lynx2-8.tar.gz</a>
+</dl>
+<pre>
+% gzip -cd lynx2-8.tar.gz | tar xvf -
+% cd lynx2-8
+% ./configure --libdir=/usr/local/lib/lynx
+% make
+% su
+# make install
+# make install-help
+# vi /usr/local/lib/lynx/lynx.cfg
+（Proxyの設定を行なう。↓な感じ）
+26a27
+&lt; STARTFILE:http://www.ulis.ac.jp/jindex.html
+894,897c895,898
+&lt; http_proxy:http://voyager.ulis.ac.jp:8080/
+&lt; https_proxy:http://voyager.ulis.ac.jp:8080/
+&lt; ftp_proxy:http://voyager.ulis.ac.jp:8080/
+&lt; gopher_proxy:http://voyager.ulis.ac.jp:8080/
+---
+&gt; #http_proxy:http://some.server.dom:port/
+&gt; #https_proxy:http://some.server.dom:port/
+&gt; #ftp_proxy:http://some.server.dom:port/
+&gt; #gopher_proxy:http://some.server.dom:port/
+908c909
+&lt; no_proxy:ulis.ac.jp
+---
+&gt; #no_proxy:host.domain.dom
+</pre>
+一部のHTMLで表示がぶれるけど…まあいいか…。
+
+
+<h1><a name="vrmlview">VRMLview</a></h1>
+<dl>
+  <dt> ホームページ
+  <dd> <a href="http://www.sim.no/vrmlview.html">http://www.sim.no/vrmlview.html</a>
+  <dt> ソース
+  <dd> vrmlview.gz
+</dl>
+<h2>1998-7-29</h2>
+バイナリ配布のフリーのVRMLブラウザ。PNG,JPEG形式の画像出力ができるのが最大の特長か。
+<pre>
+% gunzip vrmlview.gz
+% chmod 755 vrmlview
+% su
+# mv vrmlview /usr/local/bin
+</pre>
+
+<h1><a name="nkf">nkf</a></h1>
+<dl>
+  <dt> ソース
+  <dd> <a href="ftp://ftp.mei.co.jp/free/others/Japanese/nkf/nkf-1.62pl5.tar.gz">nkf-1.62pl5.tar.gz</a>
+</dl>
+漢字コードの変換コマンド。
+<h2>1998-9-30</h2>
+<pre>
+% gzip -cd nkf-1.62pl5.tar.gz | tar xvf -
+% gcc -o nkf -O2 nkf.c
+% su
+# cp nkf /usr/local/bin
+</pre>
+
+<h1><a name="namazu">Namazu</a></h1>
+<dl>
+  <dt> Webページ
+  <dd> <a href="http://saturn.aichi-u.ac.jp/~ccsatoru/Namazu/intro.html.ja">http://saturn.aichi-u.ac.jp/~ccsatoru/Namazu/intro.html.ja</a>
+</dl>
+Namazu全文検索システム。
+
+<h2>1998-12-27</h2>
+バージョンをVersion-1.3.0.1にし、ついでにChasenのPerlモジュールとくっつける。
+<dl>
+  <dt>ソース
+  <dd><a href="http://saturn.aichi-u.ac.jp/%7Eccsatoru/Namazu/namazu-1.3.0.0.tar.gz">namazu-1.3.0.1.tar.gz</a>
+</dl>
+ChasenのPerlモジュールをインデクシング時に利用するには<kbd>mknmz -p</kbd>オプションを利用する。
+<pre>
+% gzip -cd namazu-1.3.0.1.tar.gz | tar xvf -
+% cd namazu-1.3.0.1/src
+% ./configure --with-cgi-dir=/var/www/cgi-bin --with-admin=masao@ulis.ac.jp \
+		--with-perl5=/usr/local/bin/perl
+% make WAKATI=CHASEN
+次に、ChasenのPerlモジュールを使うための修正を行なう。
+% vi mknmz			（<a href="namazu-1.3.0.1_chasen.pm_patch.txt">差分</a>）
+最後にインストールを行なう。
+% make install
+% make install_cgi
+</pre>
+
+<h2>1998-11-3</h2>
+バージョンをVersion1.3にする。
+<dl>
+  <dt>ソース
+  <dd><a href="http://saturn.aichi-u.ac.jp/%7Eccsatoru/Namazu/namazu-1.3.0.0.tar.gz">namazu-1.3.0.0.tar.gz</a>
+</dl>
+<pre>
+% gzip -cd namazu-1.3.0.0.tar.gz | tar xvf -
+% cd namazu-1.3.0.0
+% cd src
+% ./configure
+% make OPT_PATH_PERL=/usr/local/bin/perl WAKATI=CHASEN
+% su
+# make install
+</pre>
+
+
+<h2>1998-9-30</h2>
+Version1.2.0.7。
+<dl>
+  <dt>ソース
+  <dd><a href="http://saturn.aichi-u.ac.jp/%7Eccsatoru/Namazu/namazu-1.2.0.7.tar.gz">namazu-1.2.0.7.tar.gz</a>
+</dl>
+<pre>
+% gzip -cd namazu-1.2.0.7.tar.gz | tar xvf -
+% cd namazu-1.2.0.7
+% cd src
+% ./configure
+% vi Makefile
+ここで、わかち書きに使うためのWAKATIがKAKASIになっているので、デフォルトをCHASENにする。
+% make
+% su
+# make install
+</pre>
+インストール完了。インストール先は/usr/local/namazu/など。
+<p>
+とりあえずの使用法は、
+</p>
+<dl>
+  <dt> インデックス生成用コマンド
+  <dd> mkmnz <i>DIR</i>
+  <dt> 検索用コマンド
+  <dd> namazu <i>"string"</i> <i>DIR</i>
+</dl>
+
+<h1><a name="unzip">Unzip</a></h1>
+<dl>
+  <dt> ソース
+  <dd> <a href="ftp://ftp.tohoku.ac.jp/pub/unix/zip/unzip532.tar.gz">unzip532.tar.gz</a>
+</dl>
+<h2>1998-10-1</h2>
+<pre>
+% gzip -cd unzip532.tar.gz | tar xvf -
+% cd unzip-5.32
+% make -f unix/Makefile sgi
+% su
+# make -f unix/Makefile install
+</pre>
+
+<h1><a name="kakasi">KAKASI</a></h1>
+<dl>
+  <dt>Webページ
+  <dd><a href="http://kakasi.namazu.org/">KAKASI - 漢字→かな(ローマ字)変換プログラム</a>
+  <dd><a href="http://www.daionet.gr.jp/~knok/kakasi/">Text::Kakasi</a>
+</dl>
+
+仮名、カタカナ、漢字、アルファベット、記号などの変換を行うプログラムKakasi。
+
+<h2>2000-03-02</h2>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://kakasi.namazu.org/pub/kakasi/kakasi-2.3.1.tar.gz">kakasi-2.3.1.tar.gz</a>
+</dl>
+
+Namazu-v2にあわせ、ついでにバージョンをあげておく。
+（上げなくても害はないけど…）
+
+<pre>
+% gzip -cd kakasi-2.3.1.tar.gz | tar xvf -
+% cd kakasi-2.3.1
+% ./configure
+% make
+% su
+# make install
+
+% 
+
+</pre>
+
+<h2>1998-10-13</h2>
+<dl>
+  <dt> ソース
+  <dd> <a href="ftp://ftp.kusastro.kyoto-u.ac.jp/pub/baba/wais/kakasi-2.2.5.tar.gz">kakasi-2.2.5.tar.gz</a>、<a href="ftp://ftp.kusastro.kyoto-u.ac.jp/pub/baba/wais/kakasi-ext.tar.gz">kakasi-ext.tar.gz</a>（わかち書き用パッチ）、<a href="ftp://ftp.kusastro.kyoto-u.ac.jp/pub/baba/wais/kakasidict.940620.gz">kakasidict.940620.gz</a>（辞書ファイル）
+</dl>
+
+Namazuなどで使用されるわかち書き用パッチつきKAKASI。
+
+<pre>
+% gzip -cd kakasi-2.2.5.tar.gz | tar xvf -
+% gzip -cd kakasi-ext.tar.gz | tar xvf -
+% gunzip -c kakasidict.940620.gz &gt; kakasi-2.2.5/src/kakasidict
+% mv kakasi-ext/patch.kakasi-2.2.5 kakasi-2.2.5
+% cd kakasi-2.2.5
+% patch -p0 &lt; patch.kakasi-2.2.5
+% cd src
+% vi Makefile
+としてOPTIONSを-O2に変更。
+% make
+% su
+# make install
+</pre>
+
+<h1><a name="lv">lv</a></h1>
+<dl>
+  <dt> ホームページ
+  <dd> <a href="http://www.mt.cs.keio.ac.jp/person/narita/lv/index_ja.html">LV Homepage (in japanese)</a>
+  <dt> ソース
+  <dd> <a href="http://www.mt.cs.keio.ac.jp/person/narita/freeware/lv421.tar.gz">lv421.tar.gz</a>
+</dl>
+<p>
+多言語ファイルビューワ。どこだったかは忘れたが、fjで見かけて、興味を持った。
+UTF系、CNS系、JIS、SJIS、EUCほとんどのコードを自動認識し、変換可能らしい。
+lessをUNICODEにも対応させたようなものか…。
+</p>
+<p>
+基本的な使い方はそれほど難しくないが、とりあえずビューアとして使うには
+<code>setenv LV "-Kej -Oej"</code>と指定しておこう。
+これでUTF-8にも変更可能。詳しいことは<code>lv -h</code>のヘルプを参照。
+</p>
+
+<h2>1998-10-19</h2>
+<pre>
+% gzip -cd lv421.tar.gz | tar xvf -
+% cd lv421
+% vi CONFIG
+% diff CONFIG CONFIG.orig
+18,21c18,21
+&lt; #CC = gcc
+&lt; #CFLAGS = -O2 -I. -DUNIX -DBSD -DTERMCAP -funsigned-char -Wall
+&lt; #LIB = -ltermcap
+&lt; #O = o
+---
+&gt; CC = gcc
+&gt; CFLAGS = -O2 -I. -DUNIX -DBSD -DTERMCAP -funsigned-char -Wall
+&gt; LIB = -ltermcap
+&gt; O = o
+60,63c60,63
+&lt; CC = cc
+&lt; CFLAGS = -O2 -I. -DUNIX -DSYSV -DTERMINFO -DIRIX
+&lt; LIB = -lcurses
+&lt; O = o
+---
+&gt; #CC = cc
+&gt; #CFLAGS = -O2 -I. -DUNIX -DSYSV -DTERMINFO -DIRIX
+&gt; #LIB = -lcurses
+&gt; #O = o
+% cd src
+% make
+% su
+# cp lv /usr/local/bin
+# cd ..
+# mkdir /usr/local/lib/lv
+# cp help.ja /usr/local/lib/lv/lv.hlp
+</pre>
+
+<h1><a name="mswordview">MSWordView</a></h1>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.csn.ul.ie/~caolan/docs/MSWordView.html">MSWordView, MSWord 8 converter for unix</a>
+  <dt>ソース
+  <dd><a href="http://www.csn.ul.ie/~caolan/publink/mswordview/mswordview-0.4.7.tar.gz">mswordview-0.4.7.tar.gz</a>
+</dl>
+MS Word97をHTML形式に変換させるツール。
+日本語はUNICODEで出力されるので、<kbd>lv -Iu8 -Oj ファイル名.html &gt; z.html</kbd>としてISO-2022-jp形式に変換してやる必要がある。さらにMETAタグのcharsetもutf-8→ISO-2022-JPに手で変更してやる必要がある。
+<br>
+※ *.docファイルがテキストモードで転送して内部のコードが壊れると、コアダンプするので注意すること。
+<h2>1998-10-20</h2>
+<pre>
+% gzip -cd mswordview-0.4.7.tar.gz | tar xvf -
+% cd mswordview
+% ./configure
+% make
+% su
+# make install
+なぜか画像ファイル類がうまく入らなかったので、手でコピーする。
+# cp -r ./symbolfont/* /usr/local/lib/mswordview/symbolfont
+# cp -r ./wingdingfont/* /usr/local/lib/mswordview/wingdingfont
+# cp -r ./patterns/* /usr/local/lib/mswordview/patterns
+</pre>
+
+<h1><a name="htmllint">Another HTML-lint</a></h1>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://ring.aist.go.jp/openlab/k16/htmllint/">Another HTML-lint</a>
+  <dt>ソース
+  <dd><a href="http://ring.aist.go.jp/openlab/k16/htmllint/archives/htmllint.zip">htmllint.zip</a>
+</dl>
+<a href="#jweblint">jweblint</a>だと警告がでないようなチェックもDTDに沿って行なうHTMLの文法チェッカ。
+警告の仕方が厳密なので、ほとんどのページはエラーを吐く。
+<h2>1998-10-22</h2>
+<pre>
+# mkdir /usr/local/lib/htmllint
+# cd /usr/local/lib/htmllint
+# unzip htmllint.zip
+まず実体となる perl スクリプトをどこからでもみれるようにする。
+# cp htmllint.pm /usr/local/lib/perl5/site_perl
+つぎにPATHの通るディレクトリ（/usr/local/bin）からシンボリックリンク。
+# cd ../../bin
+# ln -s ../lib/htmllint/htmllint htmllint
+以上。
+</pre>
+とりあえず、<kbd>% htmllint filename</kbd>としてローカルファイルのチェックを行なえる。CGIとしての利用やリモートファイルの指定は考慮しなかった。
+また必要になった時にでも行なう。
+
+<h1><a name="cvs">CVS</a></h1>
+CVS (Concurrent Version System)。バージョン管理ツールの一つ。<a href="http://mozilla.org/">Mozilla</a>など多くのプロジェクトが採用している。複数人の同時のバージョン管理が特徴。
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.cyclic.com/cvs/info-jp.html">CVS情報 &amp; ドキュメント</a>
+</dl>
+
+<h2>1998-12-27</h2>
+<h3>Version 1.10</h3>
+<pre>
+% gzip -cd ../src/cvs-1.10.tar.gz | tar xvf -
+% cd cvs-1.10
+% ./configure
+% make
+% su
+# make install
+</pre>
+<p>
+利用法・設定法は『UNIX Magazine 1997.12・1998.1,2』の
+連載記事を参照して下さい。
+また、<a href="http://www-vox.dj.kit.ac.jp/~nishi/cvs/cvs.html">[CVS Manuals]</a>などのWebぺージも参考になります。</p>
+<pre>
+簡単な利用法だけ…。
+% setenv CVSROOT ${HOME}/CVSROOT
+% cvs init
+↑で最初の利用のための環境構築終り。
+
+あとは
+% cvs add  % cvs import  % cvs commit
+などを使って、文書の登録などと、
+% cvs export  % cvs checkout
+などで、文書の閲覧と編集をするそうです。
+</pre>
+
+
+<h1><a name="m4">GNU m4</a></h1>
+<h2>1998-12-27</h2>
+<h3>Version 1.4</h3>
+autoconfのインストールに必要だったので入れた。
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ring.nacsis.ac.jp/pub/GNU/m4-1.4.tar.gz">m4-1.4.tar.gz</a>
+</dl>
+<pre>
+% gzip -cd m4-1.4.tar.gz | tar xvf -
+% cd m4-1.4
+% ./configure; make
+% su
+# make install
+</pre>
+
+<h1><a name="autoconf">GNU Autoconf</a></h1>
+<h2>1998-07-05</h2>
+<h3>version 2.13</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ring.nacsis.ac.jp/pub/GNU/autoconf/autoconf-2.13.tar.gz">autoconf-2.13.tar.gz</a>
+</dl>
+Namazuの開発版のためにバージョンアップする。
+<pre>
+% gzip -cd autoconf-2.13.tar.gz | tar xvf -
+% cd autoconf-2.13
+% ./configure; make
+% su
+# make install
+</pre>
+<h2>1998-12-27</h2>
+<h3>version 2.12</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ring.nacsis.ac.jp/pub/GNU/autoconf-2.12.tar.gz">autoconf-2.12.tar.gz</a>
+</dl>
+<pre>
+% gzip -cd autoconf-2.12.tar.gz | tar xvf -
+% cd autoconf-2.12
+% ./configure; make
+% su
+# make install
+</pre>
+
+<h1><a name="groff">GNU groff</a></h1>
+<h2>1999-2-21</h2>
+<h3>Version 1.10 (jversion 0.99)</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.tohoku.ac.jp/pub/GNU/japanese/groff-1.10.tar.gz">groff-1.10.tar.gz</a>、<a href="ftp://ftp.tohoku.ac.jp/pub/GNU/japanese/jgroff-0.99.diff.gz">jgroff-0.99.diff.gz</a>
+</dl>
+<p>
+テキストの整形ツールroffのGNU版。
+SGIではUNIX系デフォルトのroff processorであるnroffはDocumenter's WorkBenchという3rd Partyのオプションソフトに入っているため、awfというSGI用に作られたものを使用している。しかし、日本語manの整形がうまくいかないなどの問題があるので、日本語対応のgroffをインストールした。
+</p>
+<pre>
+% gzip -cd groff-1.10.tar.gz | tar xvf -
+% cd groff-1.10
+% ./configure
+% make g=g
+% su
+# make g=g install
+PROBLEMSの最後に書かれてある通り、SGIのmanに通すためにg付きでインストールし、
+PROBLEMSに従って、以下の内容のeqnとneqnを作成する。 
+
+/usr/local/bin/eqn
+
+    #!/bin/sh
+    if [ ${1:-""} = /usr/pub/eqnchar ] ; then shift ; fi
+    geqn $*
+
+/usr/local/bin/neqn
+
+    #!/bin/sh
+    if [ ${1:-""} = /usr/pub/eqnchar ] ; then shift ; fi
+    geqn -Tnippon $*
+
+そして、以下のコマンドを実行。
+# cd /usr/local/bin
+# ln -s gnroff nroff
+# ln -s gtbl tbl
+# chmod +x eqn neqn
+
+/usr/local/bin/gnroffの最後を修正。 
+
+    --- gnroff.orig Mon Feb  9 16:35:51 1998
+    +++ gnroff      Mon Feb  9 16:43:26 1998
+    @@ -58,4 +58,5 @@
+     
+     # This shell script is intended for use with man, so warnings are
+     # probably not wanted.  Also load nroff-style character definitions.
+    -exec groff -Wall -mtty-char $T $opts ${1+"$@"}
+    +rest=`echo ${1+"$@"} | sed -e 's+/usr/lib/tmac+/usr/local/share/groff/tmac+'`
+    +exec groff -Wall -mtty-char $T $opts $rest
+</pre>
+
+
+<h1><a name="bzip2">bzip2</a></h1>
+<h2>1999-3-2</h2>
+<h3>Version 0.9.0c</h3>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.muraroa.demon.co.uk/">The bzip2 and libbzip2 home page</a>
+  <dt>ソース
+  <dd><a href="http://www.digistar.com/bzip2/bzip2-0.9.0c.tar.gz">bzip2-0.9.0c.tar.gz</a>
+</dl>
+圧縮ツールの一つで、GNU gzipよりも圧縮率が高い(らしい)ので、
+Web上で大きなファイルを圧縮して転送する際にこれを使っているサイトも多い。
+<pre>
+% gzip -cd bzip2-0.9.0c.tar.gz | tar xvf -
+% cd bzip2-0.9.0c
+% make
+# cp bzip2 /usr/local/bin
+# cp bzip2.1 /usr/local/man/man1
+</pre>
+
+<h1><a name="lha">LHa</a></h1>
+<h2>1999-3-5</h2>
+<h3>LHa for UNIX V 1.14d</h3>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www2m.meshnet.or.jp/~dolphin/lha/lha-unix.htm">http://www2m.meshnet.or.jp/~dolphin/lha/lha-unix.htm</a>
+  <dt>ソース
+  <dd>lha-114d.tar.gz
+</dl>
+
+DOS, Windows環境で日本ではかなり有名な圧縮ツール（形式）。
+<pre>
+% gzip -cd lha-114d.tar.gz | tar xvf -
+% cd lha-114d
+	MACHINES.eucに書かれているようにフラッグなどを調整する。
+% vi Makefile
+% diff Makefile.org Makefile
+% diff Makefile.org Makefile
+21c21
+&lt; MACHINE     = -DSYSTIME_HAS_NO_TM -DEUC -DHAVE_TM_ZONE
+---
+&gt; MACHINE     = -DSYSV_SYSTEM_DIR  -DNOBSTRING -DNOINDEX -DEUC
+29c29
+&lt; MANSECT = n
+---
+&lt; MANSECT = 1
+31c31
+&lt; INSTALL = install
+---
+&gt; INSTALL = bsdinst
+% make
+% su
+# make install
+</pre>
+
+
+<h1><a name="xpdf">xpdf</a></h1>
+<h2>1999-3-14</h2>
+<h3>xpdf version 0.80</h3>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.foolabs.com/xpdf/">xpdf: a PDF viewer for X</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.foolabs.com/pub/xpdf/xpdf-0.80.tgz">xpdf-0.80.tgz</a>
+</dl>
+
+X Window System上のPDFビューワ。日本語も表示できるのが特徴。（印刷すると落ちるけど）
+<pre>
+% gzip -cd xpdf-0.80.tgz | tar xvf -
+% cd xpdf-0.80
+% ./configure --enable-a4-paper --enable-japanese
+% make
+% su
+# make install
+</pre>
+
+<h1><a name="psutils">psutils</a></h1>
+<h2>1999-3-29</h2>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.dcs.ed.ac.uk/home/ajcd/psutils/">PSUtils - PostScript utilities</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.dcs.ed.ac.uk/pub/ajcd/psutils.tar.gz">psutils.tar.gz</a>
+</dl>
+
+psnupのために入れた。Netscape上の印刷で<code>psnup -2 | lp</code>とすると、2分割で印刷できる。
+<pre>
+% gzip -cd psutils.tar.gz | tar xvf -
+% cd psutils
+% vi Makefile.unix
+% diff -u Makefile.unix.org Makefile.unix
+--- Makefile.unix.org   Wed Mar 12 07:52:59 1997
++++ Makefile.unix       Mon Mar 29 19:28:22 1999
+@@ -33,10 +33,10 @@
+ BINMODE = 0755
+ MANMODE = 0644
+ CHMOD = chmod
+-INSTALL = install -c -m $(BINMODE)
+-INSTALLMAN = install -c -m $(MANMODE)
++INSTALL = bsdinst -c -m $(BINMODE)
++INSTALLMAN = bsdinst -c -m $(MANMODE)
+ MANEXT = 1
+-MANDIR = /usr/local/share/man/man$(MANEXT)
++MANDIR = /usr/local/man/man$(MANEXT)
+ 
+ CC = gcc
+ CFLAGS = -DPAPER=\"$(PAPER)\" -DUNIX -O -Wall
+% make -f Makefile.unix
+% su
+# make -f Makefile.unix install
+</pre>
+
+
+<h1><a name="gzip">GNU gzip</a></h1>
+<h2>1999-4-19</h2>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.gnu.org/software/gzip/">GNU gzip</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.cs.titech.ac.jp/pub/gnu/gzip/gzip-1.2.4.tar.gz">gzip-1.2.4.tar.gz</a>
+</dl>
+lessから呼び出すzcatで圧縮ファイルを見るためにインストールする。
+（OS附属のzcatコマンドは ".Z" ファイルしか解凍できない。）
+<pre>
+% gzip -cd gzip-1.2.4.tar.gz | tar xvf -
+% cd gzip-1.2.4
+% ./configure --prefix=/usr/local
+% make
+% su
+# make INSTALL=bsdinst install
+</pre>
+
+<h1><a name="fileutils">GNU Fileutils</a></h1>
+<h2>1999-6-9</h2>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.gnu.org/software/fileutils/fileutils.html">Fileutils</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.cs.titech.ac.jp/pub/gnu/fileutils/fileutils-4.0.tar.gz">fileutils-4.0.tar.gz</a>
+</dl>
+
+installコマンドが必要だったので、インストールする。（他のOSのと互換性がなく不便なので…）
+
+<pre>
+% gzip -cd fileutils-4.0.tar.gz | tar xvf -
+% cd fileutils-4.0
+% ./configure
+% make
+% make check
+% su
+# make install
+</pre>
+
+<h1><a name="freetype">FreeType</a></h1>
+<h2>1999-6-9</h2>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.freetype.org/">The FreeType Project</a>
+</dl>
+VFlib2が必要とするので、インストールする。
+<pre>
+% gzip -cd freetype-1.2.tar.gz | tar xvf -
+% cd freetype-1.2
+% ./configure --enable-static --disable-shared
+% make
+% su
+# make install
+</pre>
+
+<h1><a name="vflib">VFlib</a></h1>
+<h2>1999-6-9</h2>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://TypeHack.aial.hiroshima-u.ac.jp/VFlib/">VFlib Project</a>
+  <dt>ソース
+  <dd><a href="ftp://TypeHack.aial.hiroshima-u.ac.jp/pub/TypeHack/VFlib2-2.24.2.tar.gz">VFlib2-2.24.2.tar.gz</a>
+  <dd><a href="ftp://ftp.kuis.kyoto-u.ac.jp/TeX/watanabe-jfonts/watanabe-vf.tar.gz">watanabe-vf.tar.gz</a>
+  <dt>参考にしたページ
+  <dd><a href="http://www-nagao.kuee.kyoto-u.ac.jp/member/tsuchiya/tex/vflib.html">VFlib-2.23 インストール記録</a>
+</dl>
+
+Ghostscript, LaTeXなどのインストールに必要なので入れる。
+
+<pre>
+まずVFlib本体のインストール
+% gzip -cd VFlib2-2.24.2.tar.gz | tar xvf -
+% cd VFlib2-2.24.2
+%  ./configure --enable-static --disable-shared \
+	--with-freetype \
+	--with-freetype-includedir=/usr/local/include \
+	--with-freetype-libdir=/usr/local/lib
+% make
+% su
+# make install
+次にフォントの準備（とvfontcapファイルの編集）
+# cd /usr/local/share
+# mkdir font
+# mkdir watanabe_font wadalab
+# cd watanabe_font
+# gzip -cd watanabe-vf.tar.gz | tar xvf -
+テストしてみる。
+% cd  VFlib2-2.24.2/tools
+% ./ktest -f "フォントのエントリ名"
+としてエラーがでなければOK。
+</pre>
+
+<h1><a name="ghostscript">GhostScript</a></h1>
+<h2>1999-6-9</h2>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.cs.wisc.edu/~ghost/">Ghostscript, Ghostview and GSview</a>
+  <dd><a href="http://www.ldl.jaist.ac.jp/~akr/nonresearch/free-software/ghostscript/">Japanized Ghostscript information</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.cs.wisc.edu/ghost/aladdin/gs550/ghostscript-5.50.tar.gz">ghostscript-5.50.tar.gz</a>
+  <dd><a href="ftp://ftp.cs.wisc.edu/ghost/aladdin/gs550/ghostscript-5.50jpeg.tar.gz">ghostscript-5.50jpeg.tar.gz</a>
+  <dd><a href="ftp://ftp.cs.wisc.edu/ghost/aladdin/gs550/ghostscript-5.50libpng.tar.gz">ghostscript-5.50libpng.tar.gz</a>
+  <dd><a href="ftp://ftp.cs.wisc.edu/ghost/aladdin/gs550/ghostscript-5.50zlib.tar.gz">ghostscript-5.50zlib.tar.gz</a>
+  <dd><a href="ftp://ftp.cs.wisc.edu/ghost/aladdin/gs550/ghostscript-fonts-std-5.50.tar.gz">ghostscript-fonts-std-5.50.tar.gz</a>
+  <dd><a href="ftp://ftp.cs.wisc.edu/ghost/aladdin/gs550/ghostscript-fonts-other-5.50.tar.gz">ghostscript-fonts-other-5.50.tar.gz</a>
+     
+  <dd><a href="http://www.ldl.jaist.ac.jp/~akr/nonresearch/free-software/ghostscript/gs5.50-vflib-1.0.tar.gz">gs5.50-vflib-1.0.tar.gz</a>
+  <dt>参考にしたページ
+  <dd><a href="http://www.rd.nacsis.ac.jp/~katayama/homepage/ghostscript/Japanese.html">Ghostscript リンク集</a>
+</dl>
+
+PostscriptプロセッサGhostscriptを入れる。（ghostviewのため）
+
+<pre>
+% gzip -cd ghostscript-5.50.tar.gz | tar xvf -
+% gzip -cd gs5.50-vflib-1.0.tar.gz | tar xvf -
+% patch -s -p0 &lt; gs5.50-vflib-1.0/gs5.50-vflib-1.0.diff
+% cd gs5.50
+% gzip -cd ghostscript-5.50jpeg.tar.gz | tar xvf -
+% mv jpeg-6b jpeg
+% gzip -cd ghostscript-5.50libpng.tar.gz | tar xvf -
+% mv libpng-1.0.2 libpng
+% gzip -cd ghostscript-5.50zlib.tar.gz | tar xvf -
+% mv zlib-1.1.3 zlib
+% ln -s unix-gcc.mak makefile
+% make
+% su
+# make install
+# cd /usr/local/share/ghostscript
+# gzip -cd ghostscript-fonts-std-5.50.tar.gz | tar xvf -
+# cd fonts
+# gzip -cd ghostscript-fonts-other-5.50.tar.gz | tar xvf -
+</pre>
+
+
+<h1><a name="ghostview">Ghostview</a></h1>
+<h2>1999-6-9</h2>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.cs.wisc.edu/~ghost/ghostview/index.html">Ghostview</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.cs.wisc.edu/ghost/gnu/ghostview/ghostview-1.5.tar.gz">ghostview-1.5.tar.gz</a>
+</dl>
+Postscriptプレビューア。
+<pre>
+% gzip -cd ghostview-1.5.tar.gz | tar xvf -
+% cd ghostview-1.5
+% xmkmf
+% make
+% su
+# make install
+これで完了だが、/usr/bin/X11/ghostviewとなっているので注意！
+</pre>
+
+
+<h1><a name="xdvik">xdvik</a></h1>
+
+<dl>
+  <dt>ホームページ
+  <dd>（<a href="http://www.ipc.chiba-u.ac.jp/~yamaga/TeX/xdvi-j.html">xdvi 日本語化・機能拡張パッチのページ</a>）
+</dl>
+著名なTeXプレビューアであるxdvi。
+
+<h2>2000-02-16</h2>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.ipc.chiba-u.ac.jp/pub/pub.yamaga/xdvik-22/xdvik-22.15.tar.gz">xdvik-22.15.tar.gz</a>
+  <dd><a href="ftp://ftp.ipc.chiba-u.ac.jp/pub/pub.yamaga/xdvik-22/xdvik-22.15-j1.03.patch.gz">xdvik-22.15-j1.03.patch.gz</a>
+</dl>
+
+前に入れたものは、コンソールで『Printout』ウィンドウを出そうとすると無条件に落ちるというバグがあったので、入れ直す。
+
+<pre>
+% gzip -cd xdvik-22.15.tar.gz | tar xf -
+% cd xdvik-22.15
+% gzip -cd xdvik-22.15-j1.03.patch.gz | patch -p1
+% ./configure --enable-a4
+% make
+% su
+# make install
+
+make installの最後でエラーを吐くが、気にしなくても良い。(多分)
+</pre>
+
+
+<h2>1999-6-9</h2>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.ipc.chiba-u.ac.jp/pub/pub.yamaga/xdvik-22/xdvik-22.02-j1.02.patch.gz">xdvik-22.02-j1.02.patch.gz</a>
+  <dd><a href="ftp://ftp.ipc.chiba-u.ac.jp/pub/pub.yamaga/xdvik-22/xdvik-22.02.tar.gz">xdvik-22.02.tar.gz</a>
+</dl>
+
+<pre>
+% gzip -cd xdvik-22.02.tar.gz | tar xf -
+% cd xdvik-22.02
+% gzip -cd xdvik-22.02-j1.02.patch.gz | patch -p1
+% ./configure --enable-a4
+% make
+% su
+# make install
+</pre>
+
+一応、表示できているように思われる…。明日、ちゃんと確認しよう。
+
+<h1><a name="w3m">w3m</a></h1>
+<h2>1999-6-11</h2>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://ei5nazha.yz.yamagata-u.ac.jp/~aito/w3m/">W3M Homepage</a>
+  <dt>ソース
+  <dd><a href="ftp://ei5nazha.yz.yamagata-u.ac.jp/w3m/w3m-990609.tar.gz">w3m-990609.tar.gz</a>
+</dl>
+
+<a href="#lynx">Lynxのような</a>テキストWWWブラウザ（ページャ）の一種。
+テーブル・フレームの描画ができる点がすごい。
+<p>
+※ ただし、まだIRIXは未対応らしく、
+ターミナルごと落ちるという動作が頻繁に起こる。
+（おそらくterminal libraryの非互換性が原因：コンパイル時にエラーが出る。）
+
+<pre>
+% gzip -cd w3m-990609.tar.gz | tar xvf -
+% cd w3m
+% ./configure
+として質問に答えていく。
+/usr/local/bin	(Binary)
+/usr/local/lib/w3m	(Helpfile)
+E	(Kanji-code)
+n	(Lynx-like key)
+y	(use 2-byte-char)
+y	(use color [ESC]-seq)
+n	(use Mouse)
+1	(Language: 1-Japanese, 2-English)
+/usr/bin/vi	(Editor)
+/usr/sbin/mailx	(Mailer)
+/usr/bin/X11/netscape	(External browser)
+cc -32	(C-Compiler)
+-g	(C flags)
+-lcurses	(Terminal library)
+	(LD flags)
+とここまでを指定する。
+% make
+% su
+# make install
+</pre>
+
+<h1><a name="automake">GNU Automake</a></h1>
+<h2>1999-07-05</h2>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ring.nacsis.ac.jp/GNU/automake/automake-1.4.tar.gz">automake-1.4.tar.gz</a>
+</dl>
+
+Makefile.inを自動生成するツール。
+（<a href="#autoonf">autoconf</a>などと一緒に使って、 ./configure; make; make install; といった作業の自動化を行なう。）
+
+<pre>
+% gzip -cd automake-1.4.tar.gz | tar xvf -
+% cd automake-1.4
+% ./configure
+% make
+% make check
+		ここで、insthook.test がエラーになる。とりあえず、無視。:-)
+% su
+# make install
+</pre>
+
+<h1><a name="tcltk">Tcl/Tk</a></h1>
+<h2>1999-09-30</h2>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.sra.co.jp/pub/lang/tcl/tcl8.0.5.tar.gz">tcl8.0.5.tar.gz</a>
+  <dd><a href="ftp://ftp.sra.co.jp/pub/lang/tcl/jp/tcl8.0.5jp1.6.patch.gz">tcl8.0.5jp1.6.patch.gz</a>
+  <dd><a href="ftp://ftp.sra.co.jp/pub/lang/tcl/tk8.0.5.tar.gz">tk8.0.5.tar.gz</a>
+  <dd><a href="ftp://ftp.sra.co.jp/pub/lang/tcl/jp/tk8.0.5jp1.6.patch.gz">tk8.0.5jp1.6.patch.gz</a>
+</dl>
+
+日本語化されているTcl/Tkをインストールする。
+(現在の最新版はTcl/Tk 8.2だが、まだ国際化が不完全なので、安定したらまたインストールし直す予定。)
+
+<pre>
+まず、Tclのコンパイル。
+% gzip -cd tcl8.0.5.tar.gz | tar xvf -
+% cd tcl8.0.5
+% gzip -cd ../tcl8.0.5jp1.6.patch.gz | patch -p1
+% cd unix
+% ./configure --enable-gcc
+% make
+% su
+# make install
+
+次に、Tkをインストールする。
+% gzip -cd tk8.0.5.tar.gz | tar xvf -
+% cd tk8.0.5
+% gzip -cd  ../tk8.0.5jp1.6.patch.gz | patch -p1
+% cd unix
+% ./configure --enable-gcc --with-tcl=../../tcl8.0.5/unix
+% make
+% su
+# make install
+
+# cd /usr/local/bin
+# ln -s ./tclsh8.0jp ./tclsh
+# ln -s ./wish8.0jp ./wish
+</pre>
+
+<h1><a name="gettext">GNU gettext</a></h1>
+
+プログラムのi18n(Internationalization)を行なうためのインターフェースを提供するソフトウェア GNU gettext。
+
+<h2>1999-12-06</h2>
+
+<h3>GNU gettext 1.10.35</h3>
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://core.ring.gr.jp/pub/GNU/gettext/gettext-0.10.35.tar.gz">gettext-0.10.35.tar.gz</a>
+</dl>
+
+最新版Namazuで利用するために、インストールした。
+
+<pre>
+% gzip -cd gettext-0.10.35.tar.gz | tar xvf -
+% cd gettext-0.10.35
+% ./configure
+% make
+% make check
+% su
+# make install
+</pre>
+
+<h1><a name="yatex">YaTeX</a></h1>
+<h2>1999-12-15</h2>
+<h3>yatex 1.67</h3>
+
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.yatex.org/">Yet Another TeX mode for Emacs</a>
+  <dt>ソース
+  <dd><a href="http://www.yatex.org/yatex1.67.tar.gz">yatex1.67.tar.gz</a>
+</dl>
+
+Mule上のLaTeX文書作成支援環境。
+
+<pre>
+% gzip -cd yatex1.67.tar.gz | tar xvf -
+% cd yatex1.67
+% su
+# make install
+</pre>
+
+ここまでで、インストール完了。
+インストール先は、/usr/local/lib/mule/site-lisp/yatex/
+<p>
+
+実際に、YaTeXを利用するには、~/.emacsに以下の設定を行なう。
+
+<pre>
+(setq load-path (cons "/usr/local/lib/mule/site-lisp/yatex" load-path))
+(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
+(setq auto-mode-alist
+      (cons
+       (cons "\\.tex$" 'yatex-mode)
+       auto-mode-alist))
+</pre>
+
+<h1><a name="latexmk">LatexMk</a></h1>
+<h2>1999-12-15</h2>
+<h3>LaTeXMk</h3>
+
+<dl>
+  <dt>ソース(CTAN)
+  <dd><a href="ftp://ftp.lab.kdd.co.jp/CTAN/support/latexmk/latexmk.tar.gz">latexmk.tar.gz</a>
+</dl>
+
+LaTeX文書の依存関係(\input{}やBibTexなど)を自動的に検出して、
+コマンドを実行するスクリプト。
+<p>
+ただし、デフォルトではdvipsを使う環境しか、想定していなかったようで、
+dvi2psに渡すオプションなどをいじる必要があった。
+
+<pre>
+% gzip -cd latexmk.tar.gz | tar xvf -
+% cd latexmk
+	コマンドなどをローカルの環境に合わせる。
+% vi latexmk
+% diff -u latexmk.org latexmk
+--- latexmk.org	Wed Dec 15 04:02:36 1999
++++ /usr/local/bin/latexmk	Wed Dec 15 06:42:54 1999
+@@ -126,20 +126,20 @@
+ ##-----------------------------------------------------------------------
+ 
+ ## default document processing programs.
+-$latex  = 'latex';
+-$bibtex  = 'bibtex';
++$latex  = 'jlatex';
++$bibtex  = 'jbibtex';
+ $slitex  = 'slitex';
+ $makeindex  = 'makeindex';
+-$dvips  = 'dvips';
+-$dvips_landscape = 'dvips -tlandscape';
++$dvips  = 'dvi2ps';
++$dvips_landscape = 'dvi2ps -o landscape';
+ $dviselect  = 'dviselect';
+-$ps_previewer  = 'gv';
+-$ps_previewer_landscape  = 'gv -swap';
+-$dvi_previewer  = 'xdvi -s 4';
+-$dvi_previewer_landscape = 'xdvi -s 4 -paper a4r';
+-$dvi_cont_previewer  = 'xtex';
+-$dvi_cont_previewer_landscape  = 'xtex';
+-$lpr  = 'lpr';
++$ps_previewer  = 'ghostview';
++$ps_previewer_landscape  = 'ghostview -swap';
++$dvi_previewer  = 'xdvi';
++$dvi_previewer_landscape = 'xdvi -paper a4r';
++$dvi_cont_previewer  = 'xdvi';
++$dvi_cont_previewer_landscape  = 'xdvi -paper a4r';
++$lpr  = 'lp';
+ $tmpdir = '/usr/tmp';
+ $pscmd = 'ps -x';  # This works for SunOs.  Solaris should just be 'ps'
+ 
+@@ -684,7 +684,7 @@
+   if (( $ps_mtime < $dvi_mtime ) || $banner )
+   {
+     warn "------------\nRunning $dvips [$root_filename]\n------------\n";
+-    system("$dvips $header $dvi_file -o $root_filename.ps");
++    system("$dvips $header -c $root_filename.ps $dvi_file");
+   }
+ 
+   if ( $banner )
+% chmod +x latexmk
+% su
+# cp latexmk /usr/local/bin
+# cp latexmk.1 /usr/local/man/man1
+</pre>
+
+※一応、<a href="http://charlotte.phys.psu.edu/~collins/software/latexmk-jcc/">New version of latexmk</a>というものもあるらしいけど面倒くさいので、これには手を出さない。
+
+<h1><a name="detex">DeTeX</a></h1>
+<h2>2000-01-04</h2>
+<h3>DeTeX 2.7</h3>
+
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.cs.purdue.edu/homes/trinkle/detex/index.html">DeTeX Home Page</a>
+  <dt>ソース
+  <dd><a href="http://www.cs.purdue.edu/homes/trinkle/detex/detex-2.7.tar">detex-2.7.tar</a>
+</dl>
+
+LaTeXのソースファイルから組版コマンドを取り除いて、プレインテキストに戻すプログラム。
+
+<pre>
+作業記録
+% mkdir detex
+% cd detex
+% tar xvf detex-2.7.tar
+% make
+% su
+# cp detex /usr/local/bin
+# cp detex.1l /usr/local/man/man1
+</pre>
+
+<h1><a name="libtool">GNU libtool</a></h1>
+<h2>2000-01-08</h2>
+<h3>1.3.4</h3>
+
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.gnu.org/software/libtool/libtool.html">GNU Libtool</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.ring.gr.jp/pub/GNU/libtool/libtool-1.3.4.tar.gz">libtool-1.3.4.tar.gz</a>
+</dl>
+
+Namazuの最新CVS版をmakeするのに必要だったので、入れた。
+
+<pre>
+% gzip -cd libtool-1.3.4.tar.gz | tar xvf -
+% cd libtool-1.3.4
+% ./configure
+% make
+% su
+# make install
+</pre>
+
+<h1><a name="netpbm">Netpbm (Pbmplus)</a></h1>
+<h2>2000-01-08</h2>
+<h3>Netpbm 1 March 1994</h3>
+
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.sct.gu.edu.au/~anthony/icons/">Anthony's Icon Library</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz">netpbm-1mar1994.p1.tar.gz</a>
+</dl>
+
+色々な画像形式のファイルの相互変換するコマンド(ライブラリ)群。
+
+<pre>
+% gzip -cd netpbm-1mar1994.p1.tar.gz | tar xvf -
+% cd netpbm-1mar94.p1
+まずコンパイルする。
+% cd libtiff
+% make -f Makefile.gcc RANLIB=:
+% cd ..
+ちょっとだけMakefileに変なところがあったので事前に直しておく。
+% vi pgm/Makefile.std
+% diff -u pgm/Makefile.std.org pgm/Makefile.std
+--- pgm/Makefile.std.org    Sun Jan  9 08:40:33 2000
++++ pgm/Makefile.std        Sun Jan  9 08:40:53 2000
+@@ -39,10 +39,10 @@
+ LIBPGM =       libpgm.a
+ 
+ PORTBINARIES = asciitopgm bioradtopgm fstopgm hipstopgm \
+-               lispmtopgm pbmtopgm pgmbentley pgmenhance pgmhist pgmkernel \
++               lispmtopgm pbmtopgm pgmbentley pgmenhance pgmhist \
+                pgmnoise pgmnorm pgmoil pgmramp pgmtofs pgmtolispm \
+                pgmtopbm psidtopgm spottopgm
+-MATHBINARIES = pgmcrater pgmedge pgmtexture rawtopgm
++MATHBINARIES = pgmcrater pgmedge pgmkernel pgmtexture rawtopgm
+ BINARIES =     $(PORTBINARIES) $(MATHBINARIES)
+ 
+ OBJECTS =      asciitopgm.o bioradtopgm.o fstopgm.o hipstopgm.o \
+
+% vi pnm/Makefile.std
+% diff -u pnm/Makefile.std.org pnm/Makefile.std
+--- pnm/Makefile.std.org    Sun Jan  9 08:25:10 2000
++++ pnm/Makefile.std        Sun Jan  9 08:25:50 2000
+@@ -59,12 +59,13 @@
+                pnmalias pnmarith pnmcat pnmcomp pnmconvol pnmcrop \
+                pnmcut pnmdepth pnmenlarge pnmfile pnmflip pnmhisteq \
+                pnmhistmap pnminvert pnmnoraw pnmpad pnmpaste \
++               pnmsmooth \
+                pnmtile pnmtoddif pnmtofits pnmtops pnmtorast \
+                pnmtosgi pnmtosir pnmtoxwd \
+                rasttopnm sgitopnm sirtopnm xwdtopnm zeisstopnm
+ MATHBINARIES = pnmgamma pnmnlfilt pnmrotate pnmscale pnmshear
+ BINARIES =      $(PORTBINARIES) $(MATHBINARIES) $(TIFFBINARIES)
+-SCRIPTS =      anytopnm pnmindex pnmmargin pnmsmooth pstopnm
++SCRIPTS =      anytopnm pnmindex pnmmargin pstopnm
+ 
+ PORTOBJECTS =  fitstopnm.o giftopnm.o \
+                pnmalias.o pnmarith.o pnmcat.o pnmcomp.o pnmconvol.o \
+
+% foreach dir ( pbm pgm pnm ppm )
+? (cd $dir; make -f Makefile.std binaries)
+? end
+最後に、インストールをする。
+% su
+# foreach dir ( pbm pgm pnm ppm )
+? ( cd $dir; \
+ make -f Makefile.std install.bin install.man INSTALLBINARIES=/usr/local/bin \
+ INSTALLMANUALS1=/usr/local/man/man1 INSTALLMANUALS3=/usr/local/man/man3 INSTALLMANUALS5=/usr/local/man/man5 )
+? end
+</pre>
+
+<h1><a name="qkc"> QKC - Quick KANJI code Converter</a></h1>
+<h2>2000-01-14</h2>
+<h3>C Version 1.0</h3>
+
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://hp.vector.co.jp/authors/VA000501/">QKC Home Page</a>
+  <dt>ソース
+  <dd><a href="http://hp.vector.co.jp/authors/VA000501/qkcc100.zip">qkcc100.zip</a>
+</dl>
+
+<a href="#nkf">nkf</a>のような日本語コード変換を行なう。
+nkfとの違いは、変換結果をそのままファイルに書き込む点。
+(nkfだと標準出力する)
+
+<pre>
+% unzip qkcc100.zip
+% make
+% su
+# cp qkc /usr/local/bin
+# cp qkc.1 /usr/local/man/man1
+</pre>
+
+<h1><a name="dvi2tty">dvi2tty</a></h1>
+<h2>2000-01-15</h2>
+
+<dl>
+  <dt>ソース
+  <dd><a href="ftp://ftp.math.s.chiba-u.ac.jp/tex/dvi2tty.tar.gz">dvi2tty.tar.gz</a>
+</dl>
+
+dvi形式のファイルをテキストにして出力する。
+(CTANにある最新のものは日本語が通らなかったので、chiba-u.ac.jpにあるのを使う)
+
+<pre>
+% gzip -cd dvi2tty.tar.gz | tar xvf -
+% cd dvi2tty
+% make
+% su
+# cp dvi2tty /usr/local/bin
+# cp dvi2tty.1 /usr/local/man/man1
+</pre>
+
+<h1><a name="latex2html">LaTeX2HTML</a></h1>
+<h2>2000-01-27</h2>
+
+統一的な開発の管理サイトは無いみたいなので、いろいろとリンクを張っておく。
+(ちゃんとlatex2html.orgかなんかで一元的に情報提供してくれると助かるのだが…。)
+
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://saftsack.fs.uni-bayreuth.de/~latex2ht/">LaTeX2HTML</a> (最新のソースの在処)
+  <dd><a href="http://www-texdev.mpce.mq.edu.au/l2h/docs/manual/">LaTeX2HTML</a> (最新版の作者Ross Mooreさんによるマニュアル)
+  <dd><a href="http://www.topstudio.co.jp/~kmuto/software/latex2html/">LaTeX2HTML JA patch for 99.1</a>(日本語化パッチの在処)
+
+  <dt>ソース
+  <dd><a href="http://saftsack.fs.uni-bayreuth.de/~latex2ht/old/l2h99_1.tar.gz">l2h99_1.tar.gz</a>
+  <dd><a href="http://www.topstudio.co.jp/~kmuto/software/latex2html/patch/99-1/jlatex2html-99.1+3.01.dif.gz">jlatex2html-99.1+3.01.dif.gz</a>
+</dl>
+
+LaTeX2HTMLです。
+LaTeX文書をHTMLファイルに変換します。
+便利なのでインストールします。
+
+<pre>
+% su
+# cd /usr/local/lib
+# gzip -cd l2h99_1.tar.gz | tar xvf -
+# cd latex2html
+# gzip -cd jlatex2html-99.1+3.01.dif.gz | patch -p1
+# ./install-test
+# cd /usr/local/bin
+# ln -s ../lib/latex2html/latex2html latex2html
+# ln -s latex2html jlatex2html
+</pre>
+
+<a href="http://cosmo.ulis.ac.jp/~yuka/latex.html">Memo of Latex</a>にちょっとした使い方があります。
+
+また、アイコン(「次へ」など)を使いたい時は<CODE>-local_icons</CODE>オプションを使ってね。
+
+<h1><a name="apache">Apache</a></h1>
+<h2>2000-02-03</h2>
+<h3>Version 1.3.11</h3>
+
+著名なWWWサーバ Apache。
+
+NetscapeFasttrackだと何かとカスタマイズしにくいので、
+インストールする。
+
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.apache.org/">The Apache Software Foundation</a>
+  <dt>関連サイト
+  <dd><a href="http://japache.infoscience.co.jp/">JAPACHE HTTP Server Project</a>(インフォサイエンスが日本語訳している文書)
+  <dd><a href="http://www.apache.or.jp/">JAPANIZED APACHE SERVER PROJECT</a>
+  <dt>ソース
+  <dd><a href="ftp://ring.nacsis.ac.jp/pub/net/apache/dist/apache_1.3.11.tar.gz">apache_1.3.11.tar.gz</a>
+</dl>
+
+<pre>
+% gzip -cd apache_1.3.11.tar.gz | tar xvf -
+% cd apache_1.3.11
+% ./configure --with-perl=/usr/local/bin/perl --enable-module=log_agent --enable-module=log_referer
+% make
+% su
+# make install
+</pre>
+
+その他の細かな設定の方法は管理メモの方に書く。（つもり…）
+
+<h1><a name="ispell">Ispell</a></h1>
+<h2>2000-02-16</h2>
+<h3>International Ispell Version 3.1.20</h3>
+
+<dl>
+  <dt>ホーム
+  <dd><a href="http://fmg-www.cs.ucla.edu/geoff/ispell.html">International Ispell</a>
+  <dt>ソース
+  <dd><a href="ftp://ftp.cs.ucla.edu/pub/ispell-3.1/ispell-3.1.20.tar.gz">ispell-3.1.20.tar.gz</a>
+</dl>
+
+英文のスペルチェックを行なう。
+
+<pre>
+% gzip -cd ispell-3.1.20.tar.gz | tar xvf -
+% cd ispell-3.1
+% cp local.h.samp local.h
+% vi local.h
+% diff -u local.h.samp local.h
+--- local.h.samp        Tue Jan 24 03:28:27 1995
++++ local.h     Wed Feb 16 23:16:07 2000
+@@ -80,8 +80,8 @@
+  */
+ 
+ #define MINIMENU       /* Display a mini-menu at the bottom of the screen */
+-#define NO8BIT         /* Remove this if you use ISO character sets */
+-#undef USG             /* Define this on System V */
++#undef NO8BIT          /* Remove this if you use ISO character sets */
++#define USG            /* Define this on System V */
+ 
+ /*
+  * Important directory paths
+@@ -88,7 +88,7 @@
+  */
+ #define BINDIR "/usr/local/bin"
+ #define LIBDIR "/usr/local/lib"
+-#define ELISPDIR "/usr/local/lib/emacs/site-lisp"
++#define ELISPDIR "/usr/local/lib/mule/site-lisp"
+ #define TEXINFODIR "/usr/local/info"
+ #define MAN1DIR        "/usr/local/man/man1"
+ #define MAN4DIR        "/usr/local/man/man4"
+@@ -96,3 +96,5 @@
+ /*
+  * Place any locally-required #include statements here
+  */
++#define EMACS "mule"
++#define LANGUAGES "{american,MASTERDICTS=american.med+,HASHFILES=americanmed+.hash,EXTRADICT=/usr/local/dict/words}"
+% vi fields.c
+(strlen のプロトタイプ宣言を消す)
+
+なお、辞書ファイルがないとmakeできないのであらかじめ作っておく。
+% su
+# mkdir /usr/local/dict
+# touch /usr/local/dict/words
+
+% make
+% su
+# make install
+</pre>
+
+<h1><a name="ssh">SSH(Secure Shell)</a></h1>
+<h2>2000-02-29</h2>
+<h3>Version 1.2.27</h3>
+
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.ssh.org">SSH Secure Shell</a>
+  <dt>関連サイト
+  <dd><a href="http://www.feedmania.org/~yasu/linux/ssh/">ssh(Secure Shell)の使い方とインストール方法とOTP </a>(日本語での説明とインストール方法)
+  <dt>ソース
+  <dd><a href="http://ring.nacsis.ac.jp/pub/net/ssh/ssh-1.2.27.tar.gz">ssh-1.2.27.tar.gz</a>
+</dl>
+
+通信路の暗号化を行うことにより、より安全な遠隔ログインを実現する。(らしい)
+
+<pre>
+% gzip -cd ssh-1.2.27.tar.gz | tar xvf -
+% cd ssh-1.2.27
+% ./configure
+% make
+% su
+# make -n install
+# make install
+</pre>
+
+<h1><a name="global">Global</a></h1>
+<h2>2000-03-13</h2>
+<h3>version 3.55</h3>
+<dl>
+  <dt>ホームページ
+  <dd><a href="http://www.tamacom.com/global/">GLOBAL source code tag system</a>
+  <dt>ソース
+  <dd><a href="http://www.tamacom.com/unix/global-3.55.tar.gz">global-3.55.tar.gz</a>
+</dl>
+
+ソースコード中の変数や関数を探索するためのタグを作るソフトウェア。
+HTMLでの出力などもできたり、
+関数を探したりできるそうなので入れてみる。
+
+<pre>
+% gzip -cd global-3.55.tar.gz | tar xvf -
+% cd global-3.55
+% make -f Makefile.generic gen
+% vi Makefile
+% diff -u Makefile.org Makefile
+--- Makefile.org        Mon Mar 13 16:39:04 2000
++++ Makefile    Mon Mar 13 16:39:15 2000
+@@ -1,6 +1,6 @@
+ ##### EDIT THESE PARAMETERS ###############################################
+-CC     = gcc
+-DESTDIR = /usr
++CC     = cc
++DESTDIR = /usr/local
+ BINDIR = $(DESTDIR)/bin
+ MANDIR = $(DESTDIR)/man
+ ###########################################################################
+
+% make
+% su
+# make install
+</pre>
+
+<hr>
+<address>
+高久雅生 (Takaku Masao)<br>
+<a href="http://www.ulis.ac.jp/~masao/">http://www.ulis.ac.jp/~masao/</a><br>
+<a href="mailto:masao@ulis.ac.jp">masao@ulis.ac.jp</a></address>
+</body></html>

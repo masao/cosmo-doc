@@ -1,0 +1,452 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<link rev=made href="mailto:yuka@ulis.ac.jp">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
+<title>cosmo OS reinstall memo</title>
+</head>
+
+<body bgcolor="#aaffaa">
+
+<!-- hhmts start -->
+<p>最終更新日： <b>Wed Nov  3 17:20:52 1999</b></p>
+<!-- hhmts end -->
+<hr>
+<h1>cosmoのOSインストールめも</h1>
+<dl>
+  <dt> ディスクの情報
+  <dd>/ /dev/dsk/dks0d1s0
+  <dd>/var /dev/dsk/dks1d3s7
+  <dd>/usr/local /dev/dsk/dks1d2s7
+  <dd>/home /dev/dsk/dks1d1s7
+     
+  <dt>ネットワークの構成
+  <dd>IP アドレス  133.51.24.112
+  <dd>ネットワークマスク 0xfffffc00
+  <dd>ネームサーバ 133.51.168.11  133.51.168.12
+  <dd>デフォルトゲートウエイ 133.51.24.100
+
+  <dt>CD-ROMの確認
+  <dd>必要となるCD-ROMの確認をします。
+     インストールする順番はCD-ROMに記載されているSequence
+     Noというものの若い順に行います。 以下は最小セットです。
+     <dl>
+       <dt>最小
+       <dd>IRIX 6.5.4 Installation Tools and Overlays (1of2) May 1999 Sequence No:100 
+       <dd>IRIX 6.5.4 Overlays (2of2) May 1999 Sequence No:101 
+       <dd> IRIX 6.5 Foundation 1 Sequence No:200 
+       <dd>IRIX 6.5 Foundation 2 Sequence No:201 
+       <dd>IRIX 6.5 Applications May 1999 Sequence No:220 
+       <dd>開発その1 
+	  IRIX 6.5 Development Libraries Sequence No:300 
+       <dd>NFS 
+	  ONC/NFS Version3 for IRIX 6.2,6.3,6.4 and 6.5 Sequence No:700 
+       <dd>開発その2 
+	  IRIX 6.5 Development Foundation Sequence No:700 
+       <dd>日本語環境(フォント、kterm,wnn 等) 
+	  IRIX Language Support WorldView Japanese  6.5.4 May 1999 Sequence No:700
+       <dt>わかんないけど、入れてみた １
+       <dd>MIPSpro C Compiler 7.3 for 6.2,6.3,6.4 and 6.5 Sequence No:700
+       <dd>Soft Windows 95 5.0 for IRIX 6.5
+       <dd>WebFORCE(1 of 2) Novenber 1998 Sequence No:700
+       <dd>WebFORCE(2 of 2) Novenber 1998 for IRIX 6.2 and later Sequence No:700
+       <dt>わかんないけど、いれてみた 2 （Compilers and Developer Tools Update Kit）
+       <dd>IRIX Development Foundation 1.2 for OROX 6.5 Sequence No:700
+       <dd>ProDev Developers Suite May 1999 Sequence No:700
+       <dd>Compiler Excution Environment 7.3 for IRIX 6.5 trough 6.5.4 Sequence No:700
+     </dl>
+
+  <dt>再起動
+  <dd> IRIX 6.5.4 Installation Tools and Overlays (1of2) May
+     1999 Sequence No:100をCD-ROMドライブ
+     に挿入して再起動をしてください。
+     そのとき起動時の音楽がなったときにESCキーを押すとメンテナンス
+     ボタンが表示されますのでクリックしてください。
+     メニューが出るのでSystem Installを選び、メディアを
+     Local CD-ROM Driveを選びます。
+     その操作を行うとCD-ROMに入っているカーネルから起動し、swap
+     パーテーションに展開をします。その後 
+     Inst> 
+     というプロンプトが表示されます。ここでUNIXのMini rootが起動しました。
+     
+  <dt>ファイルシステムのフォーマット
+  <dd>InstプロンプトではフォーマットできないのでAdmin モードに移ります。
+     <pre>
+     Admin> 
+     となります。 
+     そこで/rootをアンマウントしてからフォーマットします。 
+     Admin>umount /root
+     /root: Resource busy というエラーがでるが気にしないで進む。
+     Admin>mkfs /dev/dsk/dks0d1s0 
+     すると、二回ほど確認のプロンプトが出るので、それぞれyes,yと答えます。 
+     そして、filesystemのblock sizeを聞いてくるので 
+     4096 
+     と答えます。 これでxfs filesystemのまっ更なディスクができました。 
+
+     次に/varも同様にする。
+     Admin>mkfs /dev/dsk/dks1d3s7
+     すると、二回ほど確認のプロンプトが出るので、それぞれyes,yと答えます。 
+     そして、filesystemのblock sizeを聞いてくるので 
+     4096 
+     と答えます。 これでxfs filesystemのまっ更なディスクができました。 
+     Admin>mount /dev/dsk/dks1d3s7 /root/var
+     そしてAdmin モードを抜けます。 
+     Admin>exit
+     </pre>
+     
+  <dt>CD-ROMのリスト
+  <dd>CD-ROMは２度に別けて読み込みます。１度目はリストをつくり、conflictsを解消させます。２度目は実
+     際のインストールを行います。ここでは１度目のリストつくりをおこないます。
+     <pre>
+     Inst>open 
+     現在 IRIX 6.5.4 Installation Tools and Overlays (1of2) May 1999 Sequence No:100がCD-ROMド
+     ライブに入っているはずです。リリースノートが表示されます。全部読みたいときは、スペースを押してく
+     ださい。読まないときはqを押すと終わります。 
+     (ApplicationsのCDを入れたときもリリースノートが表示されます。) 
+     
+     その後、下記のようなプロンプトが表示されます。 
+     
+     1. place me on the maintenance stream 
+     2. place me on the feature stream 
+     
+     maintenance stream とは、安定バージョンです。feature streamとは、発展バージョンです。ここでは、
+     安定化バージョンを選びます。1を選択します。 
+     読み終わると、次のCD-ROMを要求してきます。 
+     
+     Install software from:[/CDROM/dist] 
+     が出てきたら次のCD-ROMを入れます。 この作業をすべてのディスクに対して行います。最後の
+     CD-ROMを読み終えたら 
+     1 
+     2 
+     3 
+     4. done (distribution information read,return to inst prompt) 
+     というところで 
+     
+     done 
+     と答えます。 
+     Inst>
+     </pre>
+  <dt>インストール
+  <dd>以下のように入力します。No matches for "" were foundと表示されてもだいじょうぶです。
+     <pre>
+     Inst> keep * 
+     Inst> install standard 
+     Inst> go
+     </pre>
+     あとは、画面の指示にしたがってください。途中、Applicationsを読み込んでいる途中でApple talkのエ
+     ラーが出ますが、3のcontinueを選んですすめてください。
+
+  <dt>読み終えたら、/var をリブート時にマウントするように設定する。
+  <dd>
+     <pre>
+     Inst>admin
+     Admin>sh
+     # cp /root/etc/fstab /tmp
+     # cd /tmp
+     # echo "/dev/dsk/dks1d3s7 /var xfs rw,raw=/dev/rdsk/dks1d3s7 0 0" >> fstab
+     # cd /root/etc
+     # cp fstab fstab.old
+     # mv /tmp/fstab /root/etc/fstab
+     # exit
+     Admin> exit
+     </pre>
+     
+  <dt>再起動
+  <dd>よみおえたらリブートです。
+     <pre>
+     Inst>quit
+     </pre>
+     
+  <dt>EzSetupで設定
+
+     <pre>
+     基本設定をします。ここで行わなければならないことはセキュリティ管理と
+     ネットワークの設定です。 
+
+     EzSetupでログイン
+     -Improve Security- 
+     rootのpasswordの設定 
+     パスワードロック:lp,nuucp,EZsetup,demos,OutOfBox,guest
+     Require Passwd ==> yes
+     Remove NIS accounts :Yes
+     Use shadow password file:No
+     Require password add login:Yes
+     Disable Visual Login Screen:Yes
+     Disable privileged users:Yes
+     Protect New Users' files:No
+     Disable Remote Display:Yes (選択不可)
+     Disable IP forwarding:No
+     Disable Outbox Webserver:Yes (選択不可)
+     
+     -SetUp Network-
+     Interface: Ethernet ec0
+     hostname cosmo.ulis.ac.jp
+     IP address 133.51.24.112
+     Netmask ==> デフォルトのものではなく 0xfffffc00とする。 
+     
+
+     リブートする。
+     </pre>
+
+  <dt>設定（rootでログイン）
+  <dd>（適宜、リブートする）
+     <dl>
+       <dt>メールの停止
+       <dd>
+	  <pre>
+	  # /etc/init.d/mail stop
+	  # chkconfig sendmail off
+	  </pre>
+       <dt>ネットワーク
+       <dd>
+	  <pre>
+	  System Maneger ==> Network and Connectivity ==> Modify Networking Settings 
+	  Primaly Netwark Interface : enable
+	  Default Route: Add
+	  Default Route IP Address 133.51.24.100
+	  IP Forwarding :No
+	  Nameservers: 133.51.168.11 133.51.168.12
+	  Host Resolution order:files dns
+
+	  /etc/resolv.confを修正.
+	  search ulis.ac.jp ipc.ulis.ac.jp multi.ulis.ac.jp
+	  domain ulis.ac.jp
+	  nameserver 133.51.168.11
+	  nameserver 133.51.168.12
+	  
+	  <!--
+	  Setup and Start NIS 
+	  Domain Name "hogehoge" 
+	  Setup and Start NFS 
+	  automount 有効
+	  -->
+	  </pre>
+       <dt>デフォルト言語環境の変更。（日本語にする）
+       <dd>「ツールチェスト」→ 「カスタマイズ」→「言語」
+	  <ul>
+	    <li>ロケール： Japan/Japanese
+	    <li>キーボード：US(ASCII)
+	    <li>タイムゾーン： Japan
+	  </ul>
+       <dt>ディスクのマウント
+       <dd>「ディスクマネージャ」を使う。
+	  /home , /usr/local
+       <dt>いったん、リブート、rootでログイン
+       <dd>
+	  
+       <dt>各種デーモンなどの設定
+       <dd>
+	  <pre>
+	  	Flag                 State               
+	====                 =====               
+
+	appletalk            off
+	array                off
+	autoconfig_ipaddress on
+	autofs               on ==>  # chkconfig autofs off
+	automount            off
+	desktop              on
+	fontserver           off ==> # chkconfig fontserver on
+	gated                off
+	ipaliases            on
+	jserver              on
+	lockd                on
+	lp                   on
+	mediad               on
+	mrouted              off
+	named                off
+	nds                  off
+	network              on
+	netwr_client         off
+	nfs                  on ==> # chkconfig nfs off
+	  	  ==>  # chkconfig -f nocleantmp on
+	noiconlogin          off
+	nostickytmp          off
+	ns_admin             off
+	ns_catalog           on ==> # chkconfig ns_catalog off
+	ns_certificate       off
+	ns_media             on ==> # chkconfig ns_media off
+	ns_rds               on ==> # chkconfig ns_rds off
+	nsd                  on
+	nss_admin            off
+	nss_calendar         off
+	nss_collabra         on ==> # chkconfig nss_collabra off
+	nss_directory        on ==> # chkconfig nss_directory off
+	nss_enterprise       on ==> # chkconfig nss_enterprise off
+	nss_esproifmx        on ==> # chkconfig nss_esproifmx off
+	nss_esproora         on ==> # chkconfig nss_esproora off
+	nss_fasttrack        on
+	nss_messaging        off
+	nss_proxy            on ==> # chkconfig nss_proxy off
+	pmcd                 on
+	privileges           off
+	proclaim_relayagent  off
+	proclaim_server      off
+	proxymngr            off
+	rarpd                off
+	routed               on
+	rsvpd                off
+	rtmond               on
+	rwhod                off ==> # chkconfig rwhod on
+	sar                  off
+	savecore             on
+	sdpd                 on
+	sendmail             off
+	snetd                on
+	soundscheme          on
+	timed                on ==> # chkconfig timed off
+	timeslave            off
+	verbose              off ==> # chkconfig verbose on
+	visuallogin          off
+	vswap                off
+	webface              on
+	windowsystem         on
+	xdm                  on
+	yp                   off
+	ypmaster             off
+	ypserv               off
+
+      </pre>
+
+       <dt> リブート
+       <dd>今までの設定を確認。おもに、デーモン
+
+       <dt>プリンタ
+       <dd>「プリンタマネージャ」を使う。(2koups,600ps,kiki,msctp,1040ps
+	  ipcps2,mmctp,mgctp)
+	  2koups:s-2koups.ulis.ac.jp,PORT1
+	  600ps:lp-ecampe.ulis.ac.jp,lp ==>何故かできない
+	  kiki:kiki.ipc.ulis.ac.jp,kiki
+	  
+       <dt>Sambaもついでにやる。
+       <dd>1998-06-12の管理めも参照
+
+       <dt> 再起動
+       <dd>
+	  
+       <dt>WWWサーバ
+       <dd>テープから２講座のWWWページを取り出す。
+       <dd>
+	  <pre>
+	  管理用のサーバを立ちあげる。
+	  （リブートしたときに自動的に立ち上がるようにはできない。）
+	  # cd /var/netscape/fasttrack
+	  # ./start-admin
+	  http://cosmo:8182 ヘアクセス。
+	  Primary Directory ==> /var/www/htdocs.new
+	  Additional Document Directory ==> 2kou/, /var/www/2kou/
+	  Additional Document Directory ==> cosmo/, /var/www/cosmo/
+	  </pre>
+       <dt>初期Xsessionログイン時の~/public_htmlなどの自動作成機能を変更
+       <dd>1998-4-20管理メモを参照
+	  # chmod 644 /usr/lib/X11/xdm/firsttime/outbox
+       <dt>ユーザ登録
+       <dd>
+	  <pre>
+	  
+	  いままでしていたNISをやめる。
+	  NISユーザ 61人 lock：31人
+
+	  /etc/groupに
+	  ulis::300:
+	  という一行を付け足した 。
+	  # cat /etc/group
+	  sys::0:root,bin,sys,adm
+	  root::0:root
+	  daemon::1:root,daemon
+	  bin::2:root,bin,daemon
+	  adm::3:root,adm,daemon
+	  mail::4:root
+	  uucp::5:uucp
+	  rje::8:
+	  lp:*:9:
+	  nuucp::10:nuucp
+	  user::20:
+	  CMWlogin::994:
+	  other::995:
+	  demos:*:997:
+	  guest:*:998:
+	  nobody:*:60001:
+	  ulis::300:
+
+	  nile% ypcat passwd > passwd.nis
+	  としてpasswd.nisファイルをcosmoにftpした。
+	  cosmo# cat passwd passwd.nis > passwd.new
+	  cosmo# pwck passwd.new
+	  cosmo# mv passwd.new passwd
+
+	  fingerの出力がおかしい？
+	  リブート
+	  </pre>
+	  
+	  
+       <dt>sendmail の設定
+       <dd>configmailを使う。
+	  <pre>
+	  # configmail setup
+	  で以下のように設定する。
+
+	  forwarder = "smtp.ipc.ulis.ac.jp"
+	  rootdomain = "ulis.ac.jp"
+	  directdomains = ""
+	  localdomain = "ulis.ac.jp"
+	  pathalias = "/dev/null"
+	  recsubdomains = ""
+	  relayname = "smtp.ipc.ulis.ac.jp"
+	  deadhost = "somewhere"
+	  domainrelay = "smtp.ipc.ulis.ac.jp"
+	  mycanonname = "cosmo.ulis.ac.jp"
+
+	  # sendmail -bt
+	  として一応テストしてみる。
+	  
+	  # chkconfig sendmail on
+	  リブート
+	  </pre>
+       <dt>timeslaveデーモンの起動
+       <dd>
+	  <pre>
+	  # chkconfig timeslave on
+	  # echo "-H goat.ipc.ulis.ac.jp" > /etc/config/timeslave.options
+	  としてから、リブートする。
+	  </pre>
+       <dt>コンソール以外でのX環境の変更
+       <dd>
+	  <pre>
+	  /usr/lib/X11/xdm/Xsessionを参考にして、
+	  リモートでのX環境のデフォルトをコンソールと同様の
+	  デスクトップ環境にした。 
+
+         % cd /usr/lib/X11/xdm
+         % su
+         # cp Xsession.dt Xsession-remote.dt
+         # vi Xsession-remote
+         ここで、Xsessionと同様にして、Desktop環境を呼び出すように変更。
+         # diff Xsession-remote.orig Xsession-remote
+         4a5,13
+         > # Desktop addition.  If there is a Xsession.dt file, execute that instead
+         > if /etc/chkconfig desktop ;
+         > then
+         >         if [ -x $0.dt -a \! -f $HOME/.disableDesktop ]
+         >         then
+         >                 exec $0.dt $*
+         >         fi
+         > fi
+	  </pre>
+       <dt>/etc/aliases の変更
+       <dd>前から変更はしてたけど、newaliases コマンドを実行してなかったので、
+	  うまくいかなかった。
+	  postmaster@cosmo.ulis.ac.jp宛はrootとmasao@ulis.ac.jp宛になる。
+	  /etc/aliases を変更した際は、newaliases コマンドを実行すること。
+       
+     </dl>
+</dl>
+
+<hr>
+<address>
+江草由佳 (Egusa Yuka)<br>
+<a href="http://www.ulis.ac.jp/~yuka/">http://www.ulis.ac.jp/~yuka/</a><br>
+<a href="mailto:yuka@ulis.ac.jp">yuka@ulis.ac.jp</a>
+</address>
+</body>
+</html>

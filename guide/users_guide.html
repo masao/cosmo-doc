@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
+<LINK REV=MADE HREF="mailto:masao@ulis.ac.jp">
+<title>cosmo のユーザ向け情報</title>
+</head>
+
+<body bgcolor="#aaffaa">
+<!-- hhmts start -->
+<p>最終更新日： <b>Thu Sep  9 02:49:43 1999</b></p>
+<!-- hhmts end -->
+<p>cosmoにおける自分のわかる範囲での、簡単なユーザーズガイドです。
+詳しい情報に関しては、ヘルプやオンラインマニュアルを参照下さい。</p>
+<hr>
+<h1>基本</h1>
+まず、基本的に利用するコマンドなどです。
+<dl>
+  <dt> エディタ <dd>
+       <dl>
+	 <dt> vi <dd> UNIX 標準のスクリーンエディタです。
+	 <dt> mule <dd> GNU Emacs の多言語対応エディタです。
+	 <dt> jot 及び nedit <dd> デフォルトでついてきた GUI のテキストエディタです。
+       </dl>
+  <dt> 日本語入力環境 <dd>
+       良くわからないけどWnn6です。通常は、xwnmo2が動きます。<br>
+       日本語入力は Control + バックスラッシュで出来るようになります。<br>
+       変換はスペースキーです。<br>
+       文節移動は Control + f（前）、Control + b（後）。<br>
+       文節の伸縮は、Control + o（伸）、Control + i（縮）。<br>
+       こんなもんで多分一応は使えるでしょう。
+  <dt> 印刷 <dd> 
+       lpコマンドです。（lpr は使えません）利用できるプリンタは、600ps（デフォルト）, b406ps の2つだけです。これ以外のプリンタへは、rsh などで他のマシンを通して下さい。
+       <pre>
+       600psに出す場合：  % lp <i>ファイル名</i>
+       b406psに出す場合： % lp -d b406ps ファイル名
+       または、
+       % <kbd>cat <i>ファイル名</i> | rsh <i>他のマシン名</i> lp -d <i>利用したいプリンタ名</i></kbd>
+       </pre>
+       *日本語テキストファイルの出力については、文字化けする場合があります。a2ps コマンドを通して下さい。(% <kbd>a2ps ファイル名 | lp</kbd> )
+  <dt> WWWブラウザ <dd>
+       SGI版 Netscape Navigator 3.01 GOLD が利用できます。コマンドは <code>netscape</code> です。
+  <dt> リモートでの作業
+  <dd> cosmo から他のマシン（汎用SUN）などで rlogin などで作業をする際、シェル変数の term の初期化がうまくできないと、画面が乱れます。画面が乱れた場合は、
+       <pre>
+       % setenv TERM ansi
+       または
+       % set term=ansi
+       として下さい。
+       また、汎用・共用 SUN では、ログイン時にTERMを以下のように聞かれた場合は、
+       Type iris-ansi-net unknown
+       TERM = (unknown) 
+       <b>ansi</b> と入力して下さい。
+       </pre>
+  <dt> プログラム開発環境 <dd> 
+       <ul>
+	 <li> C言語<br>
+	      cc コマンドで使えると思います。gcc コマンドもあります。
+	 <li> Java言語<br>
+	      JDK1.1.2相当のものがあります。（javacコマンドなど）<br>
+	      CosmoCodeというGUIベースの開発ツールもあるようです。（コマンドはcosmocode）<br>
+	 <li> Perl言語<br>
+	      version 5 のもの（jperl 5.004_04）が使えます。コマンドは、/usr/local/bin/perlで使って下さい。<br>
+<!--	      [注意]path の中の 2 箇所に perl コマンドがあります。( /usr/bin/perl と /usr/freeware/bin/perl ) -->
+	 <li> Tcl/Tk 言語<br>
+	   コマンドは、tclsh, wish などです。
+	   ※ Tcl/Tkは日本語されていません。
+       </ul>
+</dl>
+
+<h1>応用</h1>
+様々なアプリケーション・ソフトウェアが、入っています。以下、コマンド名と説明です。
+<dl>
+  <dt> photoshop <dd> 画像処理ソフトウェア。Adobe Photoshop 3.0.1 
+  <dt> illustrator <dd> 描画ソフトウェア。Adobe Illustrator 5.5
+  <dt> premiere <dd> 動画処理ソフトウェア。Adobe Premiere 4.2
+  <dt> acroread <dd> PDF文書作成ソフトウェア。Adobe Acrobat Reader 3.0
+  <dt> cosmocreate <dd> 統合Webオーサリングソフトウェア。
+  <dt> cosmocode <dd> Java開発環境（JDK1.1.2）。
+  <dt> cosmoworlds <dd> VRML 構築ソフトウェア。
+</dl>
+その他もろもろ。
+
+<h1>注意点</h1>
+<ul>
+  <li> パスワードの変更には、yppasswd コマンドを使用して下さい。
+  <li> 一部に（特にデモ）一般的な X 環境でサポートされていない機能を用いているものがありますので、コンソール以外の X 端末などの上では動かないアプリケーションがあります。（「DOOM」は動かなかった）
+</ul>
+<h1>現在までに判明している問題点</h1>
+<ul>
+  <li> 極端にマシン性能が遅くなる時がある。（メモリ等の調整か？）
+  <li> lp でテキストファイルを印刷すると日本語が完全に文字化けして出力される。
+</ul>
+<hr>
+<address>
+高久雅生 (Takaku Masao)<br>
+<a href="http://www.ulis.ac.jp/~masao/">http://www.ulis.ac.jp/~masao/</a><br>
+<a href="mailto:masao@ulis.ac.jp">masao@ulis.ac.jp</a></address>
+
+</body></html>

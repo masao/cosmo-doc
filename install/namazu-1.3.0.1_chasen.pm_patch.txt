@@ -1,0 +1,76 @@
+--- mknmz.orig       Sun Dec 27 14:28:08 1998
++++ mknmz Sun Dec 27 13:30:03 1998
+@@ -26,6 +26,7 @@
+ 
+ package main;
+ require 5.003;
++use chasen;
+ use Cwd;
+ use Time::Local;
+ use strict;  # be strict since v1.2.0
+@@ -34,7 +35,8 @@
+ 
+ my ( $SUMMARY_HEADER, $SUMMARY_LENGTH, $ADMIN, $APPENDMODE,
+     $BIGENDIAN, $BODYMSGFILE, $BODY_MSG_JA, $BODY_MSG_EN, $CCS,
+-    $CGI_ACTION, $CHASEN, $CHASEN_MORPH, $COPYRIGHT, $DBNAME,
++    $CGI_ACTION, $CHASEN, $CHASEN_MORPH, $CHASEN_PM, @CHASEN_OPT_DEF,
++    @CHASEN_OPT_MORPH, @CHASEN_OPT, $COPYRIGHT, $DBNAME,
+     $DEFAULT_FILE, $DENY_FILE, $DebugOpt, $ERRORSFILE, 
+     $FILE_SIZE_LIMIT, $FLIST, $FLISTINDEX, $FLISTINDEX_, $FLIST_,
+     @FList, $FOOTERFILE, $FOOTERFILE_, $FOOTER_MSG_JA, $DeletedFilesCount,
+@@ -154,10 +156,15 @@
+ 
+ ## ChaSen 1.51 (simple wakatigaki)
+ $CHASEN = "/usr/local/bin/chasen -j -F '\%m '";
++@CHASEN_OPT_DEF = ('/usr/local/bin/chasen', '-j', '-F', '%m ');
+ 
+ ## ChaSen 1.51 (with morphological processing)
+ $CHASEN_MORPH = "/usr/local/bin/chasen -j -F '\%m %H\\n'";
++@CHASEN_OPT_MORPH = ('/usr/local/bin/chasen', '-j', '-F', '%m %H\n');
+ 
++## chasen.pm
++$CHASEN_PM = 0;
++
+ ## Default Japanese processer
+ $WAKATI  = $CHASEN;
+ $MorphOpt = 1 if "CHASEN" eq "CHASEN_MORPH";
+@@ -1195,6 +1202,7 @@
+     ($output_dir, $target_dir) = get_commandline_opt();
+     dbnamechange($output_dir);
+     check_present_index();
++    &chasen::getopt_argv(@CHASEN_OPT) if ($CHASEN_PM && @CHASEN_OPT);
+ 
+     my $current_dir = cwd();
+     chdir $target_dir || die "$target_dir: $!\n";
+@@ -1322,8 +1330,11 @@
+     while (defined($ARGV[0]) && $ARGV[0] =~ /^-/) {
+        $TARGET_FILE = ".*" if $ARGV[0] =~ /a/;
+        $WAKATI = $KAKASI, $MorphOpt = 0 if $ARGV[0] =~ /k/;
+-       $WAKATI = $CHASEN, $MorphOpt = 0 if $ARGV[0] =~ /c/;
+-       $WAKATI = $CHASEN_MORPH, $MorphOpt = 1 if $ARGV[0] =~ /m/;
++       $WAKATI = $CHASEN, $MorphOpt = 0, @CHASEN_OPT = @CHASEN_OPT_DEF
++           if $ARGV[0] =~ /c/;
++       $WAKATI = $CHASEN_MORPH, $MorphOpt = 1, @CHASEN_OPT = @CHASEN_OPT_MORPH
++           if $ARGV[0] =~ /m/;
++       $CHASEN_PM = 1 if $ARGV[0] =~ /p/;
+        $UuencodeOpt = 1 if $ARGV[0] =~ /u/;
+        $MailNewsOpt = 1 if $ARGV[0] =~ /h/;
+        if ($ARGV[0] =~ /r/) {
+@@ -2355,6 +2366,9 @@
+     my ($contents) = @_;
+     my (@tmp);
+ 
++    if ($CHASEN_PM && @CHASEN_OPT) {
++      @tmp = split(/\n/, &chasen::sparse_tostr($$contents));
++    } else {
+     # IPC::Open2 もあるけど試したらちょっと変でしかも遅かった
+     open(WAKATI, "|$WAKATI > $WAKATITMP");
+     binmode(WAKATI);
+@@ -2366,6 +2380,7 @@
+     @tmp = <WAKATI>;
+     close(WAKATI);
+     unlink $WAKATITMP;
++    }
+ 
+     # ひらがなだけの語は削除する -H オプション時
+     # このコードは古川@ヤマハさんがくださりました。[11/13/1997]

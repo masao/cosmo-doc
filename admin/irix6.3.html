@@ -1,0 +1,1224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<link rev=made href="mailto:masao@ulis.ac.jp">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
+<title>cosmo君の管理者用(!?)情報</title>
+</head>
+
+<body bgcolor="#aaffaa">
+
+<!-- hhmts start -->
+<p>最終更新日： <b>Wed Sep 15 19:33:41 1999</b></p>
+<!-- hhmts end --><hr>
+<h1>管理メモ（日記）</h1>
+<h2>関連リンク</h2>
+関連すると思われる or 参考となる（なった）ウェブページです。
+<ul>
+  <li><a href="http://www.sgi.com/">Shillicon Graphics Inc.(SGI) 社</a>
+  <li><a href="http://www.sgi.co.jp">日本 SGI クレイ株式会社</a>
+  <li><a href="http://www.ayamura.org/installer/">日刊インストーラなど</a>
+  <li><a href="http://www.tamaru.kuee.kyoto-u.ac.jp/~ono/SGI-j.html">Ono's SGI Catalog</a>
+  <li><a href="http://murasakinoue.esi.yamanashi.ac.jp/~oota/O2/installmemo.html">Installation memo on O2, IRIX 6.3</a>
+</ul>
+<hr>
+<h2><a href="../install/">インストールメモ</a></h2>
+こちらは主にフリーソフトのインストールを行なった際のメモ。
+<hr>
+<h2>作業一覧</h2>
+<ul>
+  <li><a href="#19971203">O2の設置</a>
+  <li><a href="#19971203">フルバックアップ</a>
+  <li><a href="#19971203">インストール済みのソフトウェア一覧</a>
+  <li><a href="#19971204">システムのデフォルト言語環境を日本語に</a>
+  <li><a href="#19971204">ディスクの増設</a>
+  <li><a href="#19971204">ユーザアカウント d206 の作成</a>
+  <li><a href="#19971211">デスクトップ日本語環境の乱れについて</a>
+  <li><a href="#19971212">プリンタの設定（600ps）</a>
+  <li><a href="#19971214">プリンタの設定（b406ps）</a>
+  <li><a href="#19971214">NIS の設定</a>
+  <li><a href="#19971215">ログインウィンドウの変更</a>
+  <li><a href="#19971215">/tmp ディレクトリ属性の変更</a>
+  <li><a href="#19971216">マウントポイントの変更に関する注意</a>
+  <li><a href="#19971216">ユーザアカウントのクローズ</a>
+  <li><a href="#19971218">NIS の設定（その2）</a>
+  <li><a href="#19971221">ユーザ初期設定ファイルの準備</a>
+  <li><a href="#19971222">時間帯設定バグの修正</a>
+  <li><a href="#19971228">ユーザのホームディレクトリの自動作成スクリプトの作成</a>
+  <li><a href="#19971229">NIS グループの追加</a>
+  <li><a href="#19971230">d206 アカウントの NIS への移行</a>
+  <li><a href="#19971230">crontab ファイルの修正</a>
+  <li><a href="#19971230">httpd の停止</a>
+  <li><a href="#19980108">バックアップテープから crontab ファイルを復元</a>
+  <li><a href="#19980202">ユーザアカウント(lp, nuucp, demos, OutOfBox, 4Dgifts)のクローズ</a>
+  <li><a href="#19980204">HD ラックの作成と照明の設置</a>
+  <li><a href="#19980212">時刻の修正</a>
+  <li><a href="#19980220">DNS サーバの切替え</a>
+  <li><a href="#19980220">rwhod の起動</a>
+  <li><a href="#19980220">HDD の増設</a>
+  <li><a href="#19980226">/etc/hosts エントリの追加</a>
+  <li><a href="#19980227">timed デーモンの停止</a>
+  <li><a href="#19980301">sendmail の設定変更</a>
+  <li><a href="#19980302">Inetd の設定変更</a>
+  <li><a href="#19980305">sendmail の設定変更</a>
+  <li><a href="#19980311">sendmail の設定変更</a>
+  <li><a href="#19980403">timeslave デーモンの起動</a>
+  <li><a href="#19980405">NISのUIDの変更</a>
+  <li><a href="#19980420">Tapeデバイス用にカーネル再構築</a>
+  <li><a href="#19980420">フルバックアップ(xfsdump)</a>
+  <li><a href="#19980426">初期Xsessionログイン時の~/public_htmlなどの自動作成機能を変更</a>
+  <li><a href="#19980426">NISのSlaveサーバとして設定</a>
+  <li><a href="#19980430">/etc/aliases の変更</a>
+  <li><a href="#19980501">整形済みManualの置き方</a>
+  <li><a href="#19980521">プリンタ1040psの設定</a>
+  <li><a href="#19980611">プリンタkikiの設定</a>
+  <li><a href="#19980612">sambaの設定</a>
+  <li><a href="#19980613">カラープリンタmsctpの設定</a>
+  <li><a href="#19980613">プリンタipcps2の設定</a>
+  <li><a href="#19981010">Wnn6のキーバインド変更</a>
+  <li><a href="#19981028">コンソール以外でのX環境の変更</a>
+  <li><a href="#19981028">terminfoを他のマシンに登録</a>
+  <li><a href="#19981107">dttermをterminfoに登録</a>
+  <li><a href="#19981224">WWWサーバの設定変更（トップページの変更）</a>
+  <li><a href="#19990119">WWWサーバの設定変更</a>
+  <li><a href="#19990219">dttermの登録内容の変更(terminfo)</a>
+  <li><a href="#19990220">WWWサーバの設定変更</a>
+  <li><a href="#19990304">フルバックアップ</a>
+  <li><a href="#19990312">ディスククラッシュとその復旧</a>
+  <li><a href="#19990414">カラープリンタmmctp, mgctpの追加</a>
+  <li><a href="#19990414">2講のページを自動的にGroup書き込み可にする。</a>
+  <li><a href="#19990430">プリンタ2koupsを追加</a>
+  <li><a href="#19990511">プリンタb406psの削除</a>
+  <li><a href="#19990528">デフォルトプリンタを2koupsに変更</a>
+  <li><a href="#19990806">フルバックアップを行なう。</a>
+  <li><a href="#19990915">テープデバイスの設置</a>
+</ul>
+
+<hr>
+<h2>作業内容</h2>
+
+<h3><a name="19971203">1997-12-3</a></h3>
+<ul>
+  <li>O2の設置。
+  <li>基本的な設定を行なう。
+       <ul>
+	 <li>ホスト名：cosmo
+	 <li>ドメイン名：ulis.ac.jp
+	 <li>IPアドレス：133.51.24.112
+	 <li>ネットマスク：255.255.252.0
+	 <li>ゲートウェイ：133.51.24.100
+	 <li>ネームサーバ：133.51.32.2
+       </ul>
+  <li>フル・バックアップ。<br>
+       システムマネージャ→ファイルとデータ→バックアップ／リストア・マネージャでフルバックアップをとる。リモートのulispsnの磁気テープにtarファイル形式で。
+       <ul>
+	 <li>dumpコマンドでとりたかったが、dumpはXFSファイルシステムに対してはかけられないようなので、xfsdumpコマンドを試したがリモートのNON-SGIマシンに対してはうまくいかなかった。
+       </ul>
+  <li>インストール済みのソフトウェア一覧を見るには、<code>%versions -b</code>か、ソフトウェアマネージャ→インストール済みのソフトウェアで。
+</ul>
+<h3><a name="19971204">1997-12-4</a></h3>
+<ul>
+  <li>システムのデフォルトの言語環境を変更。<br>
+       デスクトップ→カスタマイズ→言語で。
+       <ul>
+	 <li>ロケール：Japan/Japanese
+	 <li>キーボード：US(ASCII)
+	 <li>タイムゾーン：Japan
+       </ul>
+       にする。
+  <li>ディスクの増設。（ユーザ領域用：４GB）<br>
+       shutdownの後、設置。ディスクについてきたSCSIケーブルがタイプが合わず、宇陀先生に借りる。SCSIコントローラ：1 にする。<code># hinv -c disk</code>でデバイスが認識されたことを確認する。システムマネージャ→ハードウェアとデバイス→ディスクマネージャで、以下の作業をする。
+       <ul>
+	 <li>ディスクの初期化・フォーマット。
+	 <li>/usr/people以下のguest, OutOfBoxディレクトリの退避。
+	 <li>/usr/peopleへのマウント。
+	 <li>guest, OutOfBoxディレクトリの回復。
+       </ul>
+  <li>ユーザアカウントd206の作成。
+</ul>
+<h3><a name="19971211">1997-12-11</a></h3>
+<ul>
+  <li>デスクトップ日本語環境の設定について<br>
+       2・3日前から、デスクトップの日本語環境が乱れて、完全に日本語が文字化けするようになっていたので、しょうがなく英語環境に個人環境を戻していた。（d206以外のユーザに関しては問題なかったが）この件に関して、理由が判明。原因は、~/.login ファイルに<br>
+<code>setenv XFILESEARCHPATH /usr/lib/X11/%T/%N:/usr/freeware/lib/X11/%T/%N</code><br>
+の一行が知らない内に追加されていたことが原因らしい。この一行を削除することで問題は解決。状況から見ると、GNUPLOTインストール時のソフトウェアマネージャの仕業か（!?）。恐ろしや SGI …。
+</ul>
+<h3><a name="19971212">1997-12-12</a></h3>
+<ul>
+  <li>プリンタの設定<br>
+       ずっと悩んでいたプリンタ設定だが、以下の手順をふむことで解決。
+       <ol>
+	 <li>プリンタマネージャでネットワークプリンタとして、600psを設定。プリンタサーバは、aladdin.ulis.ac.jp。
+	 <li>/etc/hosts にaladdinへのエントリを追加。
+	 <li>aladdin上にて、/etc/hosts.lpd に cosmo のエントリを追加。
+	 <li>aladdin上にて、/etc/hosts に cosmo のエントリを追加。
+       </ol>
+       とりあえず、設定は、600ps のみ。安定を確認後、順次エントリを増やす予定とする。
+</ul>
+<h3><a name="19971214">1997-12-14</a></h3>
+<ul>
+  <li>プリンタの設定（b406ps）<br>
+       b406ps プリンタの設定を行なう。プリンタマネージャにて。プリンタサーバには、aphrodite を選択するだけ。
+  <li>NIS の設定<br>
+       <ol>
+	 <li>domainname コマンドでドメインの指定。
+	 <li>/etc/passwd ファイルに +::::::エントリを追加。
+	 <li>/etc/hosts の編集。
+	 <li>/etc/resolv.conf に <code>hostresorder nis dns local</code> エントリの設定。
+	 <li>ypbind デーモンの起動。
+	 <li>/etc/init.d/network スクリプトの編集。
+	 <li>/etc/rc2.d/S33ypbind スクリプトの作成。
+       </ol>
+</ul>
+<h3><a name="19971215">1997-12-15</a></h3>
+<ul>
+  <li>ログインウィンドウの変更（visuallogin off）<br>
+       ログイン画面を普通の画面にした。 <code># chkconfig visuallogin off</code>
+  <li>/tmp ディレクトリ属性の変更<br>
+       /tmp 以下は、なるべく簡単に消さないようにする。
+       <pre>
+       # chkconfig -f nocleantmp on
+       # chkconfig -f nostickytmp off
+       </pre>
+  <li>ユーザホームディレクトリの移動。<br>
+       NIS との関係も考え、今まで、デフォルトのまま作ってきた、ホームディレクトリを /home に変えることにする。（デフォルトのアカウントの guest, OutOfBox は /usr/people のまま。）d206 だけだったので、マウントポイントを変えるだけでやってしまった。（一部のリンク情報が壊れていた）
+</ul>
+<h3><a name="19971216">1997-12-16</a></h3>
+<ul>
+  <li>マウントポイントの変更に関する注意<br>
+       前日のユーザディレクトリの変更により、システムマネージャでモウントポイントを変更したが、その指定はブート時に自動的にその設定になるという訳ではないようだ。とりあえず、/etc/fstab, /etc/mtab の2つのファイルを手で書き変えた。あとで、マニュアルを確認しよう。アンマウントを umount コマンドで実行したからかな…。
+  <li>ユーザアカウントのクローズ<br>
+       guest, EZsetup のアカウントをクローズした。/etc/passwd のパスワードエントリを無効にし、<code>% chmod 000 ~guest</code> とした。
+</ul>
+<h3><a name="19971218">1997-12-18</a></h3>
+<ul>
+  <li>NIS の設定（その2）<br>
+       <a href="#19971214">前回の作業分</a>から、スレーブサーバとして seine の設定をしたので、nile を明示的にサーバとして設定しなくてよくなった。そこで、前回の分から、/etc/init.d/network の編集したところをけす。/etc/rc2.d/S33ypbind というスクリプト（中身は <code>ypbind nile</code>）を消す。その後で、現在走っている ypbind のプロセスを消す。そこまでやって、 <code># ypbind -v</code> としても、うまく動かない。（ ypwhich が、Domain not bound...と返す）<code># ypbind seine</code>とすると動くが、これでは、前とおなじで、再起動時に自動的に ypbind が立ち上がらない。（2つのプロセスが同時に動いてしまう）どうもバインドしにいこうとしてできないようなので、ネットワーク関係の設定を見ていたところ、どうも、ネットワークマスクの初期設定が、うちのドメイン通りになっていなかったのが原因らしい。<code># ifconfig netmask 0xfffffc00</code> とする。再起動させたら、うまくいった。
+</ul>
+<h3><a name="19971221">1997-12-21</a></h3>
+<ul>
+  <li>ユーザ初期設定ファイルの準備<br>
+       ユーザの初期設定ファイル（.cshrc .login .profile .Sgiresources）を /home/skel 以下に置く。あまり確認はしていない。あとは、nile,seineのセッティング待ち。
+</ul>
+<h3><a name="19971222">1997-12-22</a></h3>
+<ul>
+  <li>時間帯設定のバグ直し<br>
+       /usr/lib/international/timezones 中の JST-9JDT を JST-9 に修正。（UNIX MAGAZINE '97/10月号 p.155 参照）
+</ul>
+<h3><a name="19971228">1997-12-28</a></h3>
+<ul>
+  <li>ユーザのホームディレクトリの自動作成スクリプトの作成<br>
+       /etc/homesetup というスクリプトを作成し、ユーザのホームディレクトリを自動的に作れるようにする。さらに、 cron 用に、 /etc/nis_newuser というスクリプトも作成し、 /var/spool/cron/crontabs/root で一日に4回、ユーザのホームを NIS を元に作成するようにする。
+</ul>
+<h3><a name="19971229">1997-12-29</a></h3>
+<ul>
+  <li>NIS グループの追加<br>
+       /etc/group の最後に、<br>
+       +:<br>
+       を追加。
+</ul>
+<h3><a name="19971230">1997-12-30</a></h3>
+<ul>
+  <li>d206アカウントのNISへの移行<br>
+       これまで、ローカルアカウントだったd206アカウントをNISのアカウントにした。手順は、
+       <pre>
+       # chown -Rh 2706 /home/d206
+       # chgrp -Rh 300  /home/d206
+       /etc/passwd から d206 の一行を削除
+       </pre>
+       （chown, chgrp の h オプションに注意 !!）
+  <li>crontab ファイルの修正<br>
+       <code># crontab -e</code>でcrontabファイルを編集し、/etc/nis_newuserを一日に4回実行するようにする。（<code>0 0,6,12,18 * * * /etc/nis_newuser</code> を追加）
+  <li>httpd の停止<br>
+       勝手にユーザ登録をして、ファイルを作るなどの動作をしていた、httpd をとりあえず設定にとりかかる余裕ができるまで停止することにした。<code># chkconfig ns_fasttrack off</code>とした。
+</ul>
+<h3><a name="19980108">1998-01-08</a></h3>
+<ul>
+  <li>バックアップテープから crontab ファイルを復元<br>
+       crontab の設定を変更した際に、crontab コマンドを引数なしで実行したためにオリジナルの /var/spool/cron/crontabs/root が失われていた。ので、最初のフルバックアップテープから復元。
+       <pre>
+       ulispsn# dd if=/dev/rmt/0l ibs=512b | tar tf -
+       または、
+       ulispsn# tar tbvf 512 /dev/rmt/0l
+       で確認後、
+       ulispsn# tar xbf 512 /dev/rmt/0l /var/spool/cron/crontabs/root
+       得られたファイルを cosmo に移動し、
+       cosmo# crontab -e
+       で crontab ファイルを再編集する。
+       cosmo# crontab -l
+       で変更を確認する。
+       cosmo# /etc/init.d/cron stop
+       cosmo# /etc/init.d/cron start
+       </pre>
+       で作業完了。テープデバイスは、ulispsn のものを使わなければ、ブロックサイズが 512 の関係上、不可能である。今後、バックアップをとる時は、コマンドライン上で、ブロックサイズを 20 程度にする必要があることに注意すること。
+</ul>
+<h3><a name="19980202">1998-02-02</a></h3>
+<ul>
+  <li>ユーザアカウントのパスワードを無効化<br>
+       <ul>
+	 <li>lp:*:
+	 <li>nuucp:*:
+	 <li>demos:*Account Closed*:
+	 <li>OutOfBox:*Account Closed*:
+	 <li>4Dgifts:*Account Closed*:
+       </ul>
+       とした。
+</ul>
+<h3><a name="19980204">1998-02-04</a></h3>
+<ul>
+  <li>HD ラックの作成と照明の設置<br>
+       Joyful 本田から資材を購入して、ディスクを置く棚を作成。照明も設置。
+</ul>
+<h3><a name="19980212">1998-02-12</a></h3>
+<ul>
+  <li>時刻の修正<br>
+       前々から気になっていた30分ほど cosmo の date コマンドの出力がずれている問題を以下のようにして修正した。<br>
+       voyager で、
+       <pre>
+       # startsrc -s timed
+       </pre>
+       としてから、cosmo で、
+       <pre>
+       # timeslave -H voyager
+       </pre>
+       とする。これで、cosmo の date コマンドの出力は voyager とおなじものに設定された。
+<br>
+<br>
+       ところが、その後数時間経ってから確認したところ、voyager の時刻が cosmo の時刻に合う形で修正され、両方の時刻がずれた。
+       <pre>
+       voyager# stopsrc -s timed
+       </pre>
+       で voyager の timed を停止し、cosmo の timeslave も kill する。
+       <pre>
+       cosmo# date `rsh uranus -l d206 date +%m%d%H%M`
+       </pre>
+       として時刻を uranus に合わせた。時刻がずれてしまった voyager も同様に処理。
+</ul>
+<h3><a name="19980220">1998-02-20</a></h3>
+<ul>
+  <li>DNS サーバの切替え<br>
+       新システムの移行に伴う DNS サーバの切替えをおこなった。/etc/resolv.conf の内容を変更。
+       <pre>
+       nameserver      133.51.168.11
+       nameserver      133.51.168.12
+       domain          ulis.ac.jp
+       hostresorder nis bind local
+       </pre>
+  <li>rwhod の起動<br>
+       <pre>
+       # chkconfig rwhod on
+       </pre>
+  <li>HDD の増設<br>
+       /usr/local に対して、ディスクを割り当てる。
+       <ul>
+	 <li>SCSI-ID 2 でディスクを接続。
+	 <li>Add_disk コマンドを使って、ディスクの初期化、ファイルシステムの作成、マウントの各作業を行なう。
+	      <pre>
+	      # Add_disk 1 2
+	      Adding SCSI disk 2 on controller 1
+	      SCSI disk 2 appears to have a valid filesystem, overwrite it? (n)y
+	      /dev/dsk/dks1d2s7 mounted on /disk12
+	      
+	      New disk ready to use as /disk12.
+	      Filesystem             Type  kbytes     use     avail  %use   iuse  ifree %iuse  Mounted
+	      /dev/dsk/dks1d2s7       xfs  8882680      160  8882520   1       3 8886669   1   /disk12
+	      # df -k
+	      Filesystem             Type  kbytes     use     avail  %use Mounted on
+	      /dev/root               xfs  1908820  1820240    88580  96  /
+	      /dev/dsk/dks1d1s7       xfs  4241332    90612  4150720   3  /home
+	      /dev/dsk/dks1d2s7       xfs  8882680      160  8882520   1       3 8886669   1   /disk12
+	      </pre>
+	      となる。
+	 <li>/etc/fstab と /etc/mtab ファイルを編集して、/usr/local へのマウントとその自動化を行なう。以下は、そのファイルの内容
+	      <pre>
+	      # cat /etc/mtab 
+	      /dev/root / xfs rw,raw=/dev/rroot 0 0
+	      /proc /proc proc rw 0 0
+	      /dev/fd /dev/fd fd rw 0 0
+	      /dev/dsk/dks1d2s7 /usr/local xfs rw,raw=/dev/rdsk/dks1d2s7 0 0
+	      /dev/dsk/dks1d1s7 /home xfs rw,raw=/dev/rdsk/dks1d1s7 0 0
+	      -hosts /hosts autofs ignore,indirect,nosuid,vers=2,dev=180001 0 0
+	      # cat /etc/fstab
+	      /dev/root /  xfs  rw,raw=/dev/rroot 0 0
+	      /dev/dsk/dks1d1s7 /home xfs rw,raw=/dev/rdsk/dks1d1s7 0 0
+	      /dev/dsk/dks1d2s7 /usr/local xfs rw,raw=/dev/rdsk/dks1d2s7 0 0
+	      </pre>
+	      この後、リブートして完了。/home 用ディスクスペース 4GB が溢れた場合には、今回の 9GB のと入れ換える。
+	 <li>/usr/local の内容は、
+	      <pre>
+	      % cd /usr; tar cvf /tmp/local.tar ./local
+	      </pre>
+	      でバックアップをとっておき、その後、復元した。
+       </ul>
+</ul>
+
+<h3><a name="19980226">1998-2-26</a></h3>
+<ul>
+  <li>/etc/hosts エントリの追加<br>
+       <pre>
+       133.51.24.50 voyager voyager.ulis.ac.jp
+       </pre>
+       を追加。
+</ul>
+<h3><a name="19980227">1998-2-27</a></h3>
+<ul>
+  <li>timed デーモンの停止<br>
+       近くのマシンでは使っていないので、停止させた。
+       <pre>
+       # chkconfig timed off
+       </pre>
+</ul>
+<h3><a name="19980301">1998-3-1</a></h3>
+<ul>
+  <li>sendmail の設定変更<br>
+       外部へのメール送信ができなかったことが判明したので、おそるおそる設定を変更してみた。設定には、/usr/etc/configmail スクリプトを使用した。IRIX Admin: Networking and Mail (日本語版) 第8章, IRIX sendmail 18. を参考に以下の作業を行なった。
+       <pre>
+       # /usr/etc/configmail set directdomains NULL
+       # /usr/etc/configmail set localdomains ulis.ac.jp
+       # /usr/etc/configmail set forwarder NULL
+       # /usr/etc/configmail set rootdomain ulis.ac.jp
+       なお、これだけでは、外部接続の無い例なので、さらに、以下の作業を行なう。
+       # /usr/etc/configmail set forwarder ulis.ac.jp
+       # /usr/etc/configmail set relayname ulis.ac.jp
+       外部接続はulis.ac.jp（ホスト名）を使う。
+
+       これでsendmailの設定は完了なので、
+       # /etc/init.d/mail stop; /etc/init.d/mail start
+       でsendmailを再起動させる。
+
+       ちなみに設定は以下の通り。
+       # /usr/etc/configmail list
+       
+       forwarder = "ulis.ac.jp"
+       rootdomain = "ulis.ac.jp"
+       directdomains = ""
+       localdomain = "ulis.ac.jp"
+       pathalias = "/dev/null"
+       recsubdomains = ""
+       relayname = "ulis.ac.jp"
+       deadhosts = "somewhere"
+       domainrelay = "ulis.ac.jp"
+       mycanonname = "cosmo.ulis.ac.jp"
+       </pre>
+</ul>
+<h3><a name="19980302">1998-3-2</a></h3>
+<ul>
+  <li>Inetd の設定変更<br>
+       /var/adm/SYSLOG に
+       <pre>
+       Mar  2 23:25:52 6D:cosmo bootp[28108]: DHCP request, server not configured. exiting.
+       </pre>
+       のようなエラーが頻繁に書き込まれていた原因を見ていたところ。どうやら、inetd の設定が bootp を呼び出してエラーを起こしていたようなので、ついでに inetd の設定を変更する。以下のように、/etc/inetd.conf を変更。
+       <pre>
+       % diff /etc/inetd.conf.orig /etc/inetd.conf 
+       28,29c28,29
+       &lt; http  stream  tcp     nowait  nobody  ?/var/www/server/httpd httpd
+       &lt; wn-http       stream  tcp     nowait  nobody  ?/var/www/server/wn-httpd -f /var/www/conf/httpd.conf
+       ---
+       &gt; #http stream  tcp     nowait  nobody  ?/var/www/server/httpd httpd
+       &gt; #wn-http      stream  tcp     nowait  nobody  ?/var/www/server/wn-httpd -f /var/www/conf/httpd.conf
+       31,32c31,32
+       &lt; bootp dgram   udp     wait    root    /usr/etc/dhcp_bootp dhcp_bootp -o /etc/config/dhcp_bootp.options
+       &lt; tftp  dgram   udp     wait    guest   /usr/etc/tftpd  tftpd -s /usr/local/boot /usr/etc/boot
+       ---
+       &gt; #bootp        dgram   udp     wait    root    /usr/etc/dhcp_bootp dhcp_bootp -o /etc/config/dhcp_bootp.options
+       &gt; #tftp dgram   udp     wait    guest   /usr/etc/tftpd  tftpd -s /usr/local/boot /usr/etc/boot
+       </pre>
+       変更後、再起動させる。
+</ul>
+<h3><a name="19980305">1998-3-5</a></h3>
+<ul>
+  <li>sendmail の設定変更<br>
+       bach.ulis.ac.jp をなぜか使っていたようなので、 configmail を使って、
+       <pre>
+       forwarder = "smtp.ipc.ulis.ac.jp"
+       rootdomain = "ipc.ulis.ac.jp"
+       directdomains = ""
+       localdomain = "ulis.ac.jp"
+       pathalias = "/dev/null"
+       recsubdomains = ""
+       relayname = "smtp.ipc.ulis.ac.jp"
+       deadhosts = "somewhere"
+       domainrelay = "smtp.ipc.ulis.ac.jp"
+       mycanonname = "cosmo.ulis.ac.jp"
+       </pre>
+       となるように変更した。
+
+</ul>
+<h3><a name="19980311">1998-3-11</a></h3>
+<ul>
+  <li>sendmail の設定変更<br>
+       rootdomain = "ipc.ulis.ac.jp" となるのが嫌なので、もう一度
+       <pre>
+       # configmail setup
+       で設定し直す。
+       
+       forwarder = "smtp.ipc.ulis.ac.jp"
+       rootdomain = "ulis.ac.jp"
+       directdomains = ""
+       localdomain = "ulis.ac.jp"
+       pathalias = "/dev/null"
+       recsubdomains = ""
+       relayname = "smtp.ipc.ulis.ac.jp"
+       deadhosts = "somewhere"
+       domainrelay = "smtp.ipc.ulis.ac.jp"
+       mycanonname = "cosmo.ulis.ac.jp"
+       </pre>
+       とする。しかし、d206@cosmo.ulis.ac.jp 宛のメールがローカルに届かず、smtp.ipc.ulis.ac.jp と cosmo.ulis.ac.jp をいったり来たりする現象にあい、調査した結果。NIS にのっている host テーブルのうち、cosmo のエントリが
+       <pre>
+       133.51.24.112  cosmo
+       </pre>
+       となっているために、自分自身のホスト名をcosmoと思っていたために起きたらしい。 /etc/resolv.conf の記述のうち、
+       <pre>
+       hostresorder nis bind local
+       を
+       hostresorder    bind local
+       に変更して、NIS マップを見ないようにして対処。
+       </pre>
+
+</ul>
+
+<h3><a name="19980403">1998-4-3</a></h3>
+<ul>
+  <li>timeslave デーモンの起動<br>
+       何度調節しても時刻が大幅に狂ってしまうので、timeslaveデーモンを動かすことにする。サーバはnileを指定する。
+       <pre>
+       # chkconfig timeslave on
+       # echo "-H nile" &gt; /etc/config/timeslave.options
+       # timeslave -H nile
+       </pre>
+       時刻調節はNTPを使う方が良いらしいので、今度暇な時にxntpdのインストールを行なうこと。
+</ul>
+<h3><a name="19980405">1998-4-5</a></h3>
+<ul>
+  <li>NIS ユーザの UID の変更<br>
+       voyagerのdomainへの追加にともなって、新たにユーザを登録する際は、センター独立なUIDを用いることとし、現在いるユーザのUIDの再割り当てを行なった。UIDは100〜5000のあいだで与える。さらに、UIDの変更後、そのユーザの所有するファイルのオーナーを新しいUIDに変更した。
+       <pre>
+       # find /-user &lt;old-uid&gt; -print -exec chown -h &lt;new-uid&gt; {} \;
+       </pre>
+       として、ファイルのオーナーを一括して変更した。
+</ul>
+<h3><a name="19980420">1998-04-20</a></h3>
+<ul>
+  <li>Tapeデバイス用にカーネル再構築<br>
+       voyager に取り付けられていたテープデバイスで xfsdump がうまく出来ないため、fj.sys.sgi で聞いた(Message-ID: 6h4kdo$6b42@goat.ipc.ulis.ac.jp)ところ、メールにて以下の方法をすれば良いとの情報を得る。
+       <pre>
+	/var/sysgen/master.d/scsi 中に
+
+	{ DATTAPE, TPDAT, 2, 6, "HP", "C1537A", 0, 0, {0},
+	  MTCAN_BSF|MTCAN_BSR|MTCAN_APPEND|MTCAN_SETMK|MTCAN_PART|MTCAN_PREV|
+	  MTCAN_SYNC|MTCAN_SPEOD|MTCAN_CHKRDY|MTCAN_VAR|MTCAN_SETSZ|
+	  MTCAN_SILI|MTCAN_SEEK|MTCAN_CHTYPEANY|MTCANT_IMM|MTCAN_COMPRESS,
+	  40, 4*60, 4*60, 5*60, 512, 64*512, 0, (u_char *)0 },
+
+	と追加し、
+	# autoconfig -f
+	# cp /unix /unix.orig
+	# mv /unix.install /unix
+	# reboot
+	として、カーネルを再構築する。
+	また、/dev/tapeと/dev/nrtapeなどのデバイスファイルを削除して、作り直す。
+	</pre>
+   <li>フルバックアップ(xfsdump)<br>
+     初期フルバック以降では初のバックアップを取る。デバイスはvoyagerから持ってきたテープデバイス(DDS-3の)。前項の処理の後、/usr/local/bin/fullbackupを使う。念のため、以下でその内容を移しておく。
+     <pre>
+     #!/usr/bin/sh
+     # check user-ID
+     if [ `whoami` != "root" ]; then
+     echo "You must be Super-user"
+     exit 1
+     fi
+     
+     date=`date +"%Y/%m/%d-%H:%M"`
+     echo "This Script starts at ${date}."
+     echo
+     
+     echo "## / backup."
+     echo
+     xfsdump -f /dev/nrtape -l 0 -m -L "cosmo:/_${date}" -M "" /
+     
+     echo "## /home backup."
+     echo
+     xfsdump -f /dev/nrtape -l 0 -m -L "cosmo:/home_${date}" -M "" /home
+     
+     echo "## /usr/local backup."
+     echo
+     xfsdump -f /dev/nrtape -l 0 -m -L "cosmo:/usr/local_${date}" -M "" /usr/local
+     
+     exit 0
+     </pre>
+</ul>
+<h3><a name="19980426">1998-4-26</a></h3>
+<ul>
+  <li>初期Xsessionログイン時の~/public_htmlなどの自動作成機能を変更<br>
+    最初にX環境で（コンソールからtelnet,rloginではなく）ログインした時に、$HOME/public_htmlなどが自動的に作成され、/var/www/htdocsにもファイルが置かれるような設定を変更した。（ずっと前から変更したかったけど）
+    <br>
+    この設定は/usr/lib/X11/xdm/firsttime/outboxというスクリプトにあり、どうやら/usr/lib/X11/xdm/Xsession.dtが実行しているようなので、
+    <pre>
+    # chmod 644 /usr/lib/X11/xdm/firsttime/outbox
+    </pre>
+    として実行パーミッションを落して対処した。
+  <li>NISのSlaveサーバとして設定<br>
+       24のサブネット上にseineしかスレーブサーバが存在しなかったため、seineが切られるとメールなどでUser Unknownなどになる問題が生じていたが、cosmoをSlaveサーバとして設定し直すことにした。設定はNIS Administraation Guideを参照のこと。
+       <pre>
+       まず、メールの機能を切ってから作業を行なう。
+       # /etc/init.d/mail stop
+       次に、現在のNISの情報を持ったままスレーブサーバを初期化する。
+       # ypwhich
+       seine.ulis.ac.jp
+       Masterサーバを指定してypinit。
+       # cd /var/yp
+       # ypinit -s nile
+       （省略）
+       # killall ypbind
+       # /usr/etc/ypserv
+       # /usr/etc/ypbind
+       で、作業の完了。
+       # ypwhich
+       localhost
+       などとして、NISに接続されたのを確認。リブート。
+       # reboot
+       # chkconfig | grep yp
+         yp                   on
+         ypmaster             off
+         ypserv               on
+       となり、リブート時にも普通に立ち上がった。
+       </pre>
+</ul>
+
+<h3><a name="19980430">1998-4-30</a></h3>
+<ul>
+  <li>/etc/aliases の変更<br>
+    前から変更はしてたけど、newaliases コマンドを実行してなかったので、うまくいかなかった。postmaster@cosmo.ulis.ac.jp宛はrootとmasao@ulis.ac.jp宛になる。<br>
+    /etc/aliases を変更した際は、newaliases コマンドを実行すること。
+</ul>
+
+<h3><a name="19980501">1998-5-1</a></h3>
+<ul>
+  <li>整形済みManualの置き方<br>
+       何故かcosmoにはnroffコマンドがない。その代わりにawfコマンドを使って、manコマンドを実行しているらしい。ところが、awfは日本語のManualに対応していないらしい。ので、mnewsのマニュアルが読めなかった。そこで、整形済みマニュアルを置くことにする。
+       <pre>
+       # cd /usr/local/man
+       # mkdir cat1
+       # cp ~masao/mnews-1.21/doc/mnews.doc ./mnews
+       # pack mnews
+       とすると/usr/local/man/cat1/mnews.zができる。
+       これで % man mnews とすると、こっちが表示される。
+       </pre>
+       後で、nroffもしくはgroffをインストールすること。
+</ul>
+
+<h3><a name="19980521">1998-5-21</a></h3>
+<ul>
+  <li>プリンタ1040psの設定<br>
+       院生室1-Dに置いてある、院生用プリンタ1040ps（lp-grad.ulis.ac.jp）の設定を行ない、出力できることを確認した。作業はプリンタマネージャにて行なった。
+       <pre>
+       接続タイプ：ネットワーク
+       [isOther]
+       リモートホスト： lp-grad.ulis.ac.jp
+       リモートプリンタ名：pr1
+       </pre>
+</ul>
+
+<h3><a name="19980611">1998-6-11</a></h3>
+<ul>
+  <li>プリンタkikiの設定<br>
+       センターが機器室に設置しているプリンタkikiに接続した。プリンタマネージャにて。
+       <pre>
+       接続タイプ：ネットワーク
+       [isOther]
+       リモートホスト： kiki.ipc.ulis.ac.jp
+       リモートプリンタ名：kiki
+       </pre>
+</ul>
+
+<h3><a name="19980612">1998-6-12</a></h3>
+<ul>
+  <li>sambaの設定<br>
+       <a href="http://samba.bento.ad.jp/">Japanized SAMBA Web page</a>が参考になったかも。あと「SoftwareDesign」1997年5月号。
+       <ol>
+	 <li>まず、再起動時に自動的にsambaデーモンが起動させるやり方。以下のようなファイルを/etc/init.d/sambaとする。（examples/svr4-startupにちょっとだけ手を加えたもの）
+<pre>
+#!/bin/sh
+#ident  "@(#)samba.server 1.0   96/06/19 TK"    /* SVr4.0 1.1.13.1*/
+#
+# Please send info on modifications to knuutila@cs.utu.fi
+#
+# This file should have uid root, gid sys and chmod 744
+#
+if [ ! -d /usr/bin ]
+then                    # /usr not mounted
+        exit
+fi
+
+killproc() {            # kill the named process(es)
+        pid=`/usr/bin/ps -e |
+             /usr/bin/grep $1 |
+             /usr/bin/sed -e 's/^  *//' -e 's/ .*//'`
+        [ "$pid" != "" ] &amp;&amp; kill $pid
+}
+
+# Start/stop processes required for samba server
+
+case "$1" in
+
+'start')
+#
+# Edit these lines to suit your installation (paths, workgroup, host)
+#
+   /usr/local/samba/bin/smbd -D
+   /usr/local/samba/bin/nmbd -D
+   ;;
+'stop')
+   killproc nmbd
+   killproc smbd
+   ;;
+*)
+   echo "Usage: /etc/init.d/samba { start | stop }"
+   ;;
+esac
+</pre>
+       このファイルに対して、/etc/rc2.d/S98sambaからシンボリックリンクを張る。
+	 <li>設定ファイル(smb.conf)とprintcapを設定。これらのファイルの内容は以下の通り。
+<pre>
+% cat /usr/local/samba/lib/smb.conf
+[global]
+workgroup = cosmo
+coding system = EUC
+password level = 8
+printing = sysv
+load printers = yes
+print command = /usr/bin/lp -d %p %s
+lpq command = /usr/bin/lpstat -o %p
+printcap name = /usr/local/samba/lib/printcap
+status = yes
+dead time = 360
+log file = /usr/local/samba/var/log.%m
+log level = 1
+
+[printers]
+comment = All Printers
+path = /usr/local/samba/var/tmp
+printable = yes
+public =yes
+browseable = no
+create mode = 0700
+
+[tmp]
+comment = temp directory
+path = /usr/local/samba/var/tmp
+public = yes
+writable = yes
+create mode = 0750
+% cat /usr/local/samba/lib/printcap
+600ps|600ps
+b406ps|b406ps
+1040ps|1040ps
+kiki|kiki
+</pre>
+	      となっている。今回はプリンタの共有のみが主目的なので、これだけ。
+	      また、temporary directoryに指定した/usr/local/samba/var/tmpを作成し、共有できるようにした。（# chmod 777 /usr/local/samba/var/tmp）
+	 <li>以上で設定完了。あとは<code># /etc/init.d/samba start</code>として、デーモンを起動する。
+	 <li>コマンドラインでsmbclientを走らせてみて設定確認。
+<pre>
+% /usr/local/samba/bin/smbclient -L cosmo
+Server time is Fri Jun 12 02:34:16 1998
+Timezone is UTC+9.0
+Domain=[COSMO] OS=[Unix] Server=[Samba 1.9.18p6]
+security=share
+
+Server=[COSMO] User=[masao] Workgroup=[COSMO] Domain=[COSMO]
+
+        Sharename      Type      Comment
+        ---------      ----      -------
+        1040ps         Printer   1040ps
+        600ps          Printer   600ps
+        b406ps         Printer   b406ps
+        IPC$           IPC       IPC Service (Samba 1.9.18p6)
+        kiki           Printer   kiki
+        tmp            Disk      temp directory
+
+
+This machine has a browse list:
+
+        Server               Comment
+        ---------            -------
+        COSMO                Samba 1.9.18p6
+
+
+This machine has a workgroup list:
+
+        Workgroup            Master
+        ---------            -------
+        COSMO                COSMO
+        ECONOMETRICS         CHURCH
+        WORKGROUP            KEYNS
+</pre>
+	 <li>クライアントとなるWindows95マシンで以下のようにする。
+	      <pre>
+	      プリンタ  →
+	      プリンタの追加  →
+	      ネットワークプリンタ  →
+	      \\cosmo\kiki
+	      マイクロソフトアプリケーション：はい  →
+	      製造元：PostScript
+	      プリンタ：PostScript Printer
+	      </pre>
+	      とすると、プリンタのインストールが完了。テストプリントをしてみて完了。
+       </ol>     
+</ul>
+
+<h3><a name="19980613">1998-6-13</a></h3>
+<ul>
+  <li>カラープリンタmsctpの設定<br>
+       研究開発室１に設置されているマルチメディアシステムのカラープリンタmsctpへ接続する設定を行なった。sleepy.multiの/etc/printcapの設定を参考に以下のようにした。
+       <pre>
+       接続タイプ：ネットワーク
+       [isOther]
+       リモートホスト： st-colp.multi.ulis.ac.jp
+       リモートプリンタ名：PS
+       </pre>
+       ついでに、sambaでWindows95から見えるようにするために、/usr/local/samba/lib/printcapに"msctp|msctp"の一行を追加して、sambaを再起動。
+  <li>プリンタipcps2の設定<br>
+       機器室にあるプリンタipcps2への設定をした。
+       <pre>
+       接続タイプ：ネットワーク
+       [isOther]
+       リモートホスト： ipcps2-s.ulis.ac.jp
+       リモートプリンタ名：ipcps2
+       </pre>
+       /usr/local/samba/lib/printcapに"ipcps2|ipcps2"も追加。
+</ul>
+
+<h3><a name="19981010">1998-10-10</a></h3>
+<ul>
+  <li>Wnn6のキーバインドの変更<br>
+       システムデフォルトのWnn6(xwnmo2,uumなど)のキーバインドを変更した。変換キーがC-w（コントロール＋w）にバインドされていたため、コンソールのシェルやnetscapeでの日本語入力で不便していた。変換は全てSpaceキーに変更した。（その他のキーはいじっていない）
+       <pre>
+       キーバインドファイル：/usr/lib/wnn6/ja_JP/uumkey.wnn6
+       変更点は以下の通り。
+       % diff /usr/lib/wnn6/ja_JP/uumkey.wnn6 /usr/lib/wnn6/ja_JP/uumkey.wnn6.orig
+       17c17
+       &lt; henkan                                ^W 0x9E 0x20
+       ---
+       &gt; henkan                                ^W 0x9E 
+       82,86c82,86
+       &lt; nobi_henkan_dai                       ^W 0x9E 0x20 
+       &gt; select_jikouho_dai            ^W 0x9C 0x9E 0x20
+       &lt; select_jikouho                        ^Z 0x20 
+       &lt; nobi_henkan                   ^Z 0x20 
+       &lt; tan_henkan                    ^Z 0x20 
+       ---
+       &gt; nobi_henkan_dai                       ^W 0x9E 
+       &gt; select_jikouho_dai            ^W 0x9C 0x9E 
+       &gt; select_jikouho                        ^Z 
+       &gt; nobi_henkan                   ^Z 
+       &gt; tan_henkan                    ^Z 
+       </pre>
+</ul>
+<h3><a name="19981028">1998-10-28</a></h3>
+<ul>
+  <li>コンソール以外でのX環境の変更<br>
+    <code>/usr/lib/X11/xdm/Xsession</code>を参考にして、
+    リモートでのX環境のデフォルトをコンソールと同様のデスクトップ環境にした。
+    <pre>
+    % cd /usr/lib/X11/xdm
+    % su
+    # cp Xsession.dt Xsession-remote.dt
+    # vi Xsession-remote
+    ここで、Xsessionと同様にして、Desktop環境を呼び出すように変更。
+    # diff Xsession-remote.orig Xsession-remote
+    4a5,13
+    &gt; # Desktop addition.  If there is a Xsession.dt file, execute that instead
+    &gt; if /etc/chkconfig desktop ;
+    &gt; then
+    &gt;         if [ -x $0.dt -a \! -f $HOME/.disableDesktop ]
+    &gt;         then
+    &gt;                 exec $0.dt $*
+    &gt;         fi
+    &gt; fi
+    </pre>
+  <li>terminfoを他のマシンに登録<br>
+    cosmoの主要なTERMであるiris-ansiとiris-ansi-netを他に管理している
+    voyager,nileのマシンでも登録する。<code>infocmp</code>コマンドと<code>tic</code>コマンドを使用する。
+    <pre>
+    cosmo% infocmp iris-ansi &gt; iris-ansi
+    cosmo% infocmp iris-ansi-net &gt; iris-ansi-net
+    cosmo% rcp iris-ansi-net iris-ansi voayegr:
+    cosmo% rcp iris-ansi-net iris-ansi nile:
+
+    voyager% su
+    voyager# tic iris-ansi
+    voyager# tic iris-ansi-net
+
+    nile% su
+    nile# tic iris-ansi
+    nile# tic iris-ansi-net
+    </pre>
+</ul>
+
+<h3><a name="19981107">1998-11-7</a></h3>
+<ul>
+  <li>dttermをterminfoに登録<br>
+    既に学内でも標準環境になりつつあるCDEのTerminal Emulaterであるdttermをterminfoに登録した。始めはvoyagerのterminfoを使っていたのだが、これがエラーを吐き、どうもLynxなどを使っている際に変な表示を見せたので、nileのエントリを利用する。（微妙にエントリが違うらしくこっちはOKだった。良く考えたら、voyagerって相当古いマシンだよなー。;-P）
+    <pre>
+    nile% infocmp dtterm &gt; dtterm
+    nile% rcp dtterm cosmo:
+
+    cosmo# tic dtterm
+    </pre>
+    
+    以上で完了。これでLynxを起動してみたら、カラフルで驚いた。cosmoのwintermってカラー表示に対応してなかったのね。ちょっとショック。
+    
+</ul>
+
+<h3><a name="19981224">1998-12-24</a></h3>
+<ul>
+  <li>WWWサーバの設定変更（トップページの変更）
+     <p>
+<a href="http://cosmo.ulis.ac.jp/">2講のページ</a>をcosmoで提供するためにWWWサーバの設定を変更。
+     WWWサーバのトップページを/var/www/htdocs → /var/www/2kou に変更した。</p>
+     <p>
+     変更方法はAdminサーバを使い、http://localhost:81/にネットスケープでアクセスし、Primary Document Directoryを/var/www/2kouに変更し、「Save and Apply」する。</p>
+  <li>WWWサーバの設定変更（cosmoのマニュアルページの作成）<br>
+     cosmoの設定メモ（この文書）やマニュアルなどを提供するページをdreamからcosmoに移動した。
+     そのために、/var/www/cosmoをhttp://cosmo.ulis.ac.jp/cosmo/でアクセスできるよう設定を変更する。
+     <p>
+     変更方法はAdminサーバを使い、http://localhost:81/にネットスケープでアクセスし、「Additional Document Directories」を</p>
+     <pre>
+     URL prefix:
+          http://cosmo.ulis.ac.jp/<kbd>cosmo/</kbd>
+     Map To Directory: <kbd>/var/www/cosmo</kbd>
+     </pre>
+     と設定し、「Save and Apply」する。
+</ul>
+
+<h3><a name="19990119">1999-1-19</a></h3>
+<ul>
+  <li>WWWサーバの設定変更<br>
+     今後のために、http://cosmo.ulis.ac.jp/のURLで2講のページを提供するのをやめる。ので、Primary Document Directoryを/var/www/htdocsに戻し、/var/www/htdocs/index.htmlを書いた。
+</ul>
+
+<h3><a name="19990219">1999-2-19</a></h3>
+<ul>
+  <li>dttermの登録内容の変更(terminfo)<br>
+     「<a href="#19981107">dttermをterminfoに登録</a>」の項での処理で
+     nileでのエントリを登録していたが、
+     どうもcshでの[ESC]や^Dを使った補完操作の際に
+     関係のない文字列が出力されてしまうという問題がおきていたようだ。
+     これに対処するために、今度はdreamからエントリをもらってきた。
+     今のところ問題はないようだ。
+     <pre>
+     dream% infocmp dtterm &gt; dtterm
+     dream% rcp dtterm cosmo:
+
+     cosmo# tic dtterm
+     </pre>
+     
+     次に、一応現在のエントリ内容を出しておく。
+     <pre>
+#       Reconstructed via infocmp from file: /usr/share/lib/terminfo/d/dtterm
+dtterm,
+        am, mir, msgr, xenl, xon,
+        cols#80, it#8, lines#24, lm#0,
+        bel=^G, blink=\E[5m, bold=\E[1m, civis=\E[?25l,
+        clear=\E[H\E[J, cnorm=\E[?25h, cr=\r,
+        csr=\E[%i%p1%d;%p2%dr, cub=\E[%p1%dD, cub1=\b,
+        cud=\E[%p1%dB, cud1=\n, cuf=\E[%p1%dC, cuf1=\E[C,
+        cup=\E[%i%p1%d;%p2%dH, cuu=\E[%p1%dA, cuu1=\E[A,
+        dch=\E[%p1%dP, dch1=\E[P, dim=\E[2m, dl=\E[%p1%dM,
+        dl1=\E[M, ech=\E[%p1%dX, ed=\E[J, el=\E[K,
+        flash=\E[?5h$&lt;200&gt;\E[?5l, home=\E[H, ht=\t, hts=\EH,
+        ich=\E[%p1%d@, il=\E[%p1%dL, il1=\E[L, ind=\ED,
+        invis=\E[8m, is2=\E\sF\E&gt;\E[?1l\E[?7h\E[?45l, kbs=\b,
+        kcub1=\E[D, kcud1=\E[B, kcuf1=\E[C, kcuu1=\E[A,
+        kdch1=\E[3~, kf1=\E[11~, kf10=\E[21~, kf11=\E[23~,
+        kf12=\E[24~, kf13=\E[25~, kf14=\E[26~, kf15=\E[28~,
+        kf16=\E[29~, kf17=\E[31~, kf18=\E[32~, kf19=\E[33~,
+        kf2=\E[12~, kf20=\E[34~, kf3=\E[13~, kf4=\E[14~,
+        kf5=\E[15~, kf6=\E[17~, kf7=\E[18~, kf8=\E[19~,
+        kf9=\E[20~, kich1=\E[2~, knp=\E[6~, kpp=\E[5~,
+        nel=\EE, rc=\E8, rev=\E[7m, ri=\EM, rmacs=^O,
+        rmir=\E[4l, rmso=\E[22;27m, rmul=\E[24m, sc=\E7,
+        sgr=\E[0%?%p1%t;2;7%;%?%p2%t;4%;%?%p3%t;7%;%?%p4%t;5%;%?%p5%t;2%;%?%p6%t;1%;%?%p7%t;8%;m%?%p9%t^N%e^O%;,
+        sgr0=\E[0m, smacs=^N, smir=\E[4h, smso=\E[2;7m,
+        smul=\E[4m, tbc=\E[3g,
+     </pre>
+</ul>
+
+<h3><a name="19990220">1999-2-20</a></h3>
+<ul>
+  <li>WWWサーバの設定変更<br>
+     <a href="#19990119">1999-1-19</a>の変更により、
+     システムマネージャが起動しなくなっていたため、再度WWWサーバのトップディレクトリを変更する。
+     http://cosmo.ulis.ac.jp/ は、 /var/www/htdocs.new 以下で提供することとする。
+     システムデフォルトのHTMLディレクトリは初期設定通り/var/www/htdocsに置いておく。
+</ul>
+
+<h3><a name="19990304">1999-3-4</a></h3>
+<ul>
+  <li>フルバックアップ<br>
+
+     cosmoのフルバックアップを行なった。
+     voyagerにつけているDDS3のテープデバイスを使用した。
+
+     <pre>
+     voyagerでテープを入れておく。
+     voyager% mt -f /dev/rmt0 rewind
+
+     cosmoで
+     cosmo# cd /
+     cosmo# tar cvf - . | rsh voyager dd of=/dev/rmt0
+     </pre>
+     以上で、フルバックアップ完了。
+     （tar形式でとってあるので、デバイスファイルなど特殊ファイルは取れていない点に注意すること。）リストアは以下のようにする。
+     <pre>voayger% tar xvf /dev/rmt0 /dir/subdir</pre>
+     これで、/dir/subdir以下のファイルが展開される。
+     <div>
+     最後に、テープデバイスの情報を残しておく。
+     <pre>
+     voyager% mt -f /dev/rmt0 status
+     rmt0 使用可能 04-B0-00-2,0 他の SCSI テープ・ドライブ
+     attribute      value description                                user_settable
+     
+     mode           yes   書込み時にデバイス・バッファを使用         真
+     block_size     512   ブロック・サイズ (0=可変長)                真
+     extfm          yes   拡張ファイル・マークを使用                 真
+     res_support    no    リザーブ／リリースのサポート               真
+     var_block_size 0     可変長のブロック・サイズのサポート         真
+     density_set_1  0     #1 に設定中の記録密度                      真
+     density_set_2  0     #2 に設定中の記録密度                      真
+     delay          45    コマンドが失敗した後の遅延の設定           真
+     rwtimeout      144   読取り／書込みコマンドのタイムアウトの設定 真
+     </pre>
+     </div>
+
+     
+</ul>
+
+
+<h3><a name="19990312">1999-3-12</a></h3>
+<ul>
+  <li>ディスククラッシュとその復旧<br>
+     3月8日18時頃、ユーザのホームディレクトリ用に使っている、外づけディスクがクラッシュした。mountしようとすると、以下のエラーメッセージが出る。（マシン自体の起動はできる。）
+     <pre>
+dks1d1s7: [Alert] Device hardware error: No seek complete(asc=0x2, asq=0x0)
+          retries exhausted
+dks1d1s7: [Alert] Device hardware error: No seek complete(asc=0x2, asq=0x0)
+          retries exhausted
+dks1d1s7: [Alert] Device hardware error: No seek complete(asc=0x2, asq=0x0)
+          retries exhausted
+dks1d1s7: [Alert] Device hardware error: No seek complete(asc=0x2, asq=0x0)
+          retries exhausted
+
+mount: /dev/dsk/dsk1d1s7 on /home: I/O Error
+mount: giving up on:
+        /home
+     </pre>
+     このディスクは4GBのアドバンスドシステムズ社製のHDD（モデル名：ARZ3427、シリアル番号：JDA73826）。
+     <p>
+     まず、PCに接続してAdaptecのSCSI Utilityでもエラーが起きることを確認する
+     （OS側の問題でないことを確認するため）。以下のメッセージが出る。
+     <pre>
+     Unexpected SCSI Command failure
+     ----------------------------------------------
+     Target SCSI ID:        1
+     SCSI CDB Sent:         04 00 00 00 00 00
+     Host Adapter Status:   00h - No host adapter error
+     Target Status:         02h - Check condition
+     Sense Key:             02h - Not ready
+     +Sense Code:           04h
+     +Sense Code Qualifier: 01h
+     </pre>
+     <p>
+     アドバンスドシステムズに修理依頼の電話をかける。
+     電話番号はマニュアルに記載されている（045-525-6295）。
+     <ul>
+       <li>Ready状態にならない。
+       <li>昨年購入したHDDで保証期間内である。
+       <li>製品の型番。
+       <li>一応、シリアル番号も。
+     </ul>
+     以上を確認した上で、送り先を聞く。
+     <p>
+     その後、研究事務室の山田さんにやりかたを聞き、郵送の手続きを取る。
+     <hr width="30%">
+     復旧を行なう。
+     <p>
+     まず、たまたまvoyager用に購入した9GBのディスクが余っていたので、
+     それを一時的に利用する。
+     <p>
+     SCSI IDを1にして接続し、cosmoをリブートする。
+     <ol>
+       <li>まず、認識を<code>% hinv -c disk</code>として確認する。
+       <li>『システム・マネージャ』 → 『ハードウェアとデバイス』 → 『ディスクマネージャ』でディスクの初期化とフォーマットをする。（ここではマウントは行なわない）
+       <li><code># Add_disk 1 1</code>としてマウントする。
+       <li><code># vi /etc/fstab</code>、<code># vi /etc/mtab</code>として、
+	  一時的なマウントポイントになっているものを/homeにマウントするようにする。
+       <li>リブートする。<br>
+	  これでディスクを認識して、マウントが行なわれれば、HDDの接続の設定完了。
+     </ol>
+     <p>
+     バックアップデータをリストアする。
+     voyagerのDDS3テープドライブを利用する。
+     <pre>
+     # cd /
+     # rsh voyager 'mt -f /dev/rmt0 rewind'
+     # rsh voyager 'dd if=/dev/rmt0' | tar xvfB - ./home
+     x home/abe/.Sgiresources, 24 bytes, 1 block
+     x home/abe/.cshrc, 577 bytes, 2 blocks
+     x home/abe/.login, 632 bytes, 2 blocks
+     x home/abe/.profile, 641 bytes, 2 blocks
+     x home/anzai/.Sgiresources, 24 bytes, 1 block
+     x home/anzai/.cshrc, 577 bytes, 2 blocks
+     ‥‥‥‥‥‥‥
+     ‥‥‥
+     となり、数時間待つとリストア完了。
+     （その間はユーザのログインができないよう/etc/nologinを作成）
+     # rm /etc/nologin
+     以上で完了。
+     </pre>
+
+</ul>
+
+<h3><a name="19990414">1999-4-14</a></h3>
+<ul>
+  <li>カラープリンタmmctp, mgctpの追加<br>
+     プリンタ・マネージャでプリンタの追加を行なう。
+     <p>
+     まず、mmctpの追加。（研究開発室IIにある）
+     <pre>
+     プリンタ名：<code>mmctp</code>
+     接続タイプ：<code>ネットワーク</code>
+     sgiOrOtherLabel：<code>isOther</code>
+     リモート・ホスト名：<code>mac-colp.multi.ulis.ac.jp</code>
+     リモート・プリンタ名：<code>PS</code>
+     </pre>
+     <p>
+     次に、mgctpの追加。（研究開発室IIIにある）
+     <pre>
+     プリンタ名：<code>mgctp</code>
+     接続タイプ：<code>ネットワーク</code>
+     sgiOrOtherLabel：<code>isOther</code>
+     リモート・ホスト名：<code>sgi-colp.multi.ulis.ac.jp</code>
+     リモート・プリンタ名：<code>PS</code>
+     </pre>
+     <p>
+     最後に、Sambaで共有できるよう、<code>/usr/local/samba/lib/printcap</code>に
+     <pre>
+     mmctp|mmctp
+     mgctp|mgctp
+     </pre>
+     の2行を追加した。
+     
+  <li>2講のページを自動的にGroup書き込み可にする。
+     毎日5時4分に<a href="http://cosmo.ulis.ac.jp/2kou/">2講のWebページ</a>をグループ書き込み可に変更する。
+     <pre>
+     # crontab -e
+     として、
+     # Added by M.Takaku 1999/4/14
+     4 5 * * *       chmod -R g+w /var/www/2kou
+     の2行を追加した。
+     </pre>
+
+</ul>
+
+<h3><a name="19990430">1999-4-30</a></h3>
+
+<ul>
+  <li>プリンタ2koupsの追加<br>
+
+     新しいプリンタが届いたので、追加する。（2koups）の追加。
+     <pre>
+     プリンタ名：<code>2koups</code>
+     接続タイプ：<code>ネットワーク</code>
+     sgiOrOtherLabel：<code>isOther</code>
+     リモート・ホスト名：<code>2koups.ulis.ac.jp</code>
+     リモート・プリンタ名：<code>PORT1</code>
+     </pre>
+     <p>
+     最後に、Sambaで共有できるよう、<code>/usr/local/samba/lib/printcap</code>に
+     <pre>
+     2koups|2koups
+     </pre>
+     を追加した。
+     
+</ul>
+
+<h3><a name="19990511">1999-5-11</a></h3>
+
+<ul>
+  <li>プリンタb406psの削除<br>
+
+     2koupsの追加にともない、b406psが引退したので、削除する。
+     （特に、b406psへのプリント要求があるとlpd自体が落ちることがあったため）
+     <pre>
+     プリンタマネージャからb406psを削除する。
+     /usr/local/samba/lib/printcapからb406psエントリを削除する。
+     </pre>
+     
+</ul>
+
+<h3><a name="19990528">1999-5-28</a></h3>
+<ul>
+  <li>デフォルトプリンタを2koupsに変更<br>
+     600psが故障したので、2koupsをデフォルトプリンタにする。
+</ul>
+
+
+<h3><a name="19990806">1999-8-6</a></h3>
+<ul>
+  <li>フルバックアップを行なう。<br>
+     以下は別途記載したメモのコピー。
+     <pre>
+〜〜 cosmo のフルバックアップ 〜〜
+1999年8月5日22:00 （voyagerのテープデバイスを利用してtarコマンドにて作成する）
+
+〜〜 作業記録 〜〜
+1. voyagerの/etc/hosts.equivにcosmo.ulis.ac.jpのエントリを追加。
+2. voyagerのテープデバイスに使用するDDS-3テープを入れ、巻き戻す。
+        voyager# mt -f /dev/rmt0 rewind 
+        voyager# mt -f /dev/rmt0 status 
+3. cosmoにてバックアップ開始。
+        cosmo# cd /
+        cosmo# tar cf - . | rsh voyager 'dd of=/dev/rmt0'
+
+〜〜 リストアのやり方 〜〜
+1. テープデバイスにテープを入れ、巻き戻す。
+        % mt -f /dev/rmt0 rewind
+2. データを取り出す。
+        % tar xf /dev/rmt0 dir/wanted ...
+
+〜〜 バックアップ時のテープデバイスの設定 〜〜
+voyager% mt -f /dev/rmt0 status
+rmt0 使用可能 04-B0-00-2,0 他の SCSI テープ・ドライブ
+attribute      value description                                user_settable
+
+mode           yes   書込み時にデバイス・バッファを使用         真
+block_size     512   ブロック・サイズ (0=可変長)                真
+extfm          yes   拡張ファイル・マークを使用                 真
+res_support    no    リザーブ／リリースのサポート               真
+var_block_size 0     可変長のブロック・サイズのサポート         真
+density_set_1  0     #1 に設定中の記録密度                      真
+density_set_2  0     #2 に設定中の記録密度                      真
+delay          45    コマンドが失敗した後の遅延の設定           真
+rwtimeout      144   読取り／書込みコマンドのタイムアウトの設定 真
+
+     </pre>
+</ul>
+<h3><a name="19990915">1999-09-15</a></h3>
+<ul>
+  <li>テープデバイスの設置<br>
+     voyagerからテープデバイスをもらってきて、設置した。
+     SCSI-IDは4番をつける。
+</ul>
+
+
+<hr>
+<a href="../">cosmoの情報</a>
+<hr>
+<address>
+高久雅生 (Takaku Masao)<br>
+<a href="http://www.ulis.ac.jp/~masao/">http://www.ulis.ac.jp/~masao/</a><br>
+<a href="mailto:masao@ulis.ac.jp">masao@ulis.ac.jp</a></address>
+</body></html>

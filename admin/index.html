@@ -1,0 +1,829 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<link rev=made href="mailto:masao@ulis.ac.jp">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
+<title>cosmoの管理者向けメモ</title>
+</head>
+
+<body bgcolor="#aaffaa">
+
+<!-- hhmts start -->
+<p>最終更新日： <b>Fri Mar  3 18:42:54 2000</b></p>
+<!-- hhmts end -->
+<hr>
+<strong>
+1999年9月19日に2000年問題対策のために、cosmoのOSをIRIX 6.3からIRIX 6.5.4にバージョンアップしました。
+</strong>
+<ul>
+  <li><a href="./irix6.3.html">以前のIRIX 6.3当時の管理メモ</a>
+  <li><a href="./irix6.5.4.html">IRIX 6.5.4のインストール時のメモ</a>
+</ul>
+<p>
+現在判明している問題:
+<ul>
+  <li>Adobe Photoshop, Adobe Illustlatorが使えない。
+</ul>
+</p>
+
+<hr>
+
+<h1>目次</h1>
+<ul>
+  <li><a href="#1999-09-19">OSインストール</a>
+  <li><a href="#1999-09-21">カーネルの再構築(テープデバイス)</a>
+  <li><a href="#1999-09-22.1">フルバックアップ</a>
+  <li><a href="#1999-09-22.2">プリンタの設定(600ps,1040ps,ipcps2,mmctp,msctp,mgctp)</a>
+  <li><a href="#1999-09-22.3">inetdの設定変更(bootp_dhcp)</a>
+  <li><a href="#1999-09-26">crontabsファイルの編集</a>
+  <li><a href="#1999-10-01">makeuserスクリプトの作成</a>
+  <li><a href="#1999-10-03">デフォルトumaskの変更</a>
+  <li><a href="#1999-11-03.1">フルバックアップ</a>
+  <li><a href="#1999-11-03.2">cronでフルバックアップの設定</a>
+  <li><a href="#1999-11-05">z3950グループの作成</a>
+  <li><a href="#1999-11-11">Wnn6のキーバインド変更</a>
+  <li><a href="#1999-12-06.1">udalabグループの作成</a>
+  <li><a href="#1999-12-13.1">新規ユーザ作成(g122, g260, g301)</a>
+  <li><a href="#1999-12-13.2">メールエイリアスudalab作成</a>
+  <li><a href="#2000-02-03.1">初期起動デーモンの変更</a>
+  <li><a href="#2000-02-03.2">WWWサーバApacheの設定</a>
+  <li><a href="#2000-02-04">2講のWebページをCVSで管理</a>
+  <li><a href="#2000-03-03">時刻同期サーバを変更</a>
+</ul>
+
+<hr>
+
+<h1>作業内容</h1>
+
+<h2>1999-09-19</h2>
+<ul>
+  <li><a name="1999-09-19">OSインストール</a><br>
+     OSのバージョンアップを行なった。
+     (インストール時の作業内容は<a href="irix6.5.4.html">メモ</a>を見ること!!)
+</ul>
+
+<h2>1999-09-21</h2>
+<ul>
+  <li><a name="1999-09-21">カーネル再構築(テープデバイス用)</a><br>
+<pre>
+     /var/sysgen/master.d/scsi 中に
+     
+        /* Added by M.Takaku 1999-09-21 */
+        { DATTAPE, TPDAT, 2, 6, "HP", "C1537A", 0, 0, {0},
+        MTCAN_BSF|MTCAN_BSR|MTCAN_APPEND|MTCAN_SETMK|MTCAN_PART|MTCAN_PREV|
+        MTCAN_SYNC|MTCAN_SPEOD|MTCAN_CHKRDY|MTCAN_VAR|MTCAN_SETSZ|
+        MTCAN_SILI|MTCAN_SEEK|MTCAN_CHTYPEANY|MTCANT_IMM|MTCAN_COMPRESS,
+        40, 4*60, 4*60, 5*60, 3*3600, 512, 64*512, 
+        tpsc_default_dens_count, tpsc_default_hwg_dens_names, tpsc_default_alias_dens_names,
+        {0}, 0, 0, 0,
+        0, (u_char *)0 },
+     
+     と追加し、
+     # autoconfig -f
+     # cp /unix /unix.orig
+     # mv /unix.install /unix
+     # reboot
+     として、カーネルを再構築する。
+</pre>
+</ul>
+
+<h2>1999-09-22</h2>
+<ul>
+  <li><a name="1999-09-22.1">フルバックアップ</a><br>
+     フルバックアップを取る。(xfsdumpを使う)
+     <pre>
+     # cat /usr/local/bin/fullbackup
+#!/bin/sh
+# Wrriten by M.Takaku 1998/3/12-
+# フルバックアップを行なうスクリプト。
+# xfsdump コマンドを使用する。
+
+# check user-ID
+if [ `whoami` != "root" ]; then
+        echo "You must be Super-user"
+        exit 1
+fi
+
+date=`date +"%Y/%m/%d-%H:%M"`
+
+#echo "## Welcome to cosmo.ulis.ac.jp\n## Now system backup is running, since ${date}\n## Please, try later ...\n" > /etc/nologin
+
+echo "This Script starts at ${date}."
+echo
+
+mt -f /dev/tape rewind
+
+sleep 20
+
+echo "## / backup."
+echo
+xfsdump -f /dev/nrtape -l 0 -m -L "cosmo:/_${date}" -M "" /
+
+echo "## /home backup."
+echo
+xfsdump -f /dev/nrtape -l 0 -m -L "cosmo:/home_${date}" -M "" /home
+
+echo "## /var backup."
+echo
+xfsdump -f /dev/nrtape -l 0 -m -L "cosmo:/var_${date}" -M "" /var
+
+echo "## /usr/local backup."
+echo
+xfsdump -f /dev/nrtape -l 0 -m -L "cosmo:/usr/local_${date}" -M "" /usr/local
+
+#rm -f /etc/nologin
+
+exit 0
+     # /usr/local/bin/fullbackup
+     とした。
+
+     一応、テープドライブの情報を残しておく。
+     # mt -f /dev/nrtape status
+
+     Restoreするには、
+     # cd /tmp
+     # xfsrestore -f /dev/nrtape -i .
+     として、出てきたメッセージから欲しいディスクラベルのものをadd, extractする。
+     </pre>
+
+  <li><a name="1999-09-22.2">プリンタの設定(600ps,1040ps,ipcps2,mmctp,msctp,mgctp)</a><br>
+     以前に設定していたプリンタを再度、設定して利用できるようにしておく。(プリンタマネージャを使う。)
+     <dl>
+       <dt>600ps
+       <dd>
+	  <dl compact=ON>
+	     <dt>プリンタサーバ
+	     <dd>nile.ulis.ac.jp
+	     <dt>プリンタ名
+	     <dd>600ps
+	  </dl>
+       <dt>1040ps
+       <dd>
+	  <dl compact=ON>
+	     <dt>プリンタサーバ
+	     <dd>lp-grad.ulis.ac.jp
+	     <dt>プリンタ名
+	     <dd>pr1
+	  </dl>
+       <dt>ipcps2
+       <dd>
+	  <dl compact=ON>
+	     <dt>プリンタサーバ
+	     <dd>ipcps2-s.ulis.ac.jp
+	     <dt>プリンタ名
+	     <dd>ipcps2
+	  </dl>
+       <dt>msctp
+       <dd>
+	  <dl compact=ON>
+	     <dt>プリンタサーバ
+	     <dd>st-colp.multi.ulis.ac.jp
+	     <dt>プリンタ名
+	     <dd>PS
+	  </dl>
+       <dt>mgctp
+       <dd>
+	  <dl compact=ON>
+	     <dt>プリンタサーバ
+	     <dd>sgi-colp.multi.ulis.ac.jp
+	     <dt>プリンタ名
+	     <dd>PS
+	  </dl>
+     </dl>
+
+     ※注意:600psに関してはlp-ecampe.ulis.ac.jpに直接つなぐことは相性が悪いらしくできなかったので、nile経由にする。
+
+     <p>
+     ※注意:mmctp(Mac部屋のカラープリンタ)はプリンタサーバが起動していないので、設定しない。(多分誰も使ってないし…)
+     <dl>
+       <dt>mmctp
+       <dd>
+	  <dl compact=ON>
+	     <dt>プリンタサーバ
+	     <dd>mac-colp.multi.ulis.ac.jp
+	     <dt>プリンタ名
+	     <dd>PS
+	  </dl>
+     </dl>
+
+  <li><a name="1999-09-22.3">inetdの設定変更(bootp_dhcp)</a><br>
+
+     /var/adm/SYSLOGに以下のような出力が頻繁にされるようなので、(恐らく)原因であろう、/etc/inetd.confの設定を以下のように書き換える。(ついでに利用しないデーモンの記述もコメントアウトした。)
+     <pre>
+     # cd /etc
+     # cp inetd.conf inetd.conf.org
+     # vi inetd.conf
+     # diff -c inetd.conf.org inetd.conf
+*** inetd.conf.org      Sat Sep 18 11:37:59 1999
+--- inetd.conf  Wed Sep 22 11:31:13 1999
+***************
+*** 29,36 ****
+  # http        stream  tcp     nowait  nobody  ?/var/www/server/httpd httpd
+  # wn-http     stream  tcp     nowait  nobody  ?/var/www/server/wn-httpd -f /var/www/conf/httpd.conf
+  # bootp       dgram   udp     wait    root    /usr/etc/bootp          bootp
+! bootp dgram   udp     wait    root    /usr/etc/dhcp_bootp dhcp_bootp -o /etc/config/dhcp_bootp.options
+! tftp  dgram   udp     wait    guest   /usr/etc/tftpd  tftpd -s /usr/local/boot /usr/etc/boot
+  ntalk dgram   udp     wait    root    /usr/etc/talkd          talkd
+  tcpmux        stream  tcp     nowait  root    internal
+  echo  stream  tcp     nowait  root    internal
+--- 29,36 ----
+  # http        stream  tcp     nowait  nobody  ?/var/www/server/httpd httpd
+  # wn-http     stream  tcp     nowait  nobody  ?/var/www/server/wn-httpd -f /var/www/conf/httpd.conf
+  # bootp       dgram   udp     wait    root    /usr/etc/bootp          bootp
+! # bootp       dgram   udp     wait    root    /usr/etc/dhcp_bootp dhcp_bootp -o /etc/config/dhcp_bootp.options
+! # tftp        dgram   udp     wait    guest   /usr/etc/tftpd  tftpd -s /usr/local/boot /usr/etc/boot
+  ntalk dgram   udp     wait    root    /usr/etc/talkd          talkd
+  tcpmux        stream  tcp     nowait  root    internal
+  echo  stream  tcp     nowait  root    internal
+***************
+*** 50,59 ****
+  # These use the portmapper instead of /etc/services.
+  #
+  # we only support mountd versions 1 and 3 
+! mountd/1,3    stream  rpc/tcp wait/lc    root    /usr/etc/rpc.mountd     mountd
+! mountd/1,3   dgram   rpc/udp wait/lc    root    /usr/etc/rpc.mountd     mountd
+! sgi_mountd/1 stream rpc/tcp wait/lc    root    /usr/etc/rpc.mountd     mountd
+! sgi_mountd/1 dgram  rpc/udp wait/lc    root    /usr/etc/rpc.mountd     mountd
+  rstatd/1-3  dgram   rpc/udp wait    root    /usr/etc/rpc.rstatd     rstatd
+  walld/1     dgram   rpc/udp wait    root    /usr/etc/rpc.rwalld     rwalld
+  rusersd/1   dgram   rpc/udp wait    root    /usr/etc/rpc.rusersd    rusersd
+--- 50,59 ----
+  # These use the portmapper instead of /etc/services.
+  #
+  # we only support mountd versions 1 and 3 
+! # mountd/1,3    stream  rpc/tcp wait/lc    root    /usr/etc/rpc.mountd     mountd
+! # mountd/1,3   dgram   rpc/udp wait/lc    root    /usr/etc/rpc.mountd     mountd
+! # sgi_mountd/1 stream rpc/tcp wait/lc    root    /usr/etc/rpc.mountd     mountd
+! # sgi_mountd/1 dgram  rpc/udp wait/lc    root    /usr/etc/rpc.mountd     mountd
+  rstatd/1-3  dgram   rpc/udp wait    root    /usr/etc/rpc.rstatd     rstatd
+  walld/1     dgram   rpc/udp wait    root    /usr/etc/rpc.rwalld     rwalld
+  rusersd/1   dgram   rpc/udp wait    root    /usr/etc/rpc.rusersd    rusersd
+     </pre>
+</ul>
+
+<h2>1999-09-26</h2>
+<ul>
+  <li><a name="1999-09-26">crontabsファイルの編集</a><br>
+     ログファイルのクリーンアップなど、必要のない設定がされているので、削った。
+     また、2講のWWWサーバ用にグループ書き込みパーミッションを出すようにした。
+     <pre>
+     # crontab -l > /tmp/crontabs.root
+     # crontab -e
+     編集する。
+     # crontab -l > /tmp/crontabs.root.new
+     # diff -u /tmp/crontabs.root /tmp/crontabs.root.new
+--- /tmp//crontabs.root	Sun Sep 26 01:12:13 1999
++++ /tmp/crontabs.root.new	Sun Sep 26 04:49:18 1999
+@@ -10,33 +10,33 @@
+ # General SGI practice
+ #
+ # Remove old trash
+-0	5	*	*	*	find / -local -type f '(' -name core -o -name dead.letter ')' -atime +7 -mtime +7 -exec rm -f '{}' ';'
++# 0 5 * * *	find / -local -type f '(' -name core -o -name dead.letter ')' -atime +7 -mtime +7 -exec rm -f '{}' ';'
+ #
+ # Remove old sendmail mail files
+-2	5	*	*	*	find /var/spool/mqueue -local -type f -mtime +30 -exec rm -f '{}' ';'
++2 5 * * *	find /var/spool/mqueue -local -type f -mtime +30 -exec rm -f '{}' ';'
+ #
+ # Remove old rwhod files
+-2	5	*	*	*	find /var/spool/rwho -local -type f -mtime +7 -exec rm -f '{}' ';'
++2 5 * * *	find /var/spool/rwho -local -type f -mtime +7 -exec rm -f '{}' ';'
+ #
+ # Remove old vi/ex 'preserved' files
+-3	5	*	*	*	find /var/preserve -local -type f -atime +30 -mtime +30 -exec rm -f '{}' ';'
++3 5 * * *	find /var/preserve -local -type f -atime +30 -mtime +30 -exec rm -f '{}' ';'
+ #
+ # Rotate the logs
+-1	1	*	*	0	umask 033;cd /var/cron;if test -s log && test "`/sbin/stat -qs log`" -ge 10240; then mv -f log OLDlog;touch log; killall 1 cron; fi
+-1	1	*	*	0	umask 077;cd /var/adm;if test -s sulog && test "`/sbin/stat -qs sulog`" -ge 10240; then mv -f sulog OLDsulog;touch sulog; fi
++# 1 1 * * 0	umask 033;cd /var/cron;if test -s log && test "`/sbin/stat -qs log`" -ge 10240; then mv -f log OLDlog;touch log; killall 1 cron; fi
++# 1 1 * * 0	umask 077;cd /var/adm;if test -s sulog && test "`/sbin/stat -qs sulog`" -ge 10240; then mv -f sulog OLDsulog;touch sulog; fi
+ # In order to accept other system loggings at the 'crit' level, 
+ # use only the first 'crit' entry found for log file rotation.
+ # This works only if system default log file is found first and 
+ # additional 'crit' level logging are added later.
+-1	1	*	*	0	umask 033;SYSLOGFILE=`grep "\*.crit" /etc/syslog.conf | awk '$1 != "#" && done == 0 {done =1; print $NF}'`; if test -f $SYSLOGFILE ; then :; else SYSLOGFILE=/var/adm/SYSLOG; fi;OSYSLOGFILE=`dirname $SYSLOGFILE`\/o`basename $SYSLOGFILE`;if test -s $SYSLOGFILE && test "`/sbin/stat -qs $SYSLOGFILE`" -ge 10240; then mv -f $SYSLOGFILE $OSYSLOGFILE;touch $SYSLOGFILE; killall 1 syslogd; fi
++# 1 1 * * 0	umask 033;SYSLOGFILE=`grep "\*.crit" /etc/syslog.conf | awk '$1 != "#" && done == 0 {done =1; print $NF}'`; if test -f $SYSLOGFILE ; then :; else SYSLOGFILE=/var/adm/SYSLOG; fi;OSYSLOGFILE=`dirname $SYSLOGFILE`\/o`basename $SYSLOGFILE`;if test -s $SYSLOGFILE && test "`/sbin/stat -qs $SYSLOGFILE`" -ge 10240; then mv -f $SYSLOGFILE $OSYSLOGFILE;touch $SYSLOGFILE; killall 1 syslogd; fi
+ #
+ # If accounting is on it will handle wtmp rotating.
+ # wtmp and wtmpx are always kept in sync by libc/getut so we should
+ # always do things to them together
+ #
+-2	1	*	*	0	if /etc/chkconfig acct; then :; else umask 033;cd /var/adm; if test -s wtmp && test "`/sbin/stat -qs wtmp`" -ge 10240; then mv -f wtmp OLDwtmp; mv -f wtmpx OLDwtmpx; touch wtmp wtmpx; chown adm.adm wtmp wtmpx; fi; fi
++# 2 1 * * 0	if /etc/chkconfig acct; then :; else umask 033;cd /var/adm; if test -s wtmp && test "`/sbin/stat -qs wtmp`" -ge 10240; then mv -f wtmp OLDwtmp; mv -f wtmpx OLDwtmpx; touch wtmp wtmpx; chown adm.adm wtmp wtmpx; fi; fi
+ #
+-#12	4	*	*	*	sh /var/spool/lp/etc/lib/log.rotate
++#12 4 * * *	sh /var/spool/lp/etc/lib/log.rotate
+ #
+ #
+ #
+@@ -43,9 +43,9 @@
+ # If this machine is running NIS and it's a slave server, the following 
+ # commands keep the NIS databases up-to-date.
+ #
+-8	*	*	*	*	if test -x /var/yp/ypxfr_1ph; then /var/yp/ypxfr_1ph; fi
+-9	9,15	*	*	*	if test -x /var/yp/ypxfr_2pd; then /var/yp/ypxfr_2pd; fi
+-10	9	*	*	*	if test -x /var/yp/ypxfr_1pd; then /var/yp/ypxfr_1pd; fi
++# 8 * * * *	if test -x /var/yp/ypxfr_1ph; then /var/yp/ypxfr_1ph; fi
++# 9 9,15 * * *	if test -x /var/yp/ypxfr_2pd; then /var/yp/ypxfr_2pd; fi
++# 10 9 * * *	if test -x /var/yp/ypxfr_1pd; then /var/yp/ypxfr_1pd; fi
+ #
+ #
+ # If this machine is a NIS master, ypmake will rotate the log file 
+@@ -53,25 +53,25 @@
+ # It is best to not build and push the databases at the same time the
+ # commands above on slave servers are pulling the databases.
+ #
+-0,17,30,45 *	*	*	*	if /etc/chkconfig ypmaster && test -x /var/yp/ypmake; then /var/yp/ypmake; fi
++# 0,17,30,45 * * * *	if /etc/chkconfig ypmaster && test -x /var/yp/ypmake; then /var/yp/ypmake; fi
+ #
+ #
+ # dodisk does the disk accounting 
+-0	2	* 	*	4	if /etc/chkconfig acct; then /usr/lib/acct/dodisk > /var/adm/acct/nite/disklog; fi
++0 2 * * 4	if /etc/chkconfig acct; then /usr/lib/acct/dodisk > /var/adm/acct/nite/disklog; fi
+ #
+ # Reorganize file systems
+ #
+-0	3	*	*	0	if test -x /usr/etc/fsr; then (cd /usr/tmp; /usr/etc/fsr) fi
++# 0 3 * * 0	if test -x /usr/etc/fsr; then (cd /usr/tmp; /usr/etc/fsr) fi
+ #
+ # Repair mangled utmp/wtmp entries
+ #
+-1	0	*	*	*	/usr/sbin/chkutent
++1 0 * * *	/usr/sbin/chkutent
+ # Run disk cleaning cycle for affected IBM Ultrstar drives twice weekly
+ 45 2 * * 0,4 /sbin/diskpatch -FH30 -S11
+ #
+ # If we are running smap, attempt to send queued mail
+ #
+-0,15,30,45    *       *       *       *       /sbin/chkconfig sendmail || ( /sbin/chkconfig smap && /usr/lib/sendmail -q > /dev/null 2>&1 )
++0,15,30,45 * * * *       /sbin/chkconfig sendmail || ( /sbin/chkconfig smap && /usr/lib/sendmail -q > /dev/null 2>&1 )
+ #
+ # fsdump updates the local rfind database
+ #
+@@ -79,4 +79,11 @@
+ #
+ # Rotate log file related to amfilter
+ #
+-1	1	*	*	0,4	umask 033;SYSLOGFILE=`grep -v "^#" /etc/syslog.conf | grep amfilter | awk '{print $NF}' 2>/dev/null`; if test "z$SYSLOGFILE" != "z" && test -s $SYSLOGFILE && test "`/sbin/stat -qs $SYSLOGFILE`" -ge 10240; then OSYSLOGFILE=`dirname $SYSLOGFILE`\/o`basename $SYSLOGFILE`; mv -f $SYSLOGFILE $OSYSLOGFILE; touch $SYSLOGFILE; killall 1 syslogd; fi
++# 1 1 * * 0,4	umask 033;SYSLOGFILE=`grep -v "^#" /etc/syslog.conf | grep amfilter | awk '{print $NF}' 2>/dev/null`; if test "z$SYSLOGFILE" != "z" && test -s $SYSLOGFILE && test "`/sbin/stat -qs $SYSLOGFILE`" -ge 10240; then OSYSLOGFILE=`dirname $SYSLOGFILE`\/o`basename $SYSLOGFILE`; mv -f $SYSLOGFILE $OSYSLOGFILE; touch $SYSLOGFILE; killall 1 syslogd; fi
++#
++# WWW sever for 2kou. contents is group-writable.
++#
++0 0 * * *	chmod -R g+w /var/www/2kou
++#
++# delete old temporary files of Samba. 
++0 0 * * *	find /usr/local/samba/var/tmp -type f -atime +7 -mtime +7 -exec rm -f '{}' ';'
+     </pre>
+     
+</ul>
+
+<h2>1999-10-01</h2>
+<ul>
+  <li><a name="1999-10-01">makeuserスクリプトの作成</a><br>
+
+     以下の内容のmakeuserスクリプトを作成し、これを使って、ユーザ登録を行なうこととする。
+     <p>
+     ただし、登録の動作が、/etc/passwd.center, /etc/.idsといったファイルの存在に依存するので注意すること。
+     あと、エラー処理や、ユーザ登録実行の確認をほとんど行なわないで完了してしまうので、注意すること。
+     <pre>
+#!/bin/sh
+# ユーザ登録スクリプト on cosmo
+# written by Norihiko Uda 1997/12/29
+# modified by M.Takaku 1998/4/4-17
+
+# check user-ID
+if [ `whoami` != "root" ]; then
+	echo "You cannot setup ${1}'s account"
+	echo "You must be Super-user"
+	exit 1
+fi
+
+# 引数に新しいユーザアカウントを指定する。
+if [ ${#} -le 0 ]; then
+	echo "USAGE:  $0 UserAccount"
+	exit 1
+fi
+
+# UID を保存しておくファイル。(UIDは1000から5000の間)
+uidfile="/etc/.ids"
+if [ ! -r ${uidfile} ]; then
+	echo "Check UID file (${uidfile})"
+	exit 1
+fi
+
+uid=`cat ${uidfile}`
+gid="300"  # 'ulis'
+logname=${1}
+homedir="/home/${logname}"
+skeldir="/home/skel"
+
+# 登録済みかを確認する。
+awk -F: '{print $1,$3;}' /etc/passwd | while read r_logname r_uid; do
+	if [ "$r_logname" = "$logname" ]; then
+		echo "$logname アカウントは既に登録されています"
+		exit 1
+	fi
+	if [ "$r_uid" = "$uid" ]; then
+		echo "${UID}は既に登録されているUIDです。"
+		echo "${uidfile}を確認してください。"
+		exit 1
+	fi
+done
+
+# 総合情報処理センターのアカウントを持っているか確認し、
+# 持っていないユーザは名前を入力する。
+comment=`grep "^${logname}" /etc/passwd.center | awk -F: '{print $5;}'`
+if [ -z "${comment}" ]; then
+	echo "${1}はセンターに登録されていないユーザです。"
+	echo "${1}の名前を入力してください : \c"
+	read comment
+else
+	echo "${logname} はセンターに登録されています。"
+fi
+
+echo "${logname} の名前には ${comment} を使います。"
+
+# ローカル登録を行う。
+cp /etc/passwd /etc/passwd.bak
+echo "${logname}:*NEW*:${uid}:${gid}:${comment}:${homedir}:/bin/csh" >> /etc/passwd
+
+# ユーザのホームディレクトリを作成する。
+if [ ! -d ${homedir} ]; then
+	basehome=`dirname ${homedir}`
+	if [ ! -d ${basehome} ]; then
+		echo "${basehome} が存在しません。"
+	fi
+	if cp -R ${skeldir} ${homedir}; then
+		chown -R ${uid} ${homedir}
+		chgrp -R ${gid} ${homedir}
+	else
+		echo "${homedir} を作成できませんでした。"
+		echo "設定を中断します。"
+		exit 1
+	fi
+else
+	echo "${homedir} は既に存在します。"
+	echo "設定ファイルはコピーされませんでした。"
+fi
+
+# UID を一つ進ませる。
+lastuid=`expr ${uid} + 1`
+rm -f ${uidfile}
+echo ${lastuid} > /etc/.ids
+
+echo ""
+echo "新規アカウント ${logname} を作成しました。"
+echo ""
+echo "** 注意 **"
+echo "** 新規アカウント ${logname} はパスワードをロックされています。"
+echo "** passwd(1) を使って、パスワードの設定を行なって下さい。"
+echo "**"
+
+# パスワードを登録する。
+# passwdコマンドはNIS上のパスワードも変更する。
+# echo ""
+# echo "${logname}のパスワードを入力してください。"
+# passwd $logname
+
+exit 0
+     </pre>
+</ul>
+
+<h2>1999-10-03</h2>
+<ul>
+  <li><a name="1999-10-03">デフォルトumaskの変更</a><br>
+     どうやら、OSの再インストール時にシステムのデフォルトumaskが002になってしまっていた。
+<p>
+     /etc/default/login を編集して、022に戻す。
+</ul>
+
+<h2>1999-11-03</h2>
+<ul>
+  <li><a name="1999-11-03.1">フルバックアップ</a><br>
+
+     /usr/local/bin/fullbackupを使ってフルバックアップをする。
+
+  <li><a name="1999-11-03.2">cronでフルバックアップ(週に一度)</a>
+
+     週に一度、cronで自動的にフルバックアップをとるようにする。
+     以下のエントリを追加。
+     <pre>
+# Back up of cosmo. (fullbackup)
+#  Added by M.Takaku 1999-11-03
+0 4 * * 0       /usr/local/bin/fullbackup
+     </pre>
+</ul>
+
+<h2>1999-11-05</h2>
+<ul>
+  <li><a name="1999-11-05">z3950グループの作成</a><br>
+
+     研究上の必要があり、z3950グループを作成した。
+     以下のエントリを/etc/groupに追加した。
+     <pre>
+z3950:*:1200:masao,yuka,uda
+     </pre>
+</ul>
+
+<h2>1999-11-11</h2>
+<ul>
+  <li><a name="1999-11-11">Wnn6のキーバインドの変更</a><br>
+
+     Wnn6での変換が「Ctrl+w」キーで行なわれているのが、分かりにくいため、
+     変換の動作を全て「スペース」キーで行なえるようにキーバインドを変更した。
+     <pre>
+     # vi /usr/lib/wnn6/ja_JP/uumkey.wnn6
+     # diff -u /usr/lib/wnn6/ja_JP/uumkey.wnn6.orig /usr/lib/wnn6/ja_JP/uumkey.wnn6
+--- /usr/lib/wnn6/ja_JP/uumkey.wnn6.orig        Sat Sep 18 11:26:08 1999
++++ /usr/lib/wnn6/ja_JP/uumkey.wnn6     Thu Nov 11 17:12:55 1999
+@@ -14,7 +14,7 @@
+ ;
+ kakutei                                ^L ^M ^J 0x9F 
+ ;
+-henkan                         ^W 0x9E 
++henkan                         ^W 0x9E 0x20
+ ;
+ forward_char                   ^F 0x90 
+ backward_char                  ^B 0x91 
+@@ -79,11 +79,11 @@
+ jisho_utility                  ^^ 
+ jisho_utility_e                        0x84 0x96 
+ ;
+-nobi_henkan_dai                        ^W 0x9E 
+-select_jikouho_dai             ^W 0x9C 0x9E 
+-select_jikouho                 ^Z 
+-nobi_henkan                    ^Z 
+-tan_henkan                     ^Z 
++nobi_henkan_dai                        ^W 0x9E 0x20
++select_jikouho_dai             ^W 0x9C 0x9E 0x20 
++select_jikouho                 ^Z 0x20
++nobi_henkan                    ^Z 0x20
++tan_henkan                     ^Z 0x20
+ jikouho_dai                    ^N 0x92 
+ zenkouho_dai                   ^P 0x93 
+ ;     
+     </pre>
+</ul>
+
+<h2>1999-12-06</h2>
+<ul>
+  <li><a name="1999-12-06.1">udalabグループの作成</a><br>
+
+     宇陀研のメンバーの要請でudalabグループを作成した。
+     <p>
+     実際の作業は以下のエントリを/etc/groupに追加しただけ。
+     <pre>
+udalab:*:209:uda,yuka,hitomi,chinatsu
+     </pre>
+</ul>
+
+
+<h2>1999-12-13</h2>
+<ul>
+  <li><a name="1999-12-13.1">新規ユーザ作成(g122, g260, g301)</a><br>
+
+     宇陀研の卒研生(現3年次)を登録した。パスワードは、nileのものを流用した。(nileの/etc/shadowのエントリからコピーした。)
+     
+
+  <li><a name="1999-12-13.2">メールエイリアス udalab 作成</a><br>
+
+     宇陀研用のメールエイリアス udalab を作成した。
+     <pre>
+     # vi /etc/aliases
+udalab: uda@ulis.ac.jp,yuka@ulis.ac.jp,chinatsu@ulis.ac.jp,hitomi@ulis.ac.jp,g122@ulis.ac.jp,g260@ulis.ac.jp,g301@ulis.ac.jp,masao@ulis.ac.jp
+     # newaliases
+     </pre>
+</ul>
+
+<h2>2000-02-03</h2>
+<ul>
+  <li><a name="2000-02-03.1">初期起動デーモンの変更</a><br>
+     ちょっと見てたら無駄なサーバプロセスがいくつか動いていたようなので、
+     停止させる。
+     <pre>
+     # chkconfig autoconfig_ipaddress off	/* DHCP関連?? */
+     # chkconfig lockd off		/* NFS関連?? */
+     # chkconfig nsd off		/* NIS/NIS+関連?? */
+     # chkconfig routed off
+     # chkconfig sdpd off		/* Session Directory Server Daemon */
+     # chkconfig snetd off 		/* STREAMS関連?? */
+     </pre>
+
+  <li><a name="2000-02-03.2">WWWサーバApacheの設定</a><br>
+
+     デフォルトで文書を置くディレクトリは/usr/local/apache/htdocsの下なので、
+     このディレクトリに、既に提供されているファイルを持ってくる。
+     <pre>
+     % su
+     # cd /usr/local/apache
+     # mv htdocs htdocs.orig
+     # mkdir htdocs
+     # cp -rp /var/www/2kou /usr/local/apache/htdocs
+     # cp -rp /var/www/cosmo /usr/local/apache/htdocs
+     # cp -rp /var/www/htdocs.new /usr/local/apache/htdocs
+     # cd /usr/local/apache/htdocs
+     # cd htdocs.new
+     # mv * ..
+     # cd ..
+     # rmdir htdocs.new
+     </pre>
+
+     次に、アクセス制御などの設定を行なっていく。
+     <pre>
+     # cd /usr/local/apache/conf
+     # vi httpd.conf
+     # diff -u httpd.conf.default httpd.conf
+--- httpd.conf.default  Thu Feb  3 17:15:34 2000
++++ httpd.conf  Thu Feb  3 22:00:30 2000
+@@ -235,7 +235,8 @@
+ # Port: The port to which the standalone server listens. For
+ # ports < 1023, you will need httpd to be run as root initially.
+ #
+-Port 8080
++# Port 8080
++Port 80
+ 
+ #
+ # If you wish httpd to run as a different user or group, you must run
+@@ -319,7 +320,8 @@
+ # override. Can also be "All", or any combination of "Options", "FileInfo", 
+ # "AuthConfig", and "Limit"
+ #
+-    AllowOverride None
++#    AllowOverride None
++    AllowOverride All
+ 
+ #
+ # Controls who can get stuff from this server.
+@@ -338,24 +340,24 @@
+ # Control access to UserDir directories.  The following is an example
+ # for a site where these directories are restricted to read-only.
+ #
+-#<Directory /home/*/public_html>
+-#    AllowOverride FileInfo AuthConfig Limit
+-#    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+-#    <Limit GET POST OPTIONS PROPFIND>
+-#        Order allow,deny
+-#        Allow from all
+-#    </Limit>
+-#    <LimitExcept GET POST OPTIONS PROPFIND>
+-#        Order deny,allow
+-#        Deny from all
+-#    </LimitExcept>
+-#</Directory>
++<Directory /home/*/public_html>
++    AllowOverride FileInfo AuthConfig Limit
++    Options MultiViews All
++    <Limit GET POST OPTIONS PROPFIND>
++        Order allow,deny
++        Allow from all
++    </Limit>
++    <LimitExcept GET POST OPTIONS PROPFIND>
++        Order deny,allow
++        Deny from all
++    </LimitExcept>
++</Directory>
+ 
+ #
+ # DirectoryIndex: Name of the file or files to use as a pre-written HTML
+ # directory index.  Separate multiple entries with spaces.
+ #
+-DirectoryIndex index.html
++DirectoryIndex index.html index.shtml
+ 
+ #
+ # AccessFileName: The name of the file to look for in each directory
+@@ -484,7 +486,7 @@
+ # If you prefer a single logfile with access, agent, and referer information
+ # (Combined Logfile Format) you can use the following directive.
+ #
+-#CustomLog /usr/local/apache/logs/access_log combined
++CustomLog /usr/local/apache/logs/access_log combined
+ 
+ #
+ # Optionally add a line containing the server version and virtual host
+@@ -702,7 +704,7 @@
+ #
+ # To use CGI scripts:
+ #
+-#AddHandler cgi-script .cgi
++AddHandler cgi-script .cgi
+ 
+ #
+ # To use server-parsed HTML files
+     # cd /usr/local/apache/htdocs
+     # cd 2kou/machines
+     # vi .htaccess
+     # cat .htaccess
+&lt;Limit GET POST&gt;
+order deny,allow
+deny from all
+allow from .ulis.ac.jp
+allow from 133.51.
+&lt;/Limit&gt;
+     </pre>
+     
+     次に、再起動時にApacheが立ち上がるようにする。
+     まず、Netscape Fasttrackサーバが立ち上がらないようにしてから、
+     Apacheの起動用のスクリプトを用意する。
+     
+     <pre>
+     # chkconfig nss_fasttrack off
+     # cd /etc/init.d
+     # vi apache
+     # cat apache
+#!/bin/sh
+# Start/stop processes required for Apache Web server
+APACHEHOME=/usr/local/apache
+
+case "$1" in
+'start')
+   $APACHEHOME/bin/apachectl start
+   ;;
+'stop')
+   $APACHEHOME/bin/apachectl stop
+   ;;
+'restart')
+   $APACHEHOME/bin/apachectl restart
+   ;;
+*)
+   echo &quot;Usage: /etc/init.d/apache {start|stop|restart}&quot;
+   ;;
+esac
+     # cd /etc/rc2.d
+     # ln -s ../init.d/apache S98apache
+     </pre>
+
+     最後に、再起動しておしまい。
+</ul>
+
+<h2>2000-02-04</h2>
+<ul>
+  <li><a name="2000-02-04">2講のWebページをCVSで管理</a><br>
+
+     2講座のWebページをCVSで管理するようにする。
+     まず、CVS用のアカウントを作成。
+     <pre>
+     # makeuser cvs
+     # cd ~cvs
+     # cvs -d /home/cvs init
+
+     2講座の文書をレポジトリに入れる。
+     まず、ディレクトリ階層を取り入れる。
+     # cd /tmp
+     # mkdir 2kou
+     # mkdir 2kou/docs
+     # mkdir 2kou/images
+     # mkdir 2kou/machines
+     # cd 2kou
+     # cvs -d /home/cvs import 2kou ULIS init
+     
+     次に、実際のファイルを追加する。
+     以下のようにして追加した。
+     # cvs -d /home/cvs add *.html
+     # cvs -d /home/cvs add *.txt
+     # cvs -d /home/cvs add -kb *.gif
+     # cvs -d /home/cvs add -kb *.bmp
+
+     最後に、実際のファイルをWeb公開ディレクトリに入れる。
+     # cd /usr/local/apache/htdocs
+     # mv 2kou 2kou.nocvs
+     # cvs -d /home/cvs co 2kou
+     # chown -R masao.ulis 2kou
+     # chmod -R g+w 2kou
+     # crontab -e
+     としてこれまでのchmod, chgrpなどの置場所を変更する。
+     
+     </pre>
+</ul>
+
+<h2><a name="2000-03-03.1">2000-03-03</a></h2>
+<ul>
+  <li>時刻同期サーバの変更<br>
+     
+     goat.ipc.ulis.ac.jp を時刻同期に利用していたが、
+     最近になってセンターがタイムサーバを正式に設置しアナウンスしていたので、
+     このサーバに変更する。
+     <pre>
+     # cd /etc/config
+     # vi timeslave.options
+     # cat /etc/config/timeslave.options
+-H ulistime.ulis.ac.jp
+     </pre>
+
+     としてからリブートする。
+     
+</ul>
+<hr>
+<a href="../admin/">cosmoの管理メモ</a><br>
+<a href="../guide/">cosmoのユーザ向け文書</a><br>
+<a href="../">cosmoの紹介</a>
+<hr>
+<address>
+高久雅生 (Takaku Masao)<br>
+<a href="http://www.ulis.ac.jp/~masao/">http://www.ulis.ac.jp/~masao/</a><br>
+<a href="mailto:masao@ulis.ac.jp">masao@ulis.ac.jp</a>
+</address>
+</body>
+</html>

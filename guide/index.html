@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<link rev=made href="mailto:masao@ulis.ac.jp">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
+<title>User's Manual of cosmo</title>
+</head>
+
+<body bgcolor="#aaffaa">
+<p>
+<strong>
+cosmoはユーザ登録を要望があった際にのみ行なってますので、
+利用されたい方はまず<a href="mailto:admin@nile.ulis.ac.jp">ユーザ登録グループ(admin@nile.ulis.ac.jp)</a>まで連絡を下さい。
+アカウントを作成します。
+</strong>
+</p>
+<!-- hhmts start -->
+<p>最終更新日： <b>Tue Jan 11 14:42:28 2000</b></p>
+<!-- hhmts end -->
+<hr>
+<h1>ユーザ・マニュアル</h1>
+
+<h2>目次</h2>
+<ul>
+ <li><a href="#password">パスワード変更について</a>
+ <li><a href="#gui_login">どの端末で使えるか。（GUI環境）</a>
+ <li><a href="#unix_shell">UNIX シェルの出し方</a>
+ <li><a href="#japanese_input">日本語入力について</a>
+ <li><a href="#netscape">Netscapeの起動方法</a>
+ <li><a href="#printout">印刷する</a>
+ <li><a href="#editor">文章を書く（エディタ）</a>
+ <li><a href="#programming">プログラミングをする</a>
+ <li><a href="#latex">LaTeXする</a>
+</ul>
+
+
+<hr>
+
+<ol>
+  <li><a name="password">パスワード変更について</a><br>
+     % <kbd>passwd</kbd><br>
+     とすると、今まで使っていたパスワードを入力し、新しいパスワードを2回入力するとパスワードの変更が行なわれます。<br>
+
+     <strong>注意:以前は、nileと同一のパスワードを使えるようにしていましたが、現在、cosmoのパスワードは他のマシンと共有されていません。(1999-09-19)</strong>
+     <!-- パスワードの変更はnile, seine, cosmo, voyagerで同時に行なわれるので、注意して下さい。-->
+
+  <li><a name="gui_login">どの端末で使えるか。（GUI環境）</a>
+     <ul>
+       <li>cosmoのコンソール
+       <li>研究棟のX-端末<br>
+	  一番したの「Host nameと出ているところに、cosmoと打ち込む。
+       <li>leto, artemis（2講部屋にあるSolaris2.6のマシン）
+	  「オプション」→「リモートログイン」→「ホスト名を入力…」として、出てきたウィンドウに、cosmoと打ち込む。
+       <li>fuujin, raijin, felipe2（2講部屋にあるAstec-Xの入っているPC）<br>
+	  Astec-Xを利用して下さい。
+     </ul>
+
+  <li><a name="unix_shell">UNIX シェルの出し方</a><br>
+     コマンドを打つ際には、端末エミューレータを起動する必要があります。
+     下のように、画面の左上にあるToolchestから「デスクトップ」→「UNIXシェル」と選択すると、起動できます。
+     <img alt="UNIXシェルの起動画面" src="unix-shell.gif">
+     
+  <li><a name="japanese_input">日本語入力について</a><br>
+     Wnn6が使えます。
+     <img alt="ウィンドウ上での画面例 1" src="ja-input1.gif">
+     <img alt="ウィンドウ上での画面例 2" src="ja-input2.gif">
+     <p>
+     まず、使いたいウィンドウ上で左下に上のような表示があれば、日本語入力が行なえます。
+     日本語が打ちたい時は、「Control」キーと「\」（バックスラッシュキー）を同時に押すと、日本語変換モードになります。
+     変換には「スペースキー」を使って下さい。
+     文節の伸縮は、伸び：「Control」＋「o」（Controlキーとoを一緒に押す）、縮み：「Control」＋「i」（Controlキーとiを一緒に押す）でできます。
+     
+  <li><a name="netscape">Netscapeの起動方法</a><br>
+     <img alt="Netscape起動画面" src="netscape.gif">
+     WWWブラウザは標準でnetscape（Version 3.01ja SGIバージョン）が動作します。
+     右のようにToolchestから、「インターネット」→「Web ブラウザ」と選択すると、起動します。
+     <br wrap=left>
+
+  <li><a name="printout">印刷する</a><br>
+     <pre>
+     % lp -d printer名 filename
+     </pre>
+     として下さい。（lpr コマンドは使えません）<br>
+     プリンタ名を指定せずに
+     <pre>
+     % lp filename
+     </pre>
+     とすると、2koups に出力されます。
+     他に利用できるプリンタは、600ps, kiki , ipcps2 , msctp , mmctp, mgctp, 1040ps です。これ以外のプリンタへは、rsh などで他のマシンを通して下さい。
+     <pre>
+     % <kbd>cat <i>ファイル名</i> | rsh <i>他のマシン名</i> lp -d <i>利用したいプリンタ名</i></kbd>
+     </pre>
+     ※日本語テキストファイルの出力は、文字化けしますので、a2psコマンドを通して下さい。(% <kbd>a2ps ファイル名 | lp</kbd> )
+     
+  <li><a name="editor">文章を書く（エディタ）</a><br>
+     <dl>
+       <dt>vi
+       <dd>UNIX 標準のスクリーンエディタです。
+       <dt>mule
+       <dd>GNU Emacs の多言語対応エディタです。
+       <dt>その他：jot 及び nedit
+       <dd> デフォルトでついてきた GUI のテキストエディタです。<strong>（筆者は使ってみたことがないので、良く分かりません…）</strong>
+     </dl>
+
+  <li><a name="programming">プログラミングする</a><br>
+     <dl>
+       <dt>C言語
+       <dd>Cコンパイラはccコマンド（OS付属）とgccコマンド（フリーソフト）の2種類があります。
+       <dt>Perl
+       <dd>perlコマンド（version  5.004_04 Japanization patch 4）が入っています。
+     </dl>
+
+  <li><a name="latex">LaTeXする</a><br>
+     筆者のレポート作成・論文執筆用にLaTeXの環境を一応使えるようにしてあります。私はjlatexコマンド、dvi2psコマンドでTeXのコンパイルをしています。
+     <p>
+     江草さんが<a href="http://cosmo.ulis.ac.jp/~yuka/latex.html">My LaTeX tips</a>でこのLaTeXの使い方をまとめてくれたので、細かい使い方はそっちを見て下さい。
+</ol>
+<hr>
+ここに記載してある内容での不明な点もしくは記載されていないこと、
+「あれが動かない」、「このコマンドはどこ?」というような文句は
+気軽に<a href="mailto:masao@ulis.ac.jp">私</a>まで言って下さい。
+できる範囲でお答えします。
+<!-- 分からないことがあれば、
+<a href="mailto:masao@ulis.ac.jp">管理者(masao@ulis.ac.jp)</a>に聞いてみて下さい（解決できるかどうかは分かりませんが…）。 -->
+また、(オンライン)マニュアルやヘルプも参考にしてみて下さい。
+<p>
+さらに、自力でも解決を図れるように、
+フリーソフトなどの<a href="../install/">インストールメモ</a>や
+<a href="../admin/">管理作業のメモ</a>も残しています。
+よければ、参考にしてみて下さい。
+（<a href="http://cosmo.ulis.ac.jp/cosmo/">cosmoの情報</a>）
+<hr>
+<address>
+高久雅生 (Takaku Masao)<br>
+<a href="mailto:masao@ulis.ac.jp">masao@ulis.ac.jp</a>
+</address>
+</body>
+</html>
