@@ -9,7 +9,7 @@
 <body bgcolor="#aaffaa">
 
 <!-- hhmts start -->
-<p>最終更新日： <strong>Thu Mar 30 00:00:41 2000</strong></p>
+<p>最終更新日： <strong>Thu Mar 30 00:21:56 2000</strong></p>
 <!-- hhmts end -->
 <hr>
 <strong>
@@ -849,6 +849,35 @@ esac
      # /etc/init.d/samba stop
      # /etc/init.d/samba start
      </pre>
+
+  <li><a name="2000-03-29.3">スワップ領域の追加</a><br>
+
+     Namazuで大きなインデックスを生成したり、
+     大きなファイルI/Oをメモリ上でやるようなプロセスを動かす際に、
+     メモリ不足により、実行が止まるという症状が起るので、
+     スワップ領域を追加する。<br>
+     特に、頻繁に以下のようなメッセージが<code>/var/adm/SYSLOG</code>に記録される。
+     <pre>
+     unix :  ... out of logical swap space during fork - see swap(1M)
+     </pre>
+
+     実際の作業では以下を行う。
+     <pre>
+     # mkdir /var/swap
+     # mkfile 2000m /var/swap/swap1
+     # vi /etc/fstab
+     # cat /etc/fstab
+/dev/root /  xfs  rw,raw=/dev/rroot 0 0
+/dev/dsk/dks1d3s7 /var xfs rw 0 0
+/dev/dsk/dks1d1s7 /home xfs rw 0 0
+/dev/dsk/dks1d2s7 /usr/local xfs rw 0 0
+/var/swap/swap1 swap swap pri=3
+     # reboot
+     </pre>
+     
+     ここでは多めに2GBのスワップ領域を追加する。
+     (多すぎるようなら、後で減らそう!!)
+     
      
 </ul>
 
