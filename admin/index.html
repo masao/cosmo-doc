@@ -9,7 +9,7 @@
 <body bgcolor="#aaffaa">
 
 <!-- hhmts start -->
-<p>最終更新日： <b>Fri Mar  3 18:42:54 2000</b></p>
+<p>最終更新日： <strong>Thu Mar 30 00:00:41 2000</strong></p>
 <!-- hhmts end -->
 <hr>
 <strong>
@@ -30,25 +30,27 @@
 
 <h1>目次</h1>
 <ul>
-  <li><a href="#1999-09-19">OSインストール</a>
-  <li><a href="#1999-09-21">カーネルの再構築(テープデバイス)</a>
-  <li><a href="#1999-09-22.1">フルバックアップ</a>
-  <li><a href="#1999-09-22.2">プリンタの設定(600ps,1040ps,ipcps2,mmctp,msctp,mgctp)</a>
-  <li><a href="#1999-09-22.3">inetdの設定変更(bootp_dhcp)</a>
-  <li><a href="#1999-09-26">crontabsファイルの編集</a>
-  <li><a href="#1999-10-01">makeuserスクリプトの作成</a>
-  <li><a href="#1999-10-03">デフォルトumaskの変更</a>
-  <li><a href="#1999-11-03.1">フルバックアップ</a>
-  <li><a href="#1999-11-03.2">cronでフルバックアップの設定</a>
-  <li><a href="#1999-11-05">z3950グループの作成</a>
-  <li><a href="#1999-11-11">Wnn6のキーバインド変更</a>
-  <li><a href="#1999-12-06.1">udalabグループの作成</a>
-  <li><a href="#1999-12-13.1">新規ユーザ作成(g122, g260, g301)</a>
-  <li><a href="#1999-12-13.2">メールエイリアスudalab作成</a>
-  <li><a href="#2000-02-03.1">初期起動デーモンの変更</a>
-  <li><a href="#2000-02-03.2">WWWサーバApacheの設定</a>
-  <li><a href="#2000-02-04">2講のWebページをCVSで管理</a>
-  <li><a href="#2000-03-03">時刻同期サーバを変更</a>
+ <li><a href="#1999-09-19">OSインストール</a>
+ <li><a href="#1999-09-21">カーネル再構築(テープデバイス用)</a>
+ <li><a href="#1999-09-22.1">フルバックアップ</a>
+ <li><a href="#1999-09-22.2">プリンタの設定(600ps,1040ps,ipcps2,mmctp,msctp,mgctp)</a>
+ <li><a href="#1999-09-22.3">inetdの設定変更(bootp_dhcp)</a>
+ <li><a href="#1999-09-26">crontabsファイルの編集</a>
+ <li><a href="#1999-10-01">makeuserスクリプトの作成</a>
+ <li><a href="#1999-10-03">デフォルトumaskの変更</a>
+ <li><a href="#1999-11-03.1">フルバックアップ</a>
+ <li><a href="#1999-11-03.2">cronでフルバックアップ(週に一度)</a>
+ <li><a href="#1999-11-05">z3950グループの作成</a>
+ <li><a href="#1999-11-11">Wnn6のキーバインドの変更</a>
+ <li><a href="#1999-12-06.1">udalabグループの作成</a>
+ <li><a href="#1999-12-13.1">新規ユーザ作成(g122, g260, g301)</a>
+ <li><a href="#1999-12-13.2">メールエイリアス udalab 作成</a>
+ <li><a href="#2000-02-03.1">初期起動デーモンの変更</a>
+ <li><a href="#2000-02-03.2">WWWサーバApacheの設定</a>
+ <li><a href="#2000-02-04">2講のWebページをCVSで管理</a>
+ <li><a href="#2000-03-03.1">時刻同期サーバの変更</a>
+ <li><a href="#2000-03-29.1">プリンタの追加(ace)</a>
+ <li><a href="#2000-03-29.2">プリンタの削除(msctp,mmctp,mgctp)</a>
 </ul>
 
 <hr>
@@ -798,9 +800,9 @@ esac
      </pre>
 </ul>
 
-<h2><a name="2000-03-03.1">2000-03-03</a></h2>
+<h2>2000-03-03</h2>
 <ul>
-  <li>時刻同期サーバの変更<br>
+  <li><a name="2000-03-03.1">時刻同期サーバの変更</a><br>
      
      goat.ipc.ulis.ac.jp を時刻同期に利用していたが、
      最近になってセンターがタイムサーバを正式に設置しアナウンスしていたので、
@@ -815,6 +817,42 @@ esac
      としてからリブートする。
      
 </ul>
+
+<h2>2000-03-29</h2>
+<ul>
+  <li><a name="2000-03-29.1">プリンタの追加(ace)</a><br>
+
+     新マルチシステムに導入されたカラープリンタを追加する。
+     (以下の情報をプリンタマネージャで設定する。)
+     <dl>
+       <dt>ace
+       <dd>
+	  <dl compact=ON>
+       <dt>プリンタサーバ
+       <dd>ace.ulis.ac.jp
+       <dt>プリンタ名
+       <dd>ace
+       </dd>
+     </dl>
+     <p>
+     <code>/usr/local/samba/lib/printcap</code>にエントリを追加して、Samba経由でも使えるようにしておく。
+
+
+  <li><a name="2000-03-29.2">プリンタの削除(msctp,mmctp,mgctp)</a><br>
+
+     新マルチシステム導入に伴って、学内から消えた旧マルチのプリンタ(msctp,mmctp,mgctp)を全て削除した。
+     また、なぜかプリンタサーバ<code>lp-ecampe.ulis.ac.jp</code>に接続できない600psプリンタも残しておくと紛らわしいので削除する。
+     <p>
+     作業としては、プリンタマネージャでプリンタを削除する。
+     次に、<code>/usr/local/samba/lib/printcap</code>からもエントリを削除する。
+     <pre>
+     # /etc/init.d/samba stop
+     # /etc/init.d/samba start
+     </pre>
+     
+</ul>
+
+
 <hr>
 <a href="../admin/">cosmoの管理メモ</a><br>
 <a href="../guide/">cosmoのユーザ向け文書</a><br>
