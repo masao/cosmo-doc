@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 	"http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="ja">
 <head>
 <link rev=made href="mailto:masao@ulis.ac.jp">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
@@ -11,7 +11,7 @@
 $B$3$NJ8=q$O(Bcosmo$B$K%=%U%H%&%'%"$r%$%s%9%H!<%k$7$?:]$N%a%b$G$9!#(B
 
 <!-- hhmts start -->
-<p>$B:G=*99?7F|!'(B <strong>Thu Mar 23 00:45:51 2000</strong></p>
+<p>$B:G=*99?7F|!'(B <strong>Thu Apr 13 17:56:00 2000</strong></p>
 <!-- hhmts end --><hr>
 <h1>$B;29MJ88%(B</h1>
 $B;29M$H$J$C$?J8=q$J$I$G$9!#(B
@@ -86,6 +86,7 @@
   <li><a href="#ispell">Ispell</a>
   <li><a href="#ssh">Secure Shell</a>
   <li><a href="#global">Global</a>
+  <li><a href="#analog">Analog</a>
 </ul>
 <hr>
 
@@ -790,7 +791,7 @@ Namazu-v2$B$rF~$l$J$$$H$$$$$+$2$sE\$i$l$=$&$J$N$G!"(B
 @@ -9,7 +9,8 @@
  #
  
- # --- commands & flags
+ # --- commands &amp; flags
 -CC      = gcc
 +# CC    = gcc
 +CC      = cc
@@ -940,7 +941,7 @@ VRML$B%V%i%&%6(BFreeWRL$BMQ$K%$%s%9%H!<%k!#!J$=$&$$$($P(BImageMagick$B$b!K
 <h2>1998-7-22</h2>
 <h3>GMT version 3.0</h3>
 <ul>
-  <li>$B%=!<%9!'(B<a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.tar.gz">GMT3.0.tar.gz</a>$B!"(B<a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.full.tar.gz">GMT3.0.full.tar.gz</a><a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.high.tar.gz">GMT3.0.high.tar.gz</a>
+  <li>$B%=!<%9!'(B<a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.tar.gz">GMT3.0.tar.gz</a>$B!"(B<a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.full.tar.gz">GMT3.0.full.tar.gz</a>$B!"(B<a href="ftp://ftp.eos.hokudai.ac.jp/pub/Geo/GMT-3.0/GMT3.0.high.tar.gz">GMT3.0.high.tar.gz</a>
   <li>$B%[!<%`%Z!<%8!'(B<a href="http://www.soest.hawaii.edu/soest/gmt.html">http://www.soest.hawaii.edu/soest/gmt.html</a>
 </ul>
 GMT(The Generic Mapping Tools)$B$H$$$&CO?^$rIA$/$?$a$N%D!<%k!#(B
@@ -1876,7 +1877,7 @@ make install$B$N:G8e$G%(%i!<$rEG$/$,!"5$$K$7$J$/$F$bNI$$!#(B($BB?J,(B)
 $B"((B $B$?$@$7!"$^$@(BIRIX$B$OL$BP1~$i$7$/!"(B
 $B%?!<%_%J%k$4$HMn$A$k$H$$$&F0:n$,IQHK$K5/$3$k!#(B
 $B!J$*$=$i$/(Bterminal library$B$NHs8_49@-$,860x!'%3%s%Q%$%k;~$K%(%i!<$,=P$k!#!K(B
-
+</p>
 <pre>
 % gzip -cd w3m-990609.tar.gz | tar xvf -
 % cd w3m
@@ -1911,7 +1912,7 @@ cc -32	(C-Compiler)
 </dl>
 
 Makefile.in$B$r<+F0@8@.$9$k%D!<%k!#(B
-$B!J(B<a href="#autoonf">autoconf</a>$B$J$I$H0l=o$K;H$C$F!"(B ./configure; make; make install; $B$H$$$C$?:n6H$N<+F02=$r9T$J$&!#!K(B
+$B!J(B<a href="#autoconf">autoconf</a>$B$J$I$H0l=o$K;H$C$F!"(B ./configure; make; make install; $B$H$$$C$?:n6H$N<+F02=$r9T$J$&!#!K(B
 
 <pre>
 % gzip -cd automake-1.4.tar.gz | tar xvf -
@@ -2010,9 +2011,8 @@ Mule$B>e$N(BLaTeX$BJ8=q:n@.;Y1g4D6-!#(B
 $B$3$3$^$G$G!"%$%s%9%H!<%k40N;!#(B
 $B%$%s%9%H!<%k@h$O!"(B/usr/local/lib/mule/site-lisp/yatex/
 <p>
-
 $B<B:]$K!"(BYaTeX$B$rMxMQ$9$k$K$O!"(B~/.emacs$B$K0J2<$N@_Dj$r9T$J$&!#(B
-
+</p>
 <pre>
 (setq load-path (cons "/usr/local/lib/mule/site-lisp/yatex" load-path))
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
@@ -2036,7 +2036,7 @@ LaTeX$BJ8=q$N0MB84X78(B(\input{}$B$d(BBibTex$B$J$I(B)$B$r<+F0E*$K8!=P$7$F
 <p>
 $B$?$@$7!"%G%U%)%k%H$G$O(Bdvips$B$r;H$&4D6-$7$+!"A[Dj$7$F$$$J$+$C$?$h$&$G!"(B
 dvi2ps$B$KEO$9%*%W%7%g%s$J$I$r$$$8$kI,MW$,$"$C$?!#(B
-
+</p>
 <pre>
 % gzip -cd latexmk.tar.gz | tar xvf -
 % cd latexmk
@@ -2078,7 +2078,7 @@ dvi2ps$B$KEO$9%*%W%7%g%s$J$I$r$$$8$kI,MW$,$"$C$?!#(B
  $pscmd = 'ps -x';  # This works for SunOs.  Solaris should just be 'ps'
  
 @@ -684,7 +684,7 @@
-   if (( $ps_mtime < $dvi_mtime ) || $banner )
+   if (( $ps_mtime &lt; $dvi_mtime ) || $banner )
    {
      warn "------------\nRunning $dvips [$root_filename]\n------------\n";
 -    system("$dvips $header $dvi_file -o $root_filename.ps");
@@ -2211,7 +2211,7 @@ Namazu$B$N:G?7(BCVS$BHG$r(Bmake$B$9$k$N$KI,MW$@$C$?$N$G!"F~$l$?!#(B
 ? end
 </pre>
 
-<h1><a name="qkc"> QKC - Quick KANJI code Converter</a></h1>
+<h1><a name="qkc">QKC - Quick KANJI code Converter</a></h1>
 <h2>2000-01-14</h2>
 <h3>C Version 1.0</h3>
 
@@ -2389,7 +2389,7 @@ NetscapeFasttrack$B$@$H2?$+$H%+%9%?%^%$%:$7$K$/$$$N$G!"(B
   <dt>$B%[!<%`%Z!<%8(B
   <dd><a href="http://www.ssh.org">SSH Secure Shell</a>
   <dt>$B4XO"%5%$%H(B
-  <dd><a href="http://www.feedmania.org/~yasu/linux/ssh/">ssh(Secure Shell)$B$N;H$$J}$H%$%s%9%H!<%kJ}K!$H(BOTP </a>($BF|K\8l$G$N@bL@$H%$%s%9%H!<%kJ}K!(B)
+  <dd><a href="http://www.feedmania.org/~yasu/linux/ssh/">ssh(Secure Shell)$B$N;H$$J}$H%$%s%9%H!<%kJ}K!$H(BOTP</a>($BF|K\8l$G$N@bL@$H%$%s%9%H!<%kJ}K!(B)
   <dt>$B%=!<%9(B
   <dd><a href="http://ring.nacsis.ac.jp/pub/net/ssh/ssh-1.2.27.tar.gz">ssh-1.2.27.tar.gz</a>
 </dl>
@@ -2442,6 +2442,32 @@ HTML$B$G$N=PNO$J$I$b$G$-$?$j!"(B
 % su
 # make install
 </pre>
+
+<h1><a name="analog">Analog</a></h1>
+<h2>2000-04-13</h2>
+<h3>analog version 4.1</h3>
+<dl>
+  <dt>$B%[!<%`%Z!<%8(B
+  <dd><a href="http://www.analog.cx/">Analog: WWW logfile analysis</a>
+  <dt>$B4XO"%5%$%H(B
+  <dd><a href="http://www.tokyo-kasei.ac.jp/~matsuki/analog/">$BF|K\8l(BAnalog$B$N%[!<%`%Z!<%8(B</a>
+  <dt>$B%=!<%9(B
+  <dd><a href="http://www.analog.cx/analog-4.1.tar.gz">analog-4.1.tar.gz</a>
+</dl>
+
+WWW$B%5!<%P$N%m%0%U%!%$%k$r2r@O$9$k%D!<%k!#(B
+
+<pre>
+% gzip -cd analog-4.1.tar.gz | tar xvf -
+% cd analog-4.1
+% make DEFS='-DANALOGDIR=\"/usr/local/share/analog/\"'
+% su
+# cp analog /usr/local/bin
+# mkdir /usr/local/share/analog
+# cp analog.cfg anlgform.pl /usr/local/share/analog
+# cp -R lang/ docs/ examples/ images/ /usr/local/share/analog
+</pre>
+
 
 <hr>
 <address>
